@@ -5,9 +5,9 @@
 
     $sql_select = mysqli_query($conn, "SELECT * FROM akun WHERE id = $id");
 
-        while ($row = mysqli_fetch_assoc($sql_select)) {
-            $account[] = $row;
-        }
+    while ($row = mysqli_fetch_assoc($sql_select)) {
+        $account[] = $row;
+    }
         
     $account = $account[0];
 

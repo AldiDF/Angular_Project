@@ -7,32 +7,49 @@ function closeNav(){
     document.getElementById("sidebar").style.width = "0";
 }
 
+let button = document.getElementById("mode");
+let header = document.getElementById("header");
+let footer = document.getElementById("footer")
+
 function mode(){
     let body = document.body;
     body.classList.toggle("dark-mode")
-    let button = document.getElementById("mode")
-
+    
     const darkmode = document.body.classList.contains("dark-mode");
 
     if (darkmode){
         localStorage.setItem("dark-mode", "enabled");
         button.textContent = "Light";
-
+        header.style.background = "linear-gradient(rgba(109, 199, 255), #15292B)"
+        footer.style.background = "linear-gradient(#15292B, rgba(109, 199, 255))"
+        
     } else {
         localStorage.setItem("dark-mode", "disabled");
         button.textContent = "Dark";
+        header.style.background = "linear-gradient(rgba(109, 199, 255), lavender)"
+        footer.style.background = "linear-gradient(lavender,rgba(109, 199, 255))" 
     }
 }
 
+window.onload = mode;
+
 function checkmode(){
     const modesetting = localStorage.getItem("dark-mode");
+    
     if (modesetting === "enabled"){
         document.body.classList.add("dark-mode");
-    } 
+        button.textContent = "Light";
+        header.style.background = "linear-gradient(rgba(109, 199, 255), #15292B)"
+        footer.style.background = "linear-gradient(#15292B, rgba(109, 199, 255))"
+        
+    } else {
+        button.textContent = "Dark";
+        header.style.background = "linear-gradient(rgba(109, 199, 255), lavender)"
+        footer.style.background = "linear-gradient(lavender,rgba(109, 199, 255))"
+    }
 
 }
 window.onload = checkmode;
-
 
 function mlbb_category(menu){
     document.getElementById("menu1").style.display = "none";
@@ -79,17 +96,6 @@ function method_payment(choose){
         document.getElementById("other").style.display = "block";
     }
 }
-
-document.getElementById('loginForm').addEventListener('submit', function(event){
-    event.preventDefault();
-    let email = document.getElementById('mail').value;
-    let password = document.getElementById('pw').value;
-
-        if (email && password) {
-            alert('Anda telah login');
-            window.location.href = "index.php";
-        }
-    });
 
 function reset_form_mlbb(){
     const payment = document.querySelectorAll('.pay-radio input[type="radio"]');
@@ -256,6 +262,7 @@ function limit_size(event){
     var photo = document.getElementById("photo").value;
     var title = document.getElementById("title-picture");
     var image = document.getElementById("up-picture");
+    var ext = file.name.split(".").pop();
 
     if (file.size > limit){
         alert("Maksimal File adalah 3 MB");
@@ -263,10 +270,15 @@ function limit_size(event){
         return;
     }
 
-    if (photo){
-        image.style.display = "block";
-        title.style.display = "none";
-        image.src = path;
+    if (ext == "png" || ext == "jpg" || ext =="jpeg"){
+        if (photo){
+            image.style.display = "block";
+            title.style.display = "none";
+            image.src = path;
+            console.log(ext);
+            return;
+        }
     }
 
+    alert("Ekstensi File Harus png, jpg, jpeg");
 }

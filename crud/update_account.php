@@ -18,6 +18,7 @@
         $telepon = $_POST["phone"];
         $email = $_POST["email"];
         $password = $_POST["password"];
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
         $foto = $_FILES["image"]["name"];
         $temp = $_FILES["image"]["tmp_name"];
@@ -31,12 +32,12 @@
 
         if (in_array($ekstensi, $ekstensi_supp)){
             if (move_uploaded_file($temp, $direktori)){
+                unlink("saves/". $account["profil"]);
                 $sql = "UPDATE akun SET nama_depan='$nama_depan', nama_belakang='$nama_belakang', region='$region', telepon='$telepon', email='$email', pasword='$password', profil='$namabaru' WHERE id='$id'";
 
                 $result = mysqli_query($conn, $sql);
 
                 if ($result) {
-                    unlink("saves/". $account["profil"]);
                     echo "
                         <script>
                             alert('Berhasil Mengubah Data Akun');
@@ -56,7 +57,7 @@
         } else {
             $foto = "";
 
-            $sql = "UPDATE akun SET nama_depan='$nama_depan', nama_belakang='$nama_belakang', region='$region', telepon='$telepon', email='$email', pasword='$password', profil='$namabaru' WHERE id='$id'";
+            $sql = "UPDATE akun SET nama_depan='$nama_depan', nama_belakang='$nama_belakang', region='$region', telepon='$telepon', email='$email', pasword='$password', profil='$foto' WHERE id='$id'";
 
             $result = mysqli_query($conn, $sql);
 
@@ -191,7 +192,7 @@
                         <input type="email" name="email" value="<?php echo $account['email'];?>" class="form-mail" id="reg-mail" required><br><br><br>
     
                         <label for="reg-pw" style="font-size: 20px;"><b>Password:</b></label><br>
-                        <input type="password" name="password" value="<?php echo $account['pasword'];?>" class="form-mail" id="reg-pw" required><br><br><br>
+                        <input type="password" name="password" class="form-mail" id="reg-pw" required><br><br><br>
                         
                         <input type="submit" name="submit" class="submit-login" value="submit">
                     </form>

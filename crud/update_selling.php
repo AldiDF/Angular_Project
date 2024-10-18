@@ -93,6 +93,6 @@
     <footer>
         <p>2309106017 Aldi Daffa Arisyi</p>
     </footer>
-    <script src="../scripts/scripts.js"></script>
+    <script src="../scripts/scripts.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

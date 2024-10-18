@@ -75,8 +75,8 @@ body {
     padding-bottom: 20px;
     padding-left: auto;
     padding-right: auto;
-    margin-left: 82px;
-    margin-right: 82px;
+    margin-left: 80px;
+    margin-right: 80px;
     margin-top: 50px;
     margin-bottom: 60px;
     background-color: rgba(140, 208, 251, 0.406);
@@ -120,8 +120,8 @@ body {
 .table-account{
     margin-top: 15px;
     margin-bottom: 15px;
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-left: auto;
+    margin-right: auto;
     border-collapse: collapse;
     border: 2px black solid;
     font-size: 18px;

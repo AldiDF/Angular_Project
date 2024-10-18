@@ -1,67 +1,102 @@
 <?php
+    session_start();
+
     require "../crud/connection.php";
 
-    if (isset($_POST["submit"])) {
-        $userid = $_POST["ID"];
-        $kategori = $_POST["kategori"];
-        $jumlah = $_POST["top-up"];
-        $metode = $_POST["pay"];
-        $norek_telepon = $_POST["number"];
-
-        $sql_select = mysqli_query($conn, "SELECT * FROM penjualan");
-
-        $penjualan = [];
+    if (isset($_SESSION["admin"]) || isset($_SESSION["login"])){
+        if (isset($_SESSION["refresh"])) {
+            if (isset($_SESSION["refresh"]) == 2){
+                unset($_SESSION["refresh"]);
+                echo "
+                    <script>
+                        document.location.href = '../index.php';
+                    </script>
+                    ";
+                exit;
+            }
+            
+        } else {
+            if (isset($_SESSION["refresh"])){
+                $_SESSION["refresh"] += 1;
     
-        while ($row = mysqli_fetch_assoc($sql_select)) {
-            $penjualan[] = $row;
+            } else {
+                $_SESSION["refresh"] = 1;
+            }
+            
         }
 
-        preg_match('/(\d+)\s/', $jumlah, $matches1);
-        $jumlah_diamond = $matches1[1];
-
-        if ($penjualan[3]["stok"] < $jumlah_diamond){
-            echo "
+        if (isset($_POST["submit"])) {
+            $userid = $_POST["ID"];
+            $kategori = $_POST["kategori"];
+            $jumlah = $_POST["top-up"];
+            $metode = $_POST["pay"];
+            $norek_telepon = $_POST["number"];
+    
+            $sql_select = mysqli_query($conn, "SELECT * FROM penjualan");
+    
+            $penjualan = [];
+        
+            while ($row = mysqli_fetch_assoc($sql_select)) {
+                $penjualan[] = $row;
+            }
+    
+            preg_match('/(\d+)\s/', $jumlah, $matches1);
+            $jumlah_diamond = $matches1[1];
+    
+            if ($penjualan[3]["stok"] < $jumlah_diamond){
+                echo "
+                <script>
+                    alert('Maaf stok produk tidak mencukupi');
+                    document.location.href = '../index.php';
+                </script>
+            ";
+            return;
+            }
+    
+            $stok = (int) $penjualan[3]["stok"] - $jumlah_diamond;
+    
+            preg_match('/Rp([0-9.,]+)/', $jumlah, $matches2);
+            $harga = $matches2[1];
+            
+            $harga = preg_replace('/[.,]/', '', $harga);
+            $harga = substr($harga, 0, -2);
+            
+            $hasil_harga = (int) $penjualan[3]["omset"] + $harga;
+            
+            $sql_update = "UPDATE penjualan SET stok='$stok', omset='$hasil_harga' WHERE id=4"; 
+            mysqli_query($conn, $sql_update);
+    
+            date_default_timezone_set("Asia/Makassar");
+            $waktu = date("Y-m-d H:i:s");
+    
+            $sql_insert = "INSERT INTO pembelian VALUES (0, 'Free Fire', '%COMING SOON%', '$userid', '$kategori', '$jumlah', '$metode', '$norek_telepon', '$waktu')";
+    
+            $result = mysqli_query($conn, $sql_insert);
+    
+            if ($result) {
+                echo "
+                    <script>
+                        alert('Pembelian Berhasil');
+                    </script>
+                ";
+    
+            } else {
+                echo "
+                    <script>
+                        alert('Pembelian Gagal');
+                        document.location.href = '../index.php';
+                    </script>
+                ";
+            }
+        }
+    } else {
+        echo "
             <script>
-                alert('Maaf stok produk tidak mencukupi');
+                alert('Anda harus login dulu');
                 document.location.href = '../index.php';
             </script>
         ";
-        return;
-        }
-
-        $stok = (int) $penjualan[3]["stok"] - $jumlah_diamond;
-
-        preg_match('/Rp([0-9.,]+)/', $jumlah, $matches2);
-        $harga = $matches2[1];
-        
-        $harga = preg_replace('/[.,]/', '', $harga);
-        $harga = substr($harga, 0, -2);
-        
-        $hasil_harga = (int) $penjualan[3]["omset"] + $harga;
-        
-        $sql_update = "UPDATE penjualan SET stok='$stok', omset='$hasil_harga' WHERE id=4"; 
-        mysqli_query($conn, $sql_update);
-
-        date_default_timezone_set("Asia/Makassar");
-        $waktu = date("Y-m-d H:i:s");
-
-        $sql_insert = "INSERT INTO pembelian VALUES ('', 'Free Fire', '%COMING SOON%', '$userid', '$kategori', '$jumlah', '$metode', '$norek_telepon', '$waktu')";
-
-        $result = mysqli_query($conn, $sql_insert);
-
-        if ($result) {
-            echo "
-                <script>
-                    alert('Pembelian Berhasil');
-                </script>
-            ";
-        } else {
-            echo "
-                <script>
-                    alert('Pembelian Gagal');
-                </script>
-            ";
-        }
+        exit;
     }
 ?>
 
@@ -144,6 +179,6 @@
         <p>2309106017 Aldi Daffa Arisyi</p>
     </footer>
     
-    <script src="../scripts/scripts.js"></script>
+    <script src="../scripts/scripts.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

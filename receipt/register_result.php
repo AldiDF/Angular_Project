@@ -1,6 +1,7 @@
 <?php
     require "../crud/connection.php";
 
+    
     if (isset($_POST["submit"])) {
         $nama_depan = $_POST["firstname"];
         $nama_belakang = $_POST["lastname"];
@@ -8,6 +9,34 @@
         $telepon = $_POST["phone"];
         $email = $_POST["email"];
         $password = $_POST["password"];
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        
+        if ($email == "ADMIN@gmail.com"){
+            echo "
+            <script>
+                alert('Gagal Mendaftar, email sudah tersedia');
+                document.location.href = '../index.php';
+            </script>
+            ";
+            exit;
+        }
+
+        $sql_select = mysqli_query($conn, "SELECT * FROM akun");
+        $count = 0;
+        while ($row = mysqli_fetch_assoc($sql_select)) {
+            $akun[] = $row; 
+
+            if ($akun[$count]["email"] == $email){
+                echo "
+                <script>
+                    alert('Gagal Mendaftar, email sudah tersedia');
+                    document.location.href = '../index.php';
+                </script>
+                ";
+                exit;
+            }
+            $count++;
+        }
 
         $foto = $_FILES["image"]["name"];
         $temp = $_FILES["image"]["tmp_name"];
@@ -25,7 +54,7 @@
         if (in_array($ekstensi, $ekstensi_supp)){
             if (move_uploaded_file($temp, $direktori)){
                 
-                $sql = "INSERT INTO akun VALUES ('', '$nama_depan', '$nama_belakang', '$region', '$telepon', '$email', '$password', '$namabaru', '$waktu')";
+                $sql = "INSERT INTO akun VALUES (0, '$nama_depan', '$nama_belakang', '$region', '$telepon', '$email', '$password', '$namabaru', '$waktu')";
 
                 $result = mysqli_query($conn, $sql);
 
@@ -138,6 +167,6 @@
         <p>2309106017 Aldi Daffa Arisyi</p>
     </footer>
 
-    <script src="../scripts/scripts.js"></script>
+    <script src="../scripts/scripts.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

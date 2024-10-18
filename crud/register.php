@@ -115,6 +115,11 @@
                         <input type="submit" name="submit" class="submit-login" value="submit">
                     </form>
                 </div>
+                <a href="../login.php">
+                    <button class="register-button">
+                        Back
+                    </button>
+                </a>
             </div>
         </div>
     </main>
