@@ -11,7 +11,7 @@
 
         $sql_select = mysqli_query($conn, "SELECT id, email, pasword FROM akun");
 
-        if ($email == "ADMIN@gmail.com" && $password == "ADMIN#123"){
+        if ($email == "ADMIN@gmail.com" && $password == "ADMIN#322"){
             $_SESSION["admin"] = true;
             echo "
                 <script>
