@@ -15,7 +15,7 @@
     </nav>
     
     <main class="main-container">
-        search bar
+        search bar123
         <div class="list-music-container">
             <?php
                 for ($i = 1; $i < 11; $i++){
