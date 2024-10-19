@@ -14,7 +14,6 @@
         <div>akun</div>
     </nav>
     
-
     <main class="main-container">
         search bar
         <div class="list-music-container">
@@ -24,7 +23,7 @@
                         <input type='radio' id='$i' name='lagu' value='$i'>
                         <label for='$i'>
                             <span class='list-music'>
-                                <script>12345</script>
+                                <script></script>
                             </span>
                         </label>
                     ";
