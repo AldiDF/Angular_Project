@@ -12,6 +12,7 @@
         <div>hamburger</div>
         <div>list</div>
         <div>akun</div>
+        <div>lliga</div>
     </nav>
     
     <main class="main-container">
