@@ -13,8 +13,9 @@
         <div>list</div>
         <div>akun</div>
     </nav>
+    
 
-    <main class="music-container">
+    <main class="main-container">
         search bar
         <div class="list-music-container">
             <?php
@@ -23,7 +24,7 @@
                         <input type='radio' id='$i' name='lagu' value='$i'>
                         <label for='$i'>
                             <span class='list-music'>
-                                <p>Lagu $i</p>
+                                <script></script>
                             </span>
                         </label>
                     ";
@@ -31,8 +32,6 @@
             ?>
         </div>
     </main>
-
-    
 
     <footer>
         <p>Angular</p>

@@ -14,7 +14,7 @@ nav{
     align-items: center;
 }
 
-.music-container{
+.main-container{
     text-align: center;
     font-size: 18px;
 }
@@ -54,3 +54,4 @@ footer{
     text-align: center;
     margin-top: 10px;
 }
+
