@@ -24,7 +24,7 @@
                         <input type='radio' id='$i' name='lagu' value='$i'>
                         <label for='$i'>
                             <span class='list-music'>
-                                <script></script>
+                                <script>12345</script>
                             </span>
                         </label>
                     ";
