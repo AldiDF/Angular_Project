@@ -8,11 +8,20 @@
     <link rel="stylesheet" href="styles/main.css?v=<?php echo time(); ?>">
 </head>
 <body>
+    <div class="off-screen-menu">
+        <ul>
+            <li>Profil</li>
+            <li>Home</li>
+            <li>Upload</li>
+        </ul>
+    </div>
+
     <nav>
-        <div>hamburger</div>
-        <div>list</div>
-        <div>akun</div>
-        <div>lliga</div>
+        <div class="sidebar-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
     
     <main class="main-container">
