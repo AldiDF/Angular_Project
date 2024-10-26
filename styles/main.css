@@ -18,7 +18,7 @@ nav{
 .sidebar-menu{
     height: 50px;
     width: 50px;
-    margin-right: auto;
+    left: 0;
     position: relative;
 }
 
@@ -60,10 +60,10 @@ nav{
     background-color: rgb(21, 21, 21);
     height: 100vh;
     width: 100%;
-    max-width: 450px;
+    max-width: 300px;
     position: fixed;
     top: 0;
-    left: -450px;
+    right: -300px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,19 +75,134 @@ nav{
 }
 
 .off-screen-menu.active{
-    left: 0;
+    right: 0;
+}
+
+.nav-left{
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.nav-input-search{
+    border: 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: lavender;
+    height: 30px;
+    width: 400px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 15px;
+    outline: none;
+}
+
+.nav-search-bar{
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    border: 2px solid #15292B;
+    width: fit-content;
+    border-radius: 25px;
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+
+.nav-search-button:hover{
+    background-color: white;
+}
+
+.nav-search-button{
+    border: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: lavender;
+    width: 50px;
+    outline: none;
 }
 
 .main-container{
     text-align: center;
     font-size: 18px;
+    flex-direction: column;
 }
 
-.list-music-container{
-    margin-top: 20px;
+.main-content-container{
+    background-color: azure;
+    border: 5px black solid;
+    border-radius: 15px;
+    width: 90%;
+    height: 40vh;
     align-items: center;
-    gap: 15px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.create-account-button{
+    text-align: center;
+    background-color: none;
+    padding: 8px 16px;
+    border: 2px black solid;
+    border-radius: 10px;
+}
+
+a, .create-account-button{
+    text-decoration: none;
+    color: black;
+}
+
+.create-account-button:hover{
+    background-color: black;
+    color: white;
+}
+
+.list-content-container{
     flex-direction: column;
+    gap: 10px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-container{
+    display: flex;
+    width: 100%;
+    background-color: white;
+    border: 2px black solid;
+    border-radius: 15px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.content-container:hover{
+    background-color: rgba(0, 0, 0, 0.279);
+}
+
+.thumbnail{
+    width: 293.3px;
+    height: 200px;
+    border: 1px black solid;
+    border-radius: 10px;
+    margin: 10px;
+    margin-right: 60px;
+}
+
+.caption-content{
+    text-align: left;
+}
+
+.owner-content{
+    display: flex;
+    text-align: left;
+    margin-left: 0;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.owner-name{
+    font-size: 20px;
+    margin-top: 7px;
 }
 
 input[type="radio"]{
@@ -118,4 +233,3 @@ footer{
     text-align: center;
     margin-top: 10px;
 }
-
