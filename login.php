@@ -1,3 +1,13 @@
+<?php
+    session_start();
+    require "databases/connection.php";
+    require "databases/query.php";
+
+    if (isset($_POST["submit"])){
+        login($_POST["username"], $_POST["password"], $conn);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
