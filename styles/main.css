@@ -3,124 +3,6 @@ body {
     background-color: grey;
 }
 
-nav{
-    display: flex;
-    padding: 1rem;
-    justify-content: space-between;
-    margin: 0;
-    font-size: 20px;
-    background-color: rgb(50, 50, 50);
-    height: 60px;
-    color: white;
-    align-items: center;
-}
-
-.sidebar-menu{
-    height: 50px;
-    width: 50px;
-    left: 0;
-    position: relative;
-}
-
-.sidebar-menu span{
-    background-color: aqua;
-    height: 5px;
-    width: 100%;
-    border: 25px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: .3s ease;
-}
-
-.sidebar-menu span:nth-child(1){
-    top: 25%;
-}
-
-.sidebar-menu span:nth-child(3){
-    top: 75%;
-}
-
-.sidebar-menu.active span:nth-child(1){
-    top: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.sidebar-menu.active span:nth-child(2){
-    opacity: 0;
-}
-
-.sidebar-menu.active span:nth-child(3){
-    top: 50%;
-    transform: translate(-50%, 50%) rotate(-45deg);
-}
-
-.off-screen-menu{
-    background-color: rgb(21, 21, 21);
-    height: 100vh;
-    width: 100%;
-    max-width: 300px;
-    position: fixed;
-    top: 0;
-    right: -300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    font-size: 3rem;
-    transition: .3s ease;
-    color: white;
-}
-
-.off-screen-menu.active{
-    right: 0;
-}
-
-.nav-left{
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-}
-
-.nav-input-search{
-    border: 0;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    background-color: lavender;
-    height: 30px;
-    width: 400px;
-    padding-left: 20px;
-    padding-right: 20px;
-    font-size: 15px;
-    outline: none;
-}
-
-.nav-search-bar{
-    margin-right: auto;
-    margin-left: auto;
-    display: flex;
-    border: 2px solid #15292B;
-    width: fit-content;
-    border-radius: 25px;
-    margin-top: 40px;
-    margin-bottom: 50px;
-}
-
-.nav-search-button:hover{
-    background-color: white;
-}
-
-.nav-search-button{
-    border: 0;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    background-color: lavender;
-    width: 50px;
-    outline: none;
-}
-
 .main-container{
     text-align: center;
     font-size: 18px;
@@ -131,7 +13,7 @@ nav{
     background-color: azure;
     border: 5px black solid;
     border-radius: 15px;
-    width: 90%;
+    width: 95%;
     height: 40vh;
     align-items: center;
     margin-top: 30px;
@@ -203,25 +85,6 @@ a, .create-account-button{
 .owner-name{
     font-size: 20px;
     margin-top: 7px;
-}
-
-input[type="radio"]{
-    display: none;
-}
-
-input[type="radio"]:checked + label .list-music{
-    background-color: rgb(50, 177, 255); 
-}
-
-.list-music{
-    width: 1000px;
-    height: 50px;
-    background-color: aliceblue;
-    border: 2px black solid;
-    border-radius: 10px;
-    display: inline-block;
-    margin-bottom: 10px;
-    
 }
 
 footer{

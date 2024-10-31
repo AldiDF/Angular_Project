@@ -6,43 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Beranda</title>
     <link rel="stylesheet" href="styles/main.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/sidebar.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/navfooter.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
-    <div class="off-screen-menu">
-        <ul>
-            <li>Profil</li>
-            <li>Home</li>
-            <li>Upload</li>
-        </ul>
-    </div>
-    
-    <nav>
-        <div class="nav-left">
-            <i class="fa-solid fa-circle-user" style="font-size: 36px"></i>
-            <i class="fa-regular fa-bell" style="font-size: 36px"></i>
-        </div>
-        <search>
-            <form action="" class="nav-search-bar" method="get">
-                <input type="text" placeholder="Cari konten atau user" name="search-account" class="nav-input-search">
-                <button type="submit" class="nav-search-button">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </form>
-        </search>
-        <div class="sidebar-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
+    <?php include("navfooter/sidebar.php")?>
+    <?php include("navfooter/navbar.php")?>
     
     <main class="main-container" id="main">
         <div class="main-content-container">
-            <div class="paragraph-content">
+            <div class="paragraph-content"><br>
                 <p>Selamat Datang di HexaSync</p>
                 <p>Komunitas untuk berkarya</p>
-                <p></p>
             </div> <br><br>
             
             <a href="" class="create-account-button">Buat Akun</a>
@@ -58,7 +34,7 @@
                             <figcaption class='caption-content'>
                                 <figure class='owner-content'>
                                     <i class='fa-solid fa-circle-user' style='font-size: 36px'></i>
-                                    <figcaption class='owner-name'>aldi</figcaption>
+                                    <figcaption class='owner-name'>Nama Akun</figcaption>
                                 </figure>
                                 <p>Judul</p>
                                 <p>deskripsi</p>
@@ -68,12 +44,18 @@
                 }
             ?>
         </div>
+        <div class="main-content-container">
+            <div class="paragraph-content"><br>
+                <p>Silahkan Ikut Ramaikan Komunitas</p>
+                <p>Dengan Mengupload Lagu</p>
+            </div><br><br>
+
+            <a href="" class="create-account-button">Upload Lagu</a>
+        </div>
     </main>
 
-    <footer>
-        <p>Angular</p>
-    </footer>
+    <?php include("navfooter/footer.php")?>
 
-    <script src="scripts/scripts.js?v=<?php echo time(); ?>"></script>
+    <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
