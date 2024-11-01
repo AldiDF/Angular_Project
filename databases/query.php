@@ -47,7 +47,7 @@
     }
     
     function login($username, $password, $conn){
-        $sql_select_akun = mysqli_query($conn, "SELECT * FROM akun");
+        $sql_select_akun = mysqli_query($conn, "SELECT * FROM account");
 
         if ($username == "admin" && $password == "admin"){
             $_SESSION["admin"] = true;
@@ -63,8 +63,8 @@
         $count = 0;
         while ($row = mysqli_fetch_assoc($sql_select_akun)){
             $akun[] = $row;
-            if ($akun[$count]["email"] == $email && password_verify($password, $akun[$count]["pasword"])){
-                $_SESSION["login"] = true;
+            if ($akun[$count]["username"] == $username && password_verify($password, $akun[$count]["pasword"])){
+                $_SESSION["user"] = true;
                 $_SESSION["username"] = $akun[$count]["username"];
                 echo "
                     <script>

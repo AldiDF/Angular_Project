@@ -52,3 +52,13 @@ nav{
     width: 50px;
     outline: none;
 }
+
+footer{
+    margin: 0;
+    font-size: 20px;
+    background-color: rgb(50, 50, 50);
+    height: 60px;
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+}

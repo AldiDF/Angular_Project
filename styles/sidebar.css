@@ -3,6 +3,12 @@
     width: 50px;
     left: 0;
     position: relative;
+    cursor: pointer;
+}
+
+.sidebar-menu:hover{
+    background-color: aliceblue;
+    border-radius: 10px;
 }
 
 .sidebar-menu span{
@@ -15,6 +21,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     transition: .3s ease;
+    border-radius: 5px;
 }
 
 .sidebar-menu span:nth-child(1){
@@ -94,3 +101,4 @@ a {
     font-size: 90px;
     margin-top: 50px;
 }
+
