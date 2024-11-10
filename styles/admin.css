@@ -1,0 +1,78 @@
+.heading-admin-acc{
+    font-size: 30;
+    font-family: Helvetica;
+    color: #303841;
+    border: 3px #303841 solid;
+    border-radius: 13px;
+    padding: 8px !important;
+    text-align: center;
+    width: 17%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.heading-admin-music{
+    font-size: 30;
+    font-family: Helvetica;
+    color: #303841;
+    border: 3px #303841 solid;
+    border-radius: 13px;
+    padding: 8px !important;
+    text-align: center;
+    width: 17%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.heading-admin-permiss{
+    font-size: 30;
+    font-family: Helvetica;
+    color: #303841;
+    border: 3px #303841 solid;
+    border-radius: 13px;
+    padding: 8px !important;
+    text-align: center;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-bar-admin{
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    background-color: #f3f3f3;
+    width: fit-content;
+    border-radius: 25px;
+    margin-top: auto;
+    margin-bottom: auto;
+    border: 2px #303841 solid;
+}
+
+.input-search-admin{
+    border: 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #f3f3f3;
+    height: 30px;
+    width: 400px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 15px;
+    outline: none;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.search-button-admin{
+    border: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #f3f3f3;
+    width: 50px;
+    outline: none;
+}
+
+table{
+    border-collapse: collapse;
+}

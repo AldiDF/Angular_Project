@@ -1,42 +1,71 @@
 body {
     margin: 0;
-    background-color: grey;
+    background-color: #f3f3f3;
+    scrollbar-width: none;
+    font-family: 'helvetica' !important;
 }
 
-.main-container{
-    text-align: center;
-    font-size: 18px;
-    flex-direction: column;
+h1{
+    font-size: 30px;
 }
 
-.main-content-container{
-    background-color: azure;
-    border: 5px black solid;
-    border-radius: 15px;
-    width: 95%;
-    height: 40vh;
-    align-items: center;
-    margin-top: 30px;
+button{
+    font-family: 'helvetica' !important;
+}
+
+.footer-banner{
+    width: 100%;
+    height: 480px;
+    background-size: cover;
+    background: url("../assets/upload.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.button-banner{
+    display: flex;
+    background-color: #f3f3f3;
+    border: 2px #303841 solid;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 350px;
+    margin-bottom: auto;
+    width: 120px;
+    height: 60px;
+    align-items: center;   
+    font-size: 16px;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 2px;
+}
+a{
+    text-decoration: none;
+}
+.button-banner:hover{
+    background-color: #303841;
+    color: #f3f3f3;
+    border-radius: 2px;
 }
 
 .create-account-button{
     text-align: center;
-    background-color: none;
+    background-color: #f3f3f3;
     padding: 8px 16px;
-    border: 2px black solid;
+    border: 2px #303841 solid;
     border-radius: 10px;
 }
 
-a, .create-account-button{
+.create-account-button{
     text-decoration: none;
-    color: black;
+    color: #303841;
 }
 
 .create-account-button:hover{
-    background-color: black;
-    color: white;
+    background-color: #303841;
+    color: #f3f3f3;
 }
 
 .list-content-container{
@@ -50,11 +79,12 @@ a, .create-account-button{
 .content-container{
     display: flex;
     width: 100%;
-    background-color: white;
-    border: 2px black solid;
+    background-color: #f3f3f3;
+    border: 2px #303841 solid;
     border-radius: 15px;
     margin-left: 0;
     margin-right: 0;
+    gap: 15px;
 }
 
 .content-container:hover{
@@ -64,7 +94,7 @@ a, .create-account-button{
 .thumbnail{
     width: 293.3px;
     height: 200px;
-    border: 1px black solid;
+    border: 1px #303841 solid;
     border-radius: 10px;
     margin: 10px;
     margin-right: 60px;
@@ -85,4 +115,74 @@ a, .create-account-button{
 .owner-name{
     font-size: 20px;
     margin-top: 7px;
+}
+
+.setting-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.setting-container{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.pripub-btn{
+    display: flex;
+    margin: 0 auto;
+}
+
+.pripub-active{
+    background-color: #303841;
+}
+
+.private-btn{
+    width: 200px;
+    height: 40px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size: 14px;
+    border-top: 2px #303841 solid;
+    border-bottom: 2px #303841 solid;
+    border-left: 2px #303841 solid;
+    cursor: pointer;
+    color: #303841;
+}
+
+.public-btn{
+    width: 200px;
+    height: 40px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    font-size: 14px;
+    border-top: 2px #303841 solid;
+    border-bottom: 2px #303841 solid;
+    border-right: 2px #303841 solid;
+    cursor: pointer;
+    color: #303841;
+}
+
+.li-btn{
+    width: 400px;
+    height: 40px;
+    border: 2px #303841 solid;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #303841;
+}
+
+.li-btn:hover{
+    background-color: #303841;
+    color: #f3f3f3;
+}
+
+.profile-container i{
+    font-size: 200px;
+    color: #303841;
 }

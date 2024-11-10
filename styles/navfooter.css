@@ -1,13 +1,14 @@
 nav{
     display: flex;
-    padding: 1rem;
     justify-content: space-between;
     margin: 0;
     font-size: 20px;
-    background-color: rgb(50, 50, 50);
-    height: 60px;
-    color: white;
+    background-color: #2185D5;
+    height: 70px;
+    color: #f3f3f3;
     align-items: center;
+    max-height: 70px;
+    padding: 0 15px;
 }
 
 .nav-left{
@@ -16,49 +17,75 @@ nav{
     gap: 30px;
 }
 
+.login-button{
+    display: flex;
+    background-color: #f3f3f3;
+    border: 2px #303841 solid;
+    width: 100px;
+    height: 50px;
+    align-items: center;   
+    font-size: 16px;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.login-button:hover{
+    background-color: #303841;
+    color: #f3f3f3;
+    border-radius: 2px;
+}
+
 .nav-input-search{
     border: 0;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
-    background-color: lavender;
+    background-color: #f3f3f3;
     height: 30px;
     width: 400px;
     padding-left: 20px;
     padding-right: 20px;
     font-size: 15px;
     outline: none;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .nav-search-bar{
     margin-right: auto;
     margin-left: auto;
     display: flex;
-    border: 2px solid #15292B;
+    background-color: #f3f3f3;
     width: fit-content;
     border-radius: 25px;
-    margin-top: 40px;
-    margin-bottom: 50px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .nav-search-button:hover{
-    background-color: white;
+    background-color: #f3f3f3;
 }
 
 .nav-search-button{
     border: 0;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    background-color: lavender;
+    background-color: #f3f3f3;
     width: 50px;
     outline: none;
 }
 
 footer{
     margin: 0;
-    font-size: 20px;
-    background-color: rgb(50, 50, 50);
-    height: 60px;
-    color: white;
+    font-size: 16px;
+    background-color: #2185D5;
+    height: 55px;
+    color: #f3f3f3;
+    padding: 1px;
+}
+
+.footer-paragraph{
     text-align: center;
-    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
 }

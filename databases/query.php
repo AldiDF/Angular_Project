@@ -1,10 +1,7 @@
 <?php
+    session_start();
     require "connection.php";
     
-    $akun;
-    $pesan;
-    $komen;
-    $konten;
     $count = 0;
     
     function check_duplikat_akun($conn, $username){
@@ -17,7 +14,7 @@
                 echo "
                 <script>
                     alert('Gagal Mendaftar, username sudah tersedia');
-                    document.location.href = '../crud/signup.php';
+                    document.location.href = '../index.php';
                 </script>
                 ";
                 exit;
@@ -34,7 +31,6 @@
             echo "
                 <script>
                     alert('Berhasil Membuat Akun');
-                    document.location.href = '../login.php';
                 </script>
             ";
         } else {
@@ -82,12 +78,41 @@
         echo "
             <script>
                 alert('Gagal Login, email atau password salah');
-                document.location.href = '../login.php';
+                document.location.href = '../index.php';
             </script>
         ";
         exit;
     }
-    // $select_akun = mysqli_query($conn, "SELECT * FROM account");
+
+    if (isset($_GET["logout"])){
+        session_unset();
+        session_destroy();
+        echo "
+        <script>
+            alert('Anda telah logout');
+            document.location.href = '../index.php';
+        </script>
+        ";
+    }
+
+    function select_akun($conn){
+        $select_akun = mysqli_query($conn, "SELECT * FROM account");
+        $akun = [];
+        while ($row = mysqli_fetch_assoc($select_akun)){
+            $akun[] = $row; 
+        }
+        return $akun;
+    }
+
+    function select_lagu($conn, $where){
+        $select_lagu = mysqli_query($conn, "SELECT * FROM account WHERE stats='$where'");
+        $lagu = [];
+        while ($row = mysqli_fetch_assoc($select_lagu)){
+            $lagu[] = $row; 
+        }
+        return $lagu;
+    }
+
     // $select_pesan = mysqli_query($conn, "SELECT * FROM account");
     // $select_komen = mysqli_query($conn, "SELECT * FROM account");
     // $select_konten = mysqli_query($conn, "SELECT * FROM account");

@@ -2,7 +2,7 @@
     require "../databases/connection.php";
     include "../databases/query.php";
 
-    $lagu = select_lagu($conn, "PENDING");
+    $lagu = select_lagu($conn, "ACCEPT");
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
     <?php include("../navfooter/sidebar.php")?>
     <?php include("../navfooter/navbar.php")?>
     <main>
-        <h1 class="heading-admin-permiss">KELOLA PERMINTAAN</h1>
+        <h1 class="heading-admin-music">KELOLA LAGU</h1>
         <search>
             <form action="" class="search-bar-admin" method="get">
                 <input type="text" placeholder="Cari User" name="search-account" class="input-search-admin">
@@ -40,7 +40,7 @@
                     <th>Judul</th>
                     <th>Deskripsi</th>
                     <th>Nama Pengguna</th>
-                    <th>Konfirmasi</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,6 +53,7 @@
                     <td><?php echo $lagu["deskripsi"]?></td>
                     <td><?php echo $lagu["username"]?></td>
                     <td>
+                        <i class="fa-solid fa-pen-to-square"></i>
                         <i class="fa-light fa-trash-can"></i>
                     </td>
                 </tr>

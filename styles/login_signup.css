@@ -1,12 +1,7 @@
-body{
-    background-color: lightgray;
-    margin: 20px;
-}
-
 .back-page:hover{
-    padding-top: 10px;
     cursor: pointer;
     background-color: rgb(70, 70, 70);
+    border-radius: 5px;
 }
 
 .logo{
@@ -15,13 +10,19 @@ body{
     border-radius: 10px;
 }
 
+.title-login{
+    margin: 20px;
+}
+
+h1 {
+    margin: 0;
+}
+
 .login-page{
     display: flex;
-    justify-content: space-between;
-    margin-left: 200px;
-    margin-right: 200px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    justify-content: space-around;
+    margin: 50px 20px;
+    align-items: center;
 }
 
 .login-container{
@@ -39,7 +40,7 @@ body{
 
 .form-login{
     font-size: 20px;
-    width: 250px;
+    width: auto;
     border-radius: 7px;
     border: .1px black solid;
 }
@@ -49,6 +50,7 @@ body{
     background-color: white;
     border: 3px black solid;
     border-radius: 10px;
+    margin: auto;
 }
 
 .submit-button-login{
@@ -89,4 +91,12 @@ body{
     margin-right: auto;
     margin-top: 50px;
     margin-bottom: 50px;
+}
+
+.signup-container{
+    padding: 20px;
+    border-radius: 14px;
+    border: 5px black solid;
+    background-color: white;
+    padding-bottom: 0;
 }

@@ -1,3 +1,3 @@
 <footer>
-    <p>Angular</p>
+    <p class="footer-paragraph">Angular</p>
 </footer>

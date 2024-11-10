@@ -2,38 +2,47 @@ body {
     animation: transitionIn 0.5s;
 }
 
-.transitionIn {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: lightgray;
-    z-index: 1000;
-    transform: translateX(100%);
-    transition: transform 1s ease;
-    border-left: 5px black solid;
-  }
-  
-.transitionIn.slide-left{
-    transform: translateX(0%);
+.loginpg{
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 1;
 }
-.transitionOut {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: grey;
-    z-index: 1000;
-    transform: translateX(-100%);
-    transition: transform 1s ease;
-    border-right: 5px black solid;
+
+.signuppg{
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 2;
 }
-  
-  
-.transitionOut.slide-right{
-    transform: translateX(0%);
+
+.settingspg{
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 1;
+}
+
+.loginpg.slide, .signuppg.slide, .settingspg.slide{
+  right: 0;
 }
 
 
