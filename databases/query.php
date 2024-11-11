@@ -103,16 +103,16 @@
     }
 
     function select_lagu($conn, $where){
-        if ($where == ""){
-            $select_lagu = mysqli_query($conn, "SELECT * FROM konten");
+        if ($where == "PENDING"){
+            $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stats ='$where'");
             $lagu = [];
             while ($row = mysqli_fetch_assoc($select_lagu)){
                 $lagu[] = $row; 
             }
             return $lagu;
 
-        } else {
-            $select_lagu = mysqli_query($conn, "SELECT * FROM konten WHERE lagu = '$where'");
+        } else if ($where == "ACCEPT"){
+            $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stat = '$where'");
             while ($row = mysqli_fetch_assoc($select_lagu)){
                 $lagu[] = $row; 
             }
