@@ -1,5 +1,5 @@
 body {
-    animation: transitionIn 0.5s;
+  animation: transitionIn 0.5s;
 }
 
 .loginpg{
@@ -41,7 +41,33 @@ body {
   z-index: 1;
 }
 
-.loginpg.slide, .signuppg.slide, .settingspg.slide{
+.edit-userpg{
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 2;
+}
+
+.manage-musicpg{
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 2;
+}
+
+.loginpg.slide, .signuppg.slide, .settingspg.slide, .edit-userpg.slide, .manage-musicpg.slide{
   right: 0;
 }
 

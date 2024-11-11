@@ -1,19 +1,15 @@
 <?php
     require "databases/connection.php";
-
-    if (isset($_POST["signup"])){
-        insert_akun($_POST["username"], $_POST["full-name"], $_POST["email"], $_POST["password"], $conn);
-    }
 ?>
 
 <div class="signuppg">
     <div class="title-login">
-        <button class="back-page" onclick="closep(2)"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
+        <button class="back-page" onclick="closep('signup')"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
         <h1 style="text-align: center">Daftar</h1>
     </div>
     <div class="signup-page">
         <div class="signup-container">
-            <form action="" class="login-form-container" method="POST" onsubmit="return closep(2)">
+            <form action="../databases/query.php" class="login-form-container" method="POST" onsubmit="return closep('signup')">
                 <label for="full-name">Nama Lengkap:</label>
                 <input type="text" id="full-name" name="full-name" class="form-login" required><br>
                 <label for="email">Surel:</label>

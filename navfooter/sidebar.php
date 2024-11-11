@@ -48,7 +48,7 @@
             <li class="list-sidebar">
                 Layanan Pelanggan <i class="fa-solid fa-headset"></i>
             </li>
-            <li class="list-sidebar" onclick="open_slide(3)">
+            <li class="list-sidebar" onclick="open_slide('setting')">
                 Pengaturan Akun <i class="fa-solid fa-gear"></i>
             </li>
             <li class="list-sidebar">
@@ -71,10 +71,10 @@
                     Beranda <i class="fa-solid fa-house"></i>
                 </a>
             </li>
-            <li class="list-sidebar" onclick="open_slide(1)">
+            <li class="list-sidebar" onclick="open_slide('login')">
                 Masuk <i class="fa-regular fa-arrow-right-to-bracket"></i>
             </li>
-            <li class="list-sidebar" onclick="open_slide(2)">
+            <li class="list-sidebar" onclick="open_slide('signup')">
                 Buat Akun <i class="fa-light fa-square-plus"></i>
             </li>
             <li class="list-sidebar">

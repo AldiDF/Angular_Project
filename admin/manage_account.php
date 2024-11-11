@@ -2,7 +2,7 @@
     require "../databases/connection.php";
     include "../databases/query.php";
 
-    $akun = select_akun($conn);
+    $akun = select_akun($conn, "");
 ?>
 
 <!DOCTYPE html>

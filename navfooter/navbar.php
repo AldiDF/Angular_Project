@@ -43,7 +43,7 @@
 <?php else : ?>
         <nav>
             <div class="nav-left">
-                <button class="login-button" onclick="open_slide(1)">Masuk</button>
+                <button class="login-button" onclick="open_slide('login')">Masuk</button>
             </div>
             <search>
                 <form action="" class="nav-search-bar" method="get">

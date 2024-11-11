@@ -15,9 +15,11 @@ window.addEventListener("click", (event) => {
 const login_page = document.querySelector(".loginpg");
 const signup_page = document.querySelector(".signuppg");
 const setting_page = document.querySelector(".settingspg");
+const userEdit_page = document.querySelector(".edit-userpg");
+const listMusic_page = document.querySelector(".manage-musicpg")
 
 function open_slide(index){
-    if (index == 1){
+    if (index == "login"){
         login_page.classList.add("slide")
         const login = login_page.classList.contains("slide");
         if (login){
@@ -29,8 +31,8 @@ function open_slide(index){
             localStorage.setItem("slideL", "disabled");
         }
 
-    } else if (index == 2){
-        open_slide(1);
+    } else if (index == "signup"){
+        open_slide("login");
         signup_page.classList.add("slide")
         const signup = signup_page.classList.contains("slide");
         if (signup){
@@ -42,7 +44,7 @@ function open_slide(index){
             localStorage.setItem("slideS", "disabled");
         }
 
-    } else if (index == 3){
+    } else if (index == "setting"){
         setting_page.classList.add("slide")
         const setting = setting_page.classList.contains("slide")
         if (setting){
@@ -53,22 +55,54 @@ function open_slide(index){
         } else {
             localStorage.setItem("slideSET", "disabled");
         }
+
+    } else if (index == "userEdit"){
+        userEdit_page.classList.add("slide")
+        const edit = userEdit_page.classList.contains("slide")
+        if (edit){
+            localStorage.setItem("slideED", "enabled");
+            sidebar.classList.remove("active");
+            offScreenMenu.classList.remove("active");
+
+        } else {
+            localStorage.setItem("slideED", "disabled");
+        }
+
+    } else if (index == "music"){
+        listMusic_page.classList.add("slide")
+        const edit = listMusic_page.classList.contains("slide")
+        if (edit){
+            localStorage.setItem("slideMS", "enabled");
+            sidebar.classList.remove("active");
+            offScreenMenu.classList.remove("active");
+
+        } else {
+            localStorage.setItem("slideMS", "disabled");
+        }
     }
 }
 window.onload = open_slide;
 
 function closep(index){
-    if (index == 1){
+    if (index == "login"){
         login_page.classList.remove("slide")
         localStorage.setItem("slideL", "disabled");
         
-    } else if (index == 2){
+    } else if (index == "signup"){
         signup_page.classList.remove("slide")
         localStorage.setItem("slideS", "disabled");
         
-    } else if (index == 3){
+    } else if (index == "setting"){
         setting_page.classList.remove("slide")
         localStorage.setItem("slideSET", "disabled")
+        
+    } else if (index == "userEdit"){
+        userEdit_page.classList.remove("slide")
+        localStorage.setItem("slideED", "disabled")
+
+    } else if (index == "music"){
+        listMusic_page.classList.remove("slide");
+        localStorage.setItem("slideMS", "disabled");
     }
 }
 
@@ -76,6 +110,8 @@ function storage(){
     const login = localStorage.getItem("slideL");
     const signup = localStorage.getItem("slideS");
     const setting = localStorage.getItem("slideSET")
+    const userEdit = localStorage.getItem("slideED")
+    const music = localStorage.getItem("slideMS")
     
     if (login === "enabled"){
         login_page.classList.add("slide");
@@ -87,7 +123,13 @@ function storage(){
     } else if (setting === "enabled"){
         setting_page.classList.add("slide")
         
-    } else {
+    } else if (userEdit === "enabled"){
+        userEdit_page.classList.add("slide")
+    
+    } else if (music === "enabled"){
+        listMusic_page.classList.add("slide")
+    
+    }else {
         login_page.classList.remove("slide");
         signup_page.classList.remove("slide")
         setting_page.classList.remove("slide")

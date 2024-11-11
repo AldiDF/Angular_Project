@@ -38,14 +38,18 @@
 <body>
     <?php include("slide/signup.php")?>
     <?php include("slide/login.php")?>
-    <?php include("slide/settings.php")?>
+    <?php if (isset($_SESSION["user"])):?>
+        <?php include("slide/settings.php")?>
+        <?php include("slide/edit.php")?>
+        <?php include("slide/user_music.php")?>
+    <?php endif;?>
     <?php include("navfooter/sidebar.php")?>
     <?php include("navfooter/navbar.php")?>
     
     <main class="main-container" id="main">
         <section class="header-banner">
             <?php if (!isset($_SESSION["admin"]) && !isset($_SESSION["user"])) :?>
-                <button class="button-banner" onclick="open_slide(2)">Buat Akun</button>
+                <button class="button-banner" onclick="open_slide('signup')">Buat Akun</button>
             <?php endif;?>
         </section>
         

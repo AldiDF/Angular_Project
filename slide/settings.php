@@ -1,6 +1,6 @@
 <div class="settingspg">
     <div class="title-login">
-        <button class="back-page" onclick="closep(3)"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
+        <button class="back-page" onclick="closep('setting')"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
         <h1 style="text-align: center">PENGATURAN</h1>
     </div>
     <div class="setting-page">
@@ -13,10 +13,10 @@
                 <button class="public-btn" id="public" onclick="pripub('public')">PUBLIK</button>
             </div>
     
-            <button class="li-btn">KELOLA LAGU</button>
-            <button class="li-btn">UBAH AKUN</button>
+            <button class="li-btn" onclick="open_slide('music')">KELOLA LAGU</button>
+            <button class="li-btn" onclick="open_slide('userEdit')">UBAH AKUN</button>
             <button class="li-btn">HAPUS AKUN</button>
-            <a href="../databases/query.php?logout=true" onclick="closep(3)"><button class="li-btn">KELUAR AKUN</button></a>
+            <a href="../databases/query.php?logout=true" onclick="closep('setting')"><button class="li-btn">KELUAR AKUN</button></a>
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@ body {
 
 h1{
     font-size: 30px;
+    font-family: 'helvetica' !important;
 }
 
 button{
@@ -43,7 +44,9 @@ button{
 }
 a{
     text-decoration: none;
+    
 }
+
 .button-banner:hover{
     background-color: #303841;
     color: #f3f3f3;
@@ -175,6 +178,7 @@ a{
     font-size: 14px;
     cursor: pointer;
     color: #303841;
+    max-width: 400px;
 }
 
 .li-btn:hover{
