@@ -129,7 +129,7 @@ function storage(){
     } else if (music === "enabled"){
         listMusic_page.classList.add("slide")
     
-    }else {
+    } else {
         login_page.classList.remove("slide");
         signup_page.classList.remove("slide")
         setting_page.classList.remove("slide")

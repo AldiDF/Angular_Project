@@ -46,13 +46,19 @@
                 <?php $i = 1; foreach($akun as $acc): ?>
                 <?php $direktori = "../databases/profile_picture/" . $acc["foto"];?>
                 <tr>
-                    <td><?php echo $i;?></td>
-                    <td><?php if ($acc["foto"] == "") {echo "<i class='fa-light fa-circle-user'></i>";} else {echo "<img src='$direktori' alt='profile-picture'>";}?></td>
+                    <td><?php echo $i . ".";?></td>
+                    <td><?php if ($acc["foto"] == "") {echo "<i class='fa-light fa-circle-user' style='font-size: 50px;'></i>";} else {echo "<img src='$direktori' alt='profile-picture' class='profile-user'>";}?></td>
                     <td><?php echo $acc["username"]?></td>
                     <td><?php echo $acc["email"]?></td>
                     <td>
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <i class="fa-light fa-trash-can"></i>
+                        <div class="action-button">
+                            <button class="edit-icon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button class="delete-icon">
+                                <i class="fa-light fa-trash-can"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 <?php $i++; endforeach;?>

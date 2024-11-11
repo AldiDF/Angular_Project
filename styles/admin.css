@@ -75,4 +75,63 @@
 
 table{
     border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    margin: 25px auto;
+    border: 2px #303841 solid;
 }
+
+th{
+    background-color: #2185D5;
+    color: #f3f3f3;
+    font-size: 16px;
+    padding: 10px;
+    border: 2px #303841 solid;
+    white-space: nowrap;
+}
+
+td:nth-child(1), td:nth-child(2){
+    text-align: center;
+}
+
+td{
+    background-color: #f3f3f3;
+    color: #303841;
+    font-size: 14px;
+    padding: 10px;
+    border: 2px #303841 solid;
+    white-space: nowrap;
+}
+
+td:nth-child(5) i{
+    font-size: 30px;
+    color: #303841;
+}
+
+.action-button{
+    display: flex;
+    gap: 10px;
+}
+
+.delete-icon{
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: 1px #303841 solid;
+    border-radius: 10px;
+}
+
+.edit-icon{
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: 1px #303841 solid;
+    border-radius: 10px;
+}
+
+.edit-icon:hover, .delete-icon:hover, .delete-icon:hover i, .edit-icon:hover i{
+    color: #f3f3f3;
+    background-color: #303841;
+}
+

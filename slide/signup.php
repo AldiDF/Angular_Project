@@ -9,7 +9,7 @@
     </div>
     <div class="signup-page">
         <div class="signup-container">
-            <form action="../databases/query.php" class="login-form-container" method="POST" onsubmit="return closep('signup')">
+            <form action="databases/query.php" class="login-form-container" method="POST" onsubmit="return closep('signup')">
                 <label for="full-name">Nama Lengkap:</label>
                 <input type="text" id="full-name" name="full-name" class="form-login" required><br>
                 <label for="email">Surel:</label>
