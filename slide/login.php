@@ -8,9 +8,9 @@
         <h1 style="text-align: center">Masuk</h1>
     </div>
     <div class="login-page">
-        <img src="assets/LOGO.jpg" alt="LOGO" class="logo">
+        <img src="assets/entah.png" alt="LOGO" class="logo">
         <div class="login-container">
-            <form action="../databases/query.php" class="login-form-container" method="POST" onsubmit="return closep('login')">
+            <form action="databases/query.php" class="login-form-container" method="POST" onsubmit="return closep('login')">
                 <label for="username">Nama Pengguna:</label>
                 <input type="text" id="username" name="username" class="form-login" required><br><br>
                 <label for="password">Sandi:</label>
