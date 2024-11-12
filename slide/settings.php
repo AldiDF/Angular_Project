@@ -16,7 +16,7 @@
             <button class="li-btn" onclick="open_slide('music')">KELOLA LAGU</button>
             <button class="li-btn" onclick="open_slide('userEdit')">UBAH AKUN</button>
             <button class="li-btn">HAPUS AKUN</button>
-            <a href="../databases/query.php?logout=true" onclick="closep('setting')"><button class="li-btn">KELUAR AKUN</button></a>
+            <a href="databases/query.php?logout=true" onclick="closep('setting')"><button class="li-btn">KELUAR AKUN</button></a>
         </div>
     </div>
 </div>

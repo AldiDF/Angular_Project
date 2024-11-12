@@ -103,12 +103,43 @@
     }
 
     function select_lagu($conn, $where){
-        $select_lagu = mysqli_query($conn, "SELECT * FROM account WHERE stats='$where'");
-        $lagu = [];
-        while ($row = mysqli_fetch_assoc($select_lagu)){
-            $lagu[] = $row; 
+        if ($where == "PENDING"){
+            $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stats ='$where'");
+            $lagu = [];
+            while ($row = mysqli_fetch_assoc($select_lagu)){
+                $lagu[] = $row; 
+            }
+            return $lagu;
+
+        } else if ($where == "ACCEPT"){
+            $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stat = '$where'");
+            while ($row = mysqli_fetch_assoc($select_lagu)){
+                $lagu[] = $row; 
+            }
+            return $lagu;
         }
-        return $lagu;
+    }
+
+    function select_pesan($conn, $penerima, $pengirim){
+        $select_pesan = mysqli_query($conn, "SELECT * FROM chat WHERE pengirim = '$pengirim' AND penerima = '$penerima'");
+        $pesan = mysqli_fetch_assoc($select_pesan);
+        return $pesan;
+    }
+
+    function select_komen($conn, $lagu){
+        $select_komen = mysqli_query($conn, "
+        SELECT
+        a.username AS username,
+        a.foto AS foto,
+        b.isi_komen AS komen,
+        b.waktu AS waktu
+        FROM comment as b
+        JOIN account a ON b.user = a.username, 
+        WHERE b.lagu = '$lagu'
+        ORDER BY b.waktu DESC
+        ");
+        $komen = mysqli_fetch_assoc($select_komen);
+        return $komen;
     }
 
     if (isset($_POST["signup"])){
@@ -130,16 +161,4 @@
     } else if (isset($_GET["user-edit"])){
         
     }
-
-    // $select_pesan = mysqli_query($conn, "SELECT * FROM account");
-    // $select_komen = mysqli_query($conn, "SELECT * FROM account");
-    // $select_konten = mysqli_query($conn, "SELECT * FROM account");
-
-    // $insert_pesan = mysqli_query($conn, "INSERT INTO account VALUES");
-    // $insert_komen = mysqli_query($conn, "INSERT INTO account VALUES");
-    // $insert_konten = mysqli_query($conn, "INSERT INTO account VALUES");
-
-    // $update_akun = mysqli_query($conn, "INSERT INTO account VALUES");
-    // $update_konten = mysqli_query($conn, "INSERT INTO account VALUES");
-
 ?>
