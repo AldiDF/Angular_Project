@@ -50,10 +50,20 @@ a{
     margin: 20px;
 }
 
+.title-upper h1{
+    font-size: 30px;
+    text-align: center;
+}
+
+.back-page{
+    position: absolute;
+}
+
 .back-page:hover{
     cursor: pointer;
     background-color: rgb(70, 70, 70);
     border-radius: 5px;
+    
 }
 
 .button-banner:hover{
@@ -129,6 +139,23 @@ a{
     margin-top: 7px;
 }
 
+.about-us{
+    margin: 40px 70px;
+    text-align: justify;
+}
+
+.about-us p{
+    line-height: 1.5;
+}
+
+.main-logo{
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    display: flex;
+    margin: 40px auto;
+    border: 1px #303841 solid;
+}
 .setting-page{
     display: flex;
     justify-content: center;

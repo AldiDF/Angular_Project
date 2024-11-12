@@ -67,7 +67,89 @@ body {
   z-index: 2;
 }
 
-.loginpg.slide, .signuppg.slide, .settingspg.slide, .edit-userpg.slide, .manage-musicpg.slide{
+.edit-musicpg{
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 2;
+}
+
+.followingpg{
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 1;
+}
+
+.followerpg{
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 1;
+}
+
+.history-chatpg{
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 1;
+}
+
+.chatpg{
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 2;
+}
+
+.uploadpg{
+  background-color: #f3f3f3;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 1;
+}
+
+.loginpg.slide, .signuppg.slide, 
+.settingspg.slide, .edit-userpg.slide, .manage-musicpg.slide, .edit-musicpg.slide,
+.followingpg.slide, .followerpg.slide, 
+.history-chatpg.slide, .chatpg.slide, 
+.uploadpg.slide{
   right: 0;
 }
 

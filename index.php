@@ -38,10 +38,15 @@
 <body>
     <?php include("slide/signup.php")?>
     <?php include("slide/login.php")?>
+    <?php include("slide/upload_content.php")?>
     <?php if (isset($_SESSION["user"])):?>
         <?php include("slide/settings.php")?>
         <?php include("slide/edit.php")?>
         <?php include("slide/user_music.php")?>
+        <?php include("slide/following_follower.php")?>
+        <?php include("slide/chat.php")?>
+    <?php if (isset($_SESSION["admin"]))?>
+        <?php include("slide/chat.php")?>
     <?php endif;?>
     <?php include("navfooter/sidebar.php")?>
     <?php include("navfooter/navbar.php")?>
@@ -78,5 +83,6 @@
     <?php include("navfooter/footer.php")?>
 
     <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
+    <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola Akun</title>
+    <title>Profil - <?php echo $akun["username"];?></title>
     <link rel="stylesheet" href="styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/transition.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/sidebar.css?v=<?php echo time(); ?>">
@@ -24,8 +24,11 @@
     <?php include("slide/settings.php")?>
     <?php include("slide/edit.php")?>
     <?php include("slide/user_music.php")?>
+    <?php include("slide/following_follower.php")?>
+    <?php include("slide/chat.php")?>
     <?php include("navfooter/sidebar.php")?>
     <?php include("navfooter/navbar.php")?>
+
     <main>
         <div class="biography-container">
             <div class="biography-upper">
@@ -95,5 +98,6 @@
     <?php include("navfooter/footer.php")?>
 
     <script src="../scripts/main.js?v=<?php echo time(); ?>"></script>
+    <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

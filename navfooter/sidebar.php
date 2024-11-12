@@ -23,7 +23,7 @@
                         Kelola Lagu <i class="fa-solid fa-pen-to-square"></i>
                     </li>
                 </a>
-                <li class="list-sidebar">
+                <li class="list-sidebar" onclick="open_slide('history_chat')">
                     Pesan <i class="fa-solid fa-message"></i>
                 </li>
                 <a href="../databases/query.php?logout=true">
@@ -74,10 +74,10 @@
                     Beranda <i class="fa-solid fa-house"></i>
                 </li>
             </a>
-            <li class="list-sidebar">
+            <li class="list-sidebar" onclick="open_slide('history_chat')">
                 Pesan <i class="fa-solid fa-message"></i>
             </li>
-            <li class="list-sidebar">
+            <li class="list-sidebar" onclick="open_slide('chat')">
                 Layanan Pelanggan <i class="fa-solid fa-headset"></i>
             </li>
             <li class="list-sidebar" onclick="open_slide('setting')">
@@ -89,7 +89,7 @@
                 </li>
             </a>
         </ul>
-        <div class="upload-button">
+        <div class="upload-button"onclick="open_slide('upload')">
             <i class="fa-light fa-square-plus"></i>
         </div>
     </div>
@@ -115,7 +115,7 @@
                 </li>
             </a>
         </ul>
-        <div class="upload-button">
+        <div class="upload-button" onclick="open_slide('upload')">
             <i class="fa-light fa-square-plus"></i>
         </div>
     </div>

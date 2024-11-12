@@ -64,5 +64,6 @@
     <?php include("../navfooter/footer.php")?>
 
     <script src="../scripts/main.js?v=<?php echo time(); ?>"></script>
+    <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
