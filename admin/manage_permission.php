@@ -2,6 +2,7 @@
     require "../databases/connection.php";
     include "../databases/query.php";
 
+    $admin = true;
     $lagu = select_lagu($conn, "PENDING");
 ?>
 

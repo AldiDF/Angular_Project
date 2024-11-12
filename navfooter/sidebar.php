@@ -1,41 +1,73 @@
 <?php if (isset($_SESSION["admin"])): ?>
     <div class="off-screen-menu">
-        <img src="assets/LOGO.jpg" alt="LOGO" class="logo-sidebar">
+        <img src="../assets/logo.png" alt="LOGO" class="logo-sidebar">
         <ul>
-            <a href="../index.php">
+            <?php if (isset($admin)):?>
+                <a href="../index.php">
+                    <li class="list-sidebar">
+                        Beranda <i class="fa-solid fa-house"></i>
+                    </li>
+                </a>
+                <a href="manage_permission.php">
+                    <li class="list-sidebar">
+                        Kelola Permintaan <i class="fa-solid fa-pen-to-square"></i>
+                    </li>
+                </a>
+                <a href="manage_account.php">
+                    <li class="list-sidebar">
+                        Kelola Akun <i class="fa-solid fa-pen-to-square"></i>
+                    </li>
+                </a>
+                <a href="manage_music.php">
+                    <li class="list-sidebar">
+                        Kelola Lagu <i class="fa-solid fa-pen-to-square"></i>
+                    </li>
+                </a>
                 <li class="list-sidebar">
-                    Beranda <i class="fa-solid fa-house"></i>
+                    Pesan <i class="fa-solid fa-message"></i>
                 </li>
-            </a>
-            <a href="../admin/manage_permission.php">
+                <a href="../databases/query.php?logout=true">
+                    <li class="list-sidebar">
+                        Keluar <i class="fa-regular fa-arrow-right-from-bracket"></i>
+                    </li>
+                </a>
+            <?php else :?>
+                <a href="index.php">
+                    <li class="list-sidebar">
+                        Beranda <i class="fa-solid fa-house"></i>
+                    </li>
+                </a>
+                <a href="admin/manage_permission.php">
+                    <li class="list-sidebar">
+                        Kelola Permintaan <i class="fa-solid fa-pen-to-square"></i>
+                    </li>
+                </a>
+                <a href="admin/manage_account.php">
+                    <li class="list-sidebar">
+                        Kelola Akun <i class="fa-solid fa-pen-to-square"></i>
+                    </li>
+                </a>
+                <a href="admin/manage_music.php">
+                    <li class="list-sidebar">
+                        Kelola Lagu <i class="fa-solid fa-pen-to-square"></i>
+                    </li>
+                </a>
                 <li class="list-sidebar">
-                    Kelola Permintaan <i class="fa-solid fa-pen-to-square"></i>
+                    Pesan <i class="fa-solid fa-message"></i>
                 </li>
-            </a>
-            <a href="../admin/manage_account.php">
-                <li class="list-sidebar">
-                    Kelola Akun <i class="fa-solid fa-pen-to-square"></i>
-                </li>
-            </a>
-            <a href="../admin/manage_music.php">
-                <li class="list-sidebar">
-                    Kelola Lagu <i class="fa-solid fa-pen-to-square"></i>
-                </li>
-            </a>
-            <li class="list-sidebar">
-                Pesan <i class="fa-solid fa-message"></i>
-            </li>
-            <a href="databases/query.php?logout=true">
-                <li class="list-sidebar">
-                    Keluar <i class="fa-regular fa-arrow-right-from-bracket"></i>
-                </li>
-            </a>
+                <a href="databases/query.php?logout=true">
+                    <li class="list-sidebar">
+                        Keluar <i class="fa-regular fa-arrow-right-from-bracket"></i>
+                    </li>
+                </a>
+
+            <?php endif;?>
         </ul>
     </div>
 
 <?php elseif (isset($_SESSION["user"])): ?>
     <div class="off-screen-menu">
-        <img src="assets/LOGO.jpg" alt="LOGO" class="logo-sidebar">
+        <img src="assets/logo.png" alt="LOGO" class="logo-sidebar">
         <ul>
             <a href="index.php">
                 <li class="list-sidebar">
@@ -64,7 +96,7 @@
     
 <?php else : ?>
     <div class="off-screen-menu">
-        <img src="assets/LOGO.jpg" alt="LOGO" class="logo-sidebar">
+        <img src="assets/logo.png" alt="LOGO" class="logo-sidebar">
         <ul>
             <a href="index.php"> 
                 <li class="list-sidebar">

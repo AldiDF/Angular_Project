@@ -15,10 +15,9 @@ button{
 }
 
 .footer-banner{
-    width: 100%;
+    width: auto;
     height: 480px;
-    background-size: cover;
-    background: url("../assets/upload.jpg");
+    background: url("../assets/upload.jpg") no-repeat;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -45,6 +44,16 @@ button{
 a{
     text-decoration: none;
     
+}
+
+.title-upper{
+    margin: 20px;
+}
+
+.back-page:hover{
+    cursor: pointer;
+    background-color: rgb(70, 70, 70);
+    border-radius: 5px;
 }
 
 .button-banner:hover{
@@ -189,4 +198,17 @@ a{
 .profile-container i{
     font-size: 200px;
     color: #303841;
+}
+
+@media (max-width: 1290px){
+    .footer-banner{
+        width: auto;
+        height: 480px;
+        background: url("../assets/upload.jpg") no-repeat;
+        background-size: contain;
+        background-position: center;
+        display: flex;
+        margin-bottom: 0;
+        padding: 0;
+    }
 }

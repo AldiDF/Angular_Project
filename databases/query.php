@@ -102,21 +102,68 @@
         }
     }
 
-    function select_lagu($conn, $where){
+    function select_lagu($conn, $where, $username){
+        $lagu = [];
         if ($where == "PENDING"){
             $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stats ='$where'");
-            $lagu = [];
             while ($row = mysqli_fetch_assoc($select_lagu)){
                 $lagu[] = $row; 
             }
             return $lagu;
 
         } else if ($where == "ACCEPT"){
-            $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stat = '$where'");
-            while ($row = mysqli_fetch_assoc($select_lagu)){
-                $lagu[] = $row; 
+            if ($username == ""){
+                $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stats = '$where'");
+                while ($row = mysqli_fetch_assoc($select_lagu)){
+                    $lagu[] = $row; 
+                }
+                return $lagu;
+            } else {
+                $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stats = '$where' AND user = '$username'");
+                while ($row = mysqli_fetch_assoc($select_lagu)){
+                    $lagu[] = $row; 
+                }
+                return $lagu;
             }
-            return $lagu;
+        }
+    }
+
+    function delete_akun($conn, $username, $session){
+        $delete_akun = mysqli_query($conn, "DELETE FROM account WHERE username = '$username'");
+        if ($session == "admin") {
+            if ($delete_akun){
+                echo "
+                    <script>
+                        alert('Akun berhasil dihapus');
+                        document.location.href = '../admin/manage_account.php';
+                    </script>
+                ";
+
+            } else {
+                echo "
+                <script>
+                    alert('Akun gagal dihapus');
+                    document.location.href = '../admin/manage_account.php';
+                </script>
+            ";
+            }
+        } else {
+            if ($delete_akun){
+                echo "
+                    <script>
+                        alert('Akun berhasil dihapus');
+                        document.location.href = '../index.php';
+                    </script>
+                ";
+
+            } else {
+                echo "
+                <script>
+                    alert('Akun gagal dihapus');
+                    document.location.href = '../index.php';
+                </script>
+            ";
+            }
         }
     }
 
@@ -160,5 +207,7 @@
 
     } else if (isset($_GET["user-edit"])){
         
+    } else if (isset($_GET["delete"])){
+        delete_akun($conn, $_GET["username"], $_GET["session"]);
     }
 ?>

@@ -111,9 +111,10 @@ a {
 }
 
 .logo-sidebar{
-    width: 200px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     margin-top: 30px;
+    border-radius: 100%;
 }
 
 .upload-button{

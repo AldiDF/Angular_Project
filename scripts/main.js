@@ -32,7 +32,7 @@ function open_slide(index){
         }
 
     } else if (index == "signup"){
-        open_slide("login");
+        login_page.classList.add("slide")
         signup_page.classList.add("slide")
         const signup = signup_page.classList.contains("slide");
         if (signup){

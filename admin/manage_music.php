@@ -2,7 +2,8 @@
     require "../databases/connection.php";
     include "../databases/query.php";
 
-    $lagu = select_lagu($conn, "ACCEPT");
+    $admin = true;
+    $lagu = select_lagu($conn, "ACCEPT", "");
 ?>
 
 <!DOCTYPE html>

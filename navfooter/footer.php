@@ -1,3 +1,3 @@
 <footer>
-    <p class="footer-paragraph">Angular</p>
+    <h3 class="footer-paragraph">Copyright © 2024 Angular </h3> 
 </footer>

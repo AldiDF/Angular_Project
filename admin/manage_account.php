@@ -1,7 +1,8 @@
 <?php
     require "../databases/connection.php";
     include "../databases/query.php";
-
+    
+    $admin = true;
     $akun = select_akun($conn, "");
 ?>
 
@@ -55,9 +56,11 @@
                             <button class="edit-icon">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button class="delete-icon">
-                                <i class="fa-light fa-trash-can"></i>
-                            </button>
+                            <a href="../databases/query.php?delete=true&session=admin&username=<?php echo $acc['username']?>" onclick="return confirm('Yakin ingin menghapus akun ini?')">
+                                <button class="delete-icon">
+                                    <i class="fa-light fa-trash-can"></i>
+                                </button>
+                            </a>
                         </div>
                     </td>
                 </tr>

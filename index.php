@@ -57,14 +57,15 @@
             <p>Rekomendasi Lagu</p>
             <?php for ($i = 1; $i < 4; $i++):?>
                 <figure class="content-container">
-                    <img src="assets/bag.png" alt="gambar-konten" class="thumbnail">
+                    <img src="assets/reggae.jpeg" alt="gambar-konten" class="thumbnail">
                     <figcaption class="caption-content">
                         <figure class="owner-content">
                             <i class="fa-solid fa-circle-user" style="font-size: 36px"></i>
-                            <figcaption class="owner-name">Nama Akun</figcaption>
+                            <figcaption class="owner-name">Oktariaindi</figcaption>
                         </figure>
-                        <p>Judul</p>
-                        <p>deskripsi</p>
+                        <p>Mimpi Ini </p>
+                        <p>Lagu yang menggambarkan harapan, kerinduan, 
+                        dan semangat untuk meraih impian meski harus menghadapi berbagai rintangan.</p>
                     </figcaption>
                 </figure>
             <?php endfor;?>

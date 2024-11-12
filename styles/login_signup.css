@@ -1,17 +1,7 @@
-.back-page:hover{
-    cursor: pointer;
-    background-color: rgb(70, 70, 70);
-    border-radius: 5px;
-}
-
 .logo {
     width: 350px;                 
     height: 300px;                
     border-radius: 100%;           
-}
-
-.title-login{
-    margin: 20px;
 }
 
 h1 {
@@ -45,6 +35,9 @@ h1 {
     width: auto;
     border-radius: 7px;
     border: .1px black solid;
+    padding: 8px;
+    font-size: 14px;
+    font-family: Helvetica;
 }
 
 .submit-button-container{

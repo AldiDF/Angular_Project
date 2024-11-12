@@ -84,6 +84,11 @@ footer{
     padding: 1px;
 }
 
+h3 {
+    font-size: 16px;
+    font-family: Helvetica !important;
+}
+
 .footer-paragraph{
     text-align: center;
     align-items: center;

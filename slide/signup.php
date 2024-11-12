@@ -3,7 +3,7 @@
 ?>
 
 <div class="signuppg">
-    <div class="title-login">
+    <div class="title-upper">
         <button class="back-page" onclick="closep('signup')"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
         <h1 style="text-align: center">Daftar</h1>
     </div>

@@ -22,7 +22,7 @@
 <?php elseif (isset($_SESSION["user"])): ?>
         <nav>
             <div class="nav-left">
-                <i class="fa-solid fa-circle-user" style="font-size: 36px"></i>
+            <a href="profile.php?user=<?php echo $_SESSION['username']?>"><i class="fa-regular fa-circle-user" style="font-size: 36px"></i></a>
                 <i class="fa-solid fa-bell" style="font-size: 36px"></i>
             </div>
             <search>

@@ -1,0 +1,81 @@
+.biography-upper{
+    display: flex;
+    margin: 50px 40px;
+}
+
+.profile-picture{
+    margin-right: 40px;
+}
+
+h2{
+    font-size: 22px;
+    font-family: Helvetica;
+}
+
+h3{
+    font-size: 16px;
+    font-family: Helvetica;
+}
+
+.button-follow, .button-setting{
+    color: #303841;
+    padding: 10px 0;
+    width: 150px;
+    max-width: 150px;
+    border: 5px #303841 solid;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.button-follow:hover, .button-setting:hover{
+    background-color: #303841;
+    color: #f3f3f3;
+}
+
+.line{
+    width: 100%;
+    height: 5px;
+    background-color: #303841;
+    margin: 20px 0;
+}
+
+.total-owned{
+    display: flex;
+    justify-content: space-between;
+}
+
+.total-likes{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-likes i{
+    font-size: 40px;
+    color: #303841;
+    margin-right: 20px;
+}
+
+.total-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-content i{
+    font-size: 40px;
+    color: #303841;
+    margin-left: 20px;
+}
+
+.biography-lower{
+    display: flex;
+    margin: 50px 40px;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.profile-content-container{
+    margin: 50px 40px;
+}
