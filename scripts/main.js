@@ -58,3 +58,16 @@ function limit_size(event){
 
     alert("Ekstensi File Harus png, jpg, jpeg");
 }
+
+const open_notif = document.getElementById("open-notif")
+const close_notif = document.getElementById("close-notif")
+const container_notif = document.getElementById("confirm")
+
+
+function open_confirm(){
+    container_notif.classList.add("open")
+}
+
+function close_confirm(){
+    container_notif.classList.remove("open")
+}

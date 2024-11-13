@@ -46,16 +46,24 @@
             </thead>
             <tbody>
                 <?php $i = 1; foreach($lagu as $lagu): ?>
-                <?php $direktori = "../databases/thumbnail/" . $lagu["lagu"];?>
+                <?php $direktori = "../databases/thumbnail/" . $lagu["thumbnail"];?>
                 <tr>
                     <td><?php echo $i;?></td>
-                    <td><?php echo "<img src='$direktori' alt='profile-picture'>";?></td>
+                    <td><?php echo "<img src='$direktori' alt='thumbnail-picture' class='thumbnail-user'>";?></td>
                     <td><?php echo $lagu["judul"]?></td>
                     <td><?php echo $lagu["deskripsi"]?></td>
-                    <td><?php echo $lagu["username"]?></td>
+                    <td><?php echo $lagu["user"]?></td>
                     <td>
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <i class="fa-light fa-trash-can"></i>
+                        <div class="action-button">
+                            <button class="edit-icon">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <a href="../databases/query.php?delete_lagu=true&session=admin&lagu=<?php echo $lagu['lagu']?>" onclick="return confirm('Yakin ingin menghapus lagu ini?')">
+                                <button class="delete-icon">
+                                    <i class="fa-light fa-trash-can"></i>
+                                </button>
+                            </a>
+                        </div>
                     </td>
                 </tr>
                 <?php $i++; endforeach;?>

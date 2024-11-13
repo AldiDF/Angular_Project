@@ -115,7 +115,7 @@
                 </li>
             </a>
         </ul>
-        <div class="upload-button" onclick="open_slide('upload')">
+        <div class="upload-button" onclick="open_slide('login')">
             <i class="fa-light fa-square-plus"></i>
         </div>
     </div>

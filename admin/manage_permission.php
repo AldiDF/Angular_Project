@@ -3,7 +3,8 @@
     include "../databases/query.php";
 
     $admin = true;
-    $lagu = select_lagu($conn, "PENDING");
+    $lagu = select_lagu($conn, "PENDING", "");
+    
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +24,7 @@
 <body>
     <?php include("../navfooter/sidebar.php")?>
     <?php include("../navfooter/navbar.php")?>
+
     <main>
         <h1 class="heading-admin-permiss">KELOLA PERMINTAAN</h1>
         <search>
@@ -46,17 +48,46 @@
             </thead>
             <tbody>
                 <?php $i = 1; foreach($lagu as $lagu): ?>
-                <?php $direktori = "../databases/thumbnail/" . $lagu["lagu"];?>
+                <?php $direktori = "../databases/thumbnail/" . $lagu["thumbnail"];?>
+                <?php $direktori_lagu = "../databases/music/". $lagu["lagu"];?>
                 <tr>
                     <td><?php echo $i;?></td>
-                    <td><?php echo "<img src='$direktori' alt='profile-picture'>";?></td>
+                    <td><?php echo "<img src='$direktori' alt='' class='thumbnail-user'>";?></td>
                     <td><?php echo $lagu["judul"]?></td>
                     <td><?php echo $lagu["deskripsi"]?></td>
-                    <td><?php echo $lagu["username"]?></td>
+                    <td><?php echo $lagu["user"]?></td>
                     <td>
-                        <i class="fa-light fa-trash-can"></i>
+                        <div class="action-button">
+                            <button class="edit-icon" onclick="open_confirm()">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
+                <div class="confirm-container" id="confirm">
+                    <div class="confirm-inner" id="inner">
+                        <div class="upper">
+                            <h2>Konfirmasi</h2>
+                            <button class="close-confirm" onclick="close_confirm()">X</button>
+                        </div>
+                        <div class="lines"></div>
+                        <div class="lower">
+                            <h2>Judul</h2>
+                            <audio class="audio-container" id="songAudio" controls>
+                                <source src="<?php echo $direktori_lagu?>" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <div class="permission-button">
+                                <a href="../databases/query.php?acc=false&lagu=<?php echo $lagu['lagu']?>">
+                                    <button class="rjc-btn">Tolak</button>
+                                </a>
+                                <a href="../databases/query.php?acc=true&lagu=<?php echo $lagu['lagu']?>">
+                                    <button class="acc-btn">Terima</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <?php $i++; endforeach;?>
             </tbody>
         </table>

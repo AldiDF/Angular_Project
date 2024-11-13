@@ -130,8 +130,129 @@ td:nth-child(5) i{
     border-radius: 10px;
 }
 
+.edit-icon i, .delete-icon i{
+    font-size: 30px;
+    color: #303841;
+}
+
 .edit-icon:hover, .delete-icon:hover, .delete-icon:hover i, .edit-icon:hover i{
     color: #f3f3f3;
     background-color: #303841;
 }
 
+.thumbnail-user{
+    width: 100px;
+    height: 80px;
+}
+
+.confirm-container{
+    background-color: #3038415c;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    transition: all 0.3s ease-in-out;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirm-container.open{
+    opacity: 1;
+    z-index: 999;
+}
+
+.confirm-inner{
+    background-color: #303841;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px #303841;
+    padding: 15px 25px;
+    text-align: center;
+    border: 3px #2185D5 solid;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 300px;
+}
+
+.confirm-inner h2{
+    margin: 0;
+}
+
+.confirm-inner p{
+    line-height: 24px;
+    margin: 10px 0;
+}
+
+.upper{
+    margin: 10px;
+}
+
+.upper h2{
+    text-align: center;
+    color: #f3f3f3;
+}
+
+
+.close-confirm{
+    cursor: pointer;
+    position: absolute;
+    font-size: 20px;
+    padding: 5px;
+    color: #f3f3f3;
+    right: 480px;
+    top: 180px;
+}
+
+.close-confirm:hover{
+    background-color: #303841;
+    color: #f3f3f3;
+}
+
+.lines{
+    width: 100%;
+    height: 5px;
+    background-color: #2185D5;
+}
+
+.permission-button{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.acc-btn{
+    background-color: #f3f3f3;
+    width: 140px;
+    height: 28px;
+    font-size: 16px;
+    border: 2px #2185D5 solid;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #303841;
+}
+
+
+.rjc-btn{
+    background-color: #303841;
+    width: 140px;
+    height: 28px;
+    font-size: 16px;
+    border: 2px #2185D5 solid;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #f3f3f3;
+}
+
+.audio-container{
+    margin-top: 20px;
+}
+
+.lower h2{
+    margin-top: 10px;
+    font-size: 22px;
+    color: #f3f3f3;
+}

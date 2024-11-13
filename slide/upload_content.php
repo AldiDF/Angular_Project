@@ -3,7 +3,7 @@
         <button class="back-page" onclick="closep('upload')"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
         <h1>UNGGAH LAGU</h1>
     </div>
-    <form action="databases/query.php" class="form-container" enctype="multipart/form-data" onsubmit="return closep('upload')">
+    <form action="databases/query.php?username=<?php echo $_SESSION["username"]?>" method="POST" class="form-container" enctype="multipart/form-data" onsubmit="return closep('upload')">
         <div class="thumbnail-container">
             <p>Tampilan:</p>
             <label for="thumbnail" class="input-thumbnail">
@@ -21,7 +21,7 @@
         <label for="description">Deskripsi:</label>
         <textarea name="description" id="description" cols="30" rows="1" class="text-area"></textarea><br><br>
 
-        <input type="submit" id="submit-upload" name="upload" value="Unggah" class="submit-upload">
+        <input type="submit" id="submit-upload" name="upload-music" value="Unggah" class="submit-upload">
         
     </form>
 </div>

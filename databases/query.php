@@ -26,7 +26,7 @@
     function insert_akun($username, $nama_lengkap, $email, $password, $conn){
         check_duplikat_akun($conn, $username);
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql_insert_akun = mysqli_query($conn, "INSERT INTO account VALUES ('$username', '$nama_lengkap', '$email', '$password', '', '', 'PUBLIK');");
+        $sql_insert_akun = mysqli_query($conn, "INSERT INTO account VALUES ('$username', '$nama_lengkap', '$email', '$password', '', '', 'PUBLIK', 0, 0, 0, 0);");
         if ($sql_insert_akun) {
             echo "
                 <script>
@@ -128,7 +128,46 @@
         }
     }
 
+    function insert_lagu($conn, $lagu, $tmp_lagu, $thumbnail, $tmp_thumbnail, $judul, $deskripsi, $where){
+        date_default_timezone_set("Asia/Makassar");
+        $waktu = date("Y-m-d H.i.s");
+
+        $akun = select_akun($conn, $where);
+        $ekstensi_lagu = explode('.', $lagu);
+        $ekstensi_lagu = strtolower(end($ekstensi_lagu));
+        $tmp_lagu = $_FILES["music"]["tmp_name"];
+
+        $ekstensi_thumbnail = explode('.', $thumbnail);
+        $ekstensi_thumbnail = strtolower(end($ekstensi_thumbnail));
+        $tmp_thumbnail = $_FILES["thumbnail"]["tmp_name"];
+
+        $username = $akun["username"]; 
+        $namaBaru_lagu = $username . "_" . $waktu . "." . $ekstensi_lagu;
+        $namaBaru_thumbnail = $username . "_" . $waktu . "." . $ekstensi_thumbnail;
+        $direktori_lagu = 'music/' . $namaBaru_lagu;
+        $direktori_thumbnail = 'thumbnail/' . $namaBaru_thumbnail;
+        $status = "PENDING";
+
+        if (is_uploaded_file($tmp_lagu) && is_uploaded_file($tmp_thumbnail)) {
+            if (move_uploaded_file($tmp_lagu, $direktori_lagu) && move_uploaded_file($tmp_thumbnail, $direktori_thumbnail)) {
+                $query = "
+                INSERT INTO content (lagu, thumbnail, judul, lirik, deskripsi, stats, user) 
+                VALUES ('$namaBaru_lagu', '$namaBaru_thumbnail','$judul', '$lirik', '$deskripsi', '$status' ,'$username')";
+                $result = mysqli_query($conn, $query);
+    
+                if ($result) {
+                    echo "<script>alert('Berhasil menambah lagu!'); document.location.href = '../index.php';</script>";
+                } else {
+                    echo "<script>alert('Gagal menambah lagu!'); document.location.href = '../index.php';</script>";
+                }
+            } else {
+                echo "<script>alert('Gagal meng-upload lagu!');</script>";
+            }
+        }
+    }
+
     function delete_akun($conn, $username, $session){
+        $delete_lagu = mysqli_query($conn, "DELETE FROM content WHERE user = '$username'");
         $delete_akun = mysqli_query($conn, "DELETE FROM account WHERE username = '$username'");
         if ($session == "admin") {
             if ($delete_akun){
@@ -189,6 +228,44 @@
         return $komen;
     }
 
+    function update_status_content($conn, $stats, $lagu){
+        if ($stats == "ACCEPT"){
+            $update_status = mysqli_query($conn, "UPDATE content SET stats = '$stats' WHERE lagu = '$lagu'");
+            if ($update_status){
+                echo "
+                    <script>
+                        alert('Berhasil mengubah status');
+                        document.location.href = '../admin/manage_permission.php';
+                    </script>
+                ";
+            } else {
+                echo "
+                    <script>
+                        alert('Gagal mengubah status');
+                        document.location.href = '../admin/manage_permission.php';
+                    </script>
+                ";
+            }
+        } else {
+            $update_status = mysqli_query($conn, "UPDATE content SET stats = '$stats' WHERE id = '$id'");
+            if ($update_status){
+                echo "
+                    <script>
+                        alert('Berhasil mengubah status');
+                        document.location.href = '../admin/manage_permission.php';
+                    </script>
+                ";
+            } else {
+                echo "
+                    <script>
+                        alert('Gagal mengubah status');
+                        document.location.href = '../admin/manage_permission.php';
+                    </script>
+                ";
+            }
+        }
+    }
+
     if (isset($_POST["signup"])){
         insert_akun($_POST["username"], $_POST["full-name"], $_POST["email"], $_POST["password"], $conn);
         
@@ -209,5 +286,49 @@
         
     } else if (isset($_GET["delete"])){
         delete_akun($conn, $_GET["username"], $_GET["session"]);
+
+    } else if (isset($_POST["upload-music"])){
+        insert_lagu($conn, $_FILES["music"]["name"], $_FILES["music"]["tmp_name"], $_FILES["thumbnail"]["name"], $_FILES["thumbnail"]["tmp_name"], $_POST["title"], $_POST["description"], $_GET["username"]);
+    
+    } else if (isset($_GET["acc"])){
+        if ($_GET["acc"] == "false"){
+            update_status_content($conn, "REJECT", $_GET["lagu"]);
+        } else if ($_GET["acc"] == "true"){
+            update_status_content($conn, "ACCEPT", $_GET["lagu"]);
+        }
+
+    } else if (isset($_GET["delete_lagu"])){
+        $lagu_user = $_GET["lagu"];
+        $query = "SELECT * FROM content WHERE lagu = '$lagu_user'";
+        $result = mysqli_query($conn, $query);
+        $lagu = mysqli_fetch_assoc($result);
+        $user = $lagu['user'];
+        $juduls = $lagu['judul'];
+        $waktu = date('Y-m-d H.i.s');
+        
+        if($lagu){
+            $image_path = '../assets/images/' . $lagu['thumbnail'];
+            $song_path = '../assets/songs/' . $lagu['lagu'];
+            if(file_exists($image_path)){
+                unlink($image_path);
+            }
+            if(file_exists($song_path)){
+                unlink($song_path);
+            }
+        }
+
+        $delete_query = "DELETE FROM content WHERE lagu = '$lagu_user'";
+        if (mysqli_query($conn, $delete_query)) {
+
+            echo "<script>
+                    alert('Lagu Telah Dihapus');
+                    document.location.href = '../admin/manage_permission.php';
+                  </script>";
+        } else {
+            echo "<script>
+                    alert('Gagal Menghapus lagu');
+                    document.location.href = '../admin/manage_permission.php';
+                  </script>";
+        }
     }
 ?>
