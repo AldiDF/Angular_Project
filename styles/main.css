@@ -5,6 +5,10 @@ body {
     font-family: 'helvetica' !important;
 }
 
+main{
+    min-height: 510px;
+}
+
 h1{
     font-size: 30px;
     font-family: 'helvetica' !important;
