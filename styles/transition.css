@@ -142,6 +142,8 @@ body {
   right:-100%;
   flex-direction: column;
   transition: 1s ease;
+  overflow: scroll;
+  scrollbar-width: none;
   z-index: 1;
 }
 

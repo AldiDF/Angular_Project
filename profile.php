@@ -26,6 +26,7 @@
     <?php include("slide/user_music.php")?>
     <?php include("slide/following_follower.php")?>
     <?php include("slide/chat.php")?>
+    <?php include("slide/upload_content.php")?>
     <?php include("navfooter/sidebar.php")?>
     <?php include("navfooter/navbar.php")?>
 
@@ -47,14 +48,14 @@
             </div>
             <div class="biography-lower">
                 <div class="follow-container">
-                    <button class="button-follow">Diikuti</button>
+                    <button class="button-follow" onclick="open_slide('following')">Diikuti</button>
                     <p></p>
                 </div>
                 <div class="setting">
                     <button class="button-setting" onclick="open_slide('setting')">Pengaturan</button>
                 </div>
                 <div class="follow-container">
-                    <button class="button-follow">Mengikuti</button>
+                    <button class="button-follow" onclick="open_slide('follower')">Mengikuti</button>
                     <p></p>
                 </div>
             </div>

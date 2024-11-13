@@ -222,9 +222,90 @@ a{
     color: #f3f3f3;
 }
 
+.form-container{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    padding: 20px;
+}
+
+.form-container input[type="text"]{
+    width: 94%;
+    height: auto;
+    border: 1px #303841 solid;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 14px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .profile-container i{
     font-size: 200px;
     color: #303841;
+}
+
+.input-th{
+    opacity: 0;
+}
+
+.input-thumbnail{
+    width: 293.3px;
+    height: 200px;
+    border: 1px #303841 solid;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.thumbnail-container{
+    display: inline-block;
+    font-size: 22px;
+    text-align: center;
+}
+
+.text-area{
+    width: 100%;
+    height: auto;
+    max-width: 94.5%;
+    border: 1px #303841 solid;
+    border-radius: 6px;
+    padding: 10px;
+    font-family: Helvetica;
+    font-size: 14px;
+}
+
+.submit-upload{
+    background: none;
+    border: 1px #303841 solid;
+    border-radius: 8px;;
+    width: 180px;
+    height: 35px;
+    cursor: pointer;
+    color: #303841;
+    font-family: Helvetica;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.submit-upload:hover{
+    background-color: #303841;
+    color: #f3f3f3;
+}
+
+.thumbnail-preview{
+    width: 100%;
+    height: 100%;
+    display: none;
 }
 
 @media (max-width: 1290px){
