@@ -6,10 +6,17 @@
             </div>
             <search>
                 <form action="" class="nav-search-bar" method="get">
-                    <input type="text" placeholder="Cari konten atau user" name="search-account" class="nav-input-search">
-                    <button type="submit" class="nav-search-button">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
+                    <div>
+                        <input type="text" placeholder="Cari konten atau user" name="navbar-search" class="nav-input-search">
+                        <button type="submit" class="nav-search-button">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    <div class="live-search-result">
+                        <ul class="search-result">
+
+                        </ul>
+                    </div>
                 </form>
             </search>
             <div class="sidebar-menu" onclick="sideBar()">
@@ -26,11 +33,18 @@
                 <i class="fa-solid fa-bell" style="font-size: 36px"></i>
             </div>
             <search>
-                <form action="" class="nav-search-bar" method="get">
-                    <input type="text" placeholder="Cari konten atau user" name="search-account" class="nav-input-search">
-                    <button type="submit" class="nav-search-button">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
+                <form action="" class="nav-search-bar" id="nav-search-bar" method="get">
+                    <div>
+                        <input type="text" placeholder="Cari konten atau user" name="navbar-search" class="nav-input-search">
+                        <button type="submit" class="nav-search-button">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    <div class="live-search-result">
+                        <ul class="search-result">
+
+                        </ul>
+                    </div>
                 </form>
             </search>
             <div class="sidebar-menu" onclick="sideBar()">
@@ -47,10 +61,17 @@
             </div>
             <search>
                 <form action="" class="nav-search-bar" method="get">
-                    <input type="text" placeholder="Cari konten atau user" name="search-account" class="nav-input-search">
-                    <button type="submit" class="nav-search-button">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
+                    <div>
+                        <input type="text" placeholder="Cari konten atau user" name="navbar-search" class="nav-input-search">
+                        <button type="submit" class="nav-search-button">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    <div class="live-search-result">
+                        <ul class="search-result">
+
+                        </ul>
+                    </div>
                 </form>
             </search>
             <div class="sidebar-menu" onclick="sideBar()">
@@ -60,3 +81,5 @@
             </div>
         </nav>
 <?php endif; ?>
+
+<script src="scripts/liveSearching.js"></script>

@@ -32,7 +32,7 @@ function pripub(type){
 }
 
 function limit_size(event){
-    const limit = 3 * 1024 *1024;
+    const limit = 12 * 1024 *1024;
     var file = event.target.files[0];
     var path = URL.createObjectURL(event.target.files[0]);
     var photo = document.getElementById("thumbnail").value;
@@ -41,7 +41,7 @@ function limit_size(event){
     var ext = file.name.split(".").pop();
 
     if (file.size > limit){
-        alert("Maksimal File adalah 3 MB");
+        alert("Maksimal File adalah 12 MB");
         event.target.value = "";
         return;
     }

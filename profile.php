@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="styles/profile.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <?php include("slide/settings.php")?>
@@ -75,18 +76,20 @@
             <div class="profile-content">
                 <p>Lagu yang diunggah</p>
                 <?php $i = 0; foreach ($lagu as $lagu):?>
-                    <?php $direktori = "databases/thumbnail/" . $lagu['lagu'];?>
-                    <figure class="content-container">
-                        <img src="<?php echo $direktori?>" alt="gambar-konten" class="thumbnail">
-                        <figcaption class="caption-content">
-                            <figure class="owner-content">
-                                <i class="fa-solid fa-circle-user" style="font-size: 36px"></i>
-                                <figcaption class="owner-name"><?php echo $lagu["username"]?></figcaption>
-                            </figure>
-                            <p><?php echo $lagu["judul"] ?></p>
-                            <p><?php echo $lagu["deskripsi"]?></p>
-                        </figcaption>
-                    </figure>
+                    <?php $direktori = "databases/thumbnail/" . $lagu['thumbnail'];?>
+                    <a href="detail.php?lagu=<?php echo $lagu['lagu'];?>">
+                        <figure class="content-container">
+                            <img src="<?php echo $direktori?>" alt="gambar-konten" class="thumbnail">
+                            <figcaption class="caption-content">
+                                <figure class="owner-content">
+                                    <i class="fa-solid fa-circle-user" style="font-size: 36px"></i>
+                                    <figcaption class="owner-name"><?php echo $lagu["user"]?></figcaption>
+                                </figure>
+                                <p><?php echo $lagu["judul"] ?></p>
+                                <p><?php echo $lagu["deskripsi"]?></p>
+                            </figcaption>
+                        </figure>
+                    </a>
                 <?php $i++; endforeach;?>
                 <?php if ($i == 0):?>
                     <div class="empty-content">
@@ -98,7 +101,7 @@
     </main>
     <?php include("navfooter/footer.php")?>
 
-    <script src="../scripts/main.js?v=<?php echo time(); ?>"></script>
+    <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
     <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
