@@ -83,4 +83,3 @@ mainContentContainer.addEventListener("mouseout", function(event) {
         mainContent.classList.remove("show");
     }
 });
-

@@ -319,7 +319,7 @@
             echo json_encode($komen);
             return;
             
-        } else {
+        } else if ($last == false){
             $select_komen = mysqli_query($conn, "SELECT * FROM comment WHERE lagu = '$lagu'");
             $komen = [];
             while ($row = mysqli_fetch_assoc($select_komen)){
@@ -329,6 +329,25 @@
             return $komen;
         }
 
+    } 
+
+    function delete_komen($conn){
+        $id = $_GET["commentId"];
+        $lagu = $_GET["lagu"];
+        $delete_komen = mysqli_query($conn, "DELETE FROM comment WHERE id = '$id'");
+        if ($delete_komen){
+            echo "
+                <script>
+                    document.location.href = '../detail.php?lagu=$lagu';
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    document.location.href = '../detail.php?lagu=$lagu';
+                </script>
+            ";
+        }
     }
 
     function select_like($conn, $lagu, $username){
@@ -419,5 +438,8 @@
 
     } else if (isset($_GET["last"])){
         select_komen($conn, $_GET["lagu"], true);
+
+    } else if (isset($_GET["commentDelete"])){
+        delete_komen($conn);
     }
 ?>

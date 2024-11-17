@@ -433,7 +433,7 @@ a{
     margin-left: auto;
 }
 
-.comment-right .comment-content{
+.comment-content-right{
     display: flex;
     flex-direction: column;
     margin: 10px;
@@ -444,7 +444,7 @@ a{
     max-width: 50%;
 }
 
-.comment-right .comment-content p{
+.comment-content-right p{
     font-size: 16px;
     margin: 0;
 }
@@ -557,7 +557,34 @@ a{
     position: absolute;
 }
 
+.search-container{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 40px;
+    gap: 20px;
+}
 
+.account-container{
+    display: flex;
+    width: 100%;
+    background-color: #f3f3f3;
+    border: 2px #303841 solid;
+    border-radius: 15px;
+    margin-left: 0;
+    margin-right: 0;
+    gap: 15px;
+    color: #303841;
+    align-items: center;
+}
+
+.account-container:hover{
+    background-color: rgba(0, 0, 0, 0.279);
+}
+
+.account-container i{
+    font-size: 150px;
+    margin: 20px;
+}
 
 @media (max-width: 1290px){
     .footer-banner{

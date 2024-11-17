@@ -33,7 +33,7 @@
                 <i class="fa-solid fa-bell" style="font-size: 36px"></i>
             </div>
             <search>
-                <form action="" class="nav-search-bar" id="nav-search-bar" method="get">
+                <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
                     <div>
                         <input type="text" placeholder="Cari konten atau user" name="navbar-search" class="nav-input-search">
                         <button type="submit" class="nav-search-button">
@@ -82,4 +82,4 @@
         </nav>
 <?php endif; ?>
 
-<script src="scripts/liveSearching.js"></script>
+<script src="scripts/liveSearching.js?v=<?php echo time(); ?>"></script>

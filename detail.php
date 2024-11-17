@@ -1,15 +1,25 @@
 <?php
     require "databases/connection.php";
-    include "databases/query.php";
+    require "databases/query.php";
 
     date_default_timezone_set("Asia/Makassar");
     $waktu = date("Y-m-d H:i");
 
-    $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
-    $jumlah_like = num_row($conn, "like_content", "objek", $_GET["lagu"]);
-    $jumlah_komen = num_row($conn, "comment", "lagu", $_GET["lagu"]);
-    $komen = select_komen($conn, $_GET["lagu"], false);
-    $like = select_like($conn, $_GET["lagu"], $_SESSION["username"]);
+    if (isset($_GET["lagu"])){
+        $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
+        $jumlah_like = num_row($conn, "like_content", "objek", $_GET["lagu"]);
+        $jumlah_komen = num_row($conn, "comment", "lagu", $_GET["lagu"]);
+        $komen = select_komen($conn, $_GET["lagu"], false);
+        $like = select_like($conn, $_GET["lagu"], $_SESSION["username"]);
+
+    } else {
+        echo "
+        <script>
+            alert('Lagu tidak ditemukan');
+            document.location.href = 'index.php';
+        </script>";
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -143,13 +153,13 @@
             <div class="comment-container" id="comment-container">
                 <?php foreach($komen as $komen) :?>
                 <?php if ($komen["user"] == $_SESSION["username"]):?>
-                    <div class="comment-right">
+                    <div class="comment-right" id="comment-right">
                         <div class="comment-owner">
                             <div><?= $komen["user"]?></div>
                             <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
                             
                         </div>
-                        <div class="comment-content">
+                        <div class="comment-content-right" id="<?= "komen_" . $komen["id"]?>">
                             <?= $komen["isi_komen"]?>
                         </div>
                         <p class="time-comment"><?= $komen["waktu"]?></p>
@@ -182,7 +192,7 @@
     <?php include("navfooter/footer.php")?>
 
     <script>
-        let old_id = <?= $komen["id"]?>
+        let old_id = <?php if ($jumlah_komen == 0) {echo 0;} else {echo $komen["id"];}?>
 
         document.addEventListener('DOMContentLoaded', (event) => {
             const music = document.getElementById('playMusic');
@@ -219,7 +229,7 @@
                                 <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
 
                             </div>
-                            <div class="comment-content">
+                            <div class="comment-content-right">
                                 <p>${commentText.replace(/\n/g, '<br>')}</p>
                             </div>
                             <p class="time-comment"><?= $waktu?></p>
@@ -350,7 +360,17 @@
             ?>`;
         }
 
-        
+        document.addEventListener("click", function(event) {
+            if (event.target.id.includes("komen_")) {
+                let commentId = event.target.id.split("_")[1];
+                console.log(event.target.id);
+                    if (confirm("Apakah Anda yakin ingin menghapus komentar ini?")) {
+                        document.location.href = "databases/query.php?commentDelete=true&lagu=<?= $_GET['lagu']?>&commentId=" + commentId;
+                    } else {
+                        return;
+                    }
+            }
+        });
     </script>
     <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
     <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>

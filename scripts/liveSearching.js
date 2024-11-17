@@ -27,7 +27,8 @@ $(document).ready(function(){
             type: "GET",
             data: {
                 action: "navbar-search",
-                keyword: keyword
+                keyword: keyword,
+                search: "live"
             },
             dataType: "json",
             success: function(result){
