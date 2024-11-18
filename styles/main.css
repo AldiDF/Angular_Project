@@ -4,7 +4,7 @@ body {
     scrollbar-width: none;
     font-family: 'helvetica' !important;
 }
-
+...
 main{
     min-height: 510px;
 }
