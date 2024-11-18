@@ -71,9 +71,14 @@ h3{
 
 .biography-lower{
     display: flex;
-    margin: 50px 40px;
+    margin: 50px 40px 20px 40px;
     justify-content: space-between;
     text-align: center;
+    align-items: baseline;
+}
+
+.follow-container p{
+    margin: 10px 0 0 0;
 }
 
 .profile-content-container{

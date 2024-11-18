@@ -4,7 +4,12 @@
 
     $lagu = select_lagu($conn, "ACCEPT", $_GET["user"]);
     $akun = select_akun($conn, $_GET["user"]);
-    $follow;
+    $jumlah_lagu = count($lagu);
+    $jumlah_follower = num_row($conn,"follow", "objek", $akun["username"]);
+    $jumlah_following = num_row($conn, "follow", "subjek", $akun["username"]);
+    $jumlah_like = total_like($conn, $akun["username"]);
+    $isFollow = checkFollow($conn ,$akun["username"] ,$_SESSION["username"]);
+    
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +31,7 @@
     <?php include("slide/settings.php")?>
     <?php include("slide/edit.php")?>
     <?php include("slide/user_music.php")?>
+    <?php $akun = select_akun($conn, $_GET["user"]); ?>
     <?php include("slide/following_follower.php")?>
     <?php include("slide/chat.php")?>
     <?php include("slide/upload_content.php")?>
@@ -51,20 +57,24 @@
             </div>
             <div class="biography-lower">
                 <div class="follow-container">
-                    <button class="button-follow" onclick="open_slide('following')">Diikuti</button>
-                    <p></p>
+                    <button class="button-follow" onclick="open_slide('following'), follow('following')">Mengikuti</button>
+                    <p><?= $jumlah_following?></p>
                 </div>
                 <div class="mid-action">
                     <?php if ($akun["username"] == $_SESSION["username"]):?>
                         <button class="button-setting" onclick="open_slide('setting')">Pengaturan</button>
                     <?php else:?>
                         <button class="button-setting" onclick="open_slide('chat')">Pesan</button>
-                        <button class="button-setting"><a href="databases/query.php?follow=true">Ikuti</a></button>
+                        <?php if ($isFollow == 1):?>
+                            <a href="databases/query.php?follow=false&objek=<?= $akun["username"]?>&subjek=<?= $_SESSION["username"]?>"><button class="button-setting">Berhenti</button></a>
+                        <?php else:?>
+                            <a href="databases/query.php?follow=true&objek=<?= $akun["username"]?>&subjek=<?= $_SESSION["username"]?>"><button class="button-setting">Ikuti</button></a>
+                        <?php endif;?>
                     <?php endif;?>
                 </div>
                 <div class="follow-container">
-                    <button class="button-follow" onclick="open_slide('following')">Mengikuti</button>
-                    <p></p>
+                    <button class="button-follow" onclick="open_slide('following'), follow('follower')">Pengikut</button>
+                    <p><?= $jumlah_follower?></p>
                 </div>
             </div>
         </div>
@@ -73,10 +83,10 @@
             <div class="total-owned">
                 <div class="total-likes">
                     <i class="fa-solid fa-heart"></i>
-                    <p>Total Disukai</p>
+                    <p><?= $jumlah_like . " Total Like"?></p>
                 </div>
                 <div class="total-content">
-                    <p>Total Lagu</p>
+                    <p><?= $jumlah_lagu . " Total Lagu"?></p>
                     <i class="fa-solid fa-music total-content"></i>
                 </div>
             </div>

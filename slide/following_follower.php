@@ -1,60 +1,44 @@
+<?php 
+    $mengikuti = select_follow($conn, $akun["username"], "following");
+    $pengikut = select_follow($conn, $akun["username"], "follower");
+?>
+
 <div class="followingpg">
     <div class="title-upper">
         <button class="back-page" onclick="closep('following')"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
         <div class="pripub-btn">
-            <button class="private-btn" id="following-btn" onclick="follow('following')">Diikuti</button>
-            <button class="public-btn" id="follower-btn" onclick="follow('follower')">Mengikuti</button>
+            <button class="private-btn" id="following-btn" onclick="follow('following')">Mengikuti</button>
+            <button class="public-btn" id="follower-btn" onclick="follow('follower')">Pengikut</button>
         </div>
     </div>
 
     <div class="list-follow" id="list-following">
-    <?php for ($i = 1; $i < 4; $i++):?>
+        <p>Akun yang diikuti</p>
+    <?php foreach($mengikuti as $mengikuti):?>
         <a href="profile.php" class="account-container">
             <i class="fa-solid fa-circle-user"></i>
             <figcaption class="identifier-container">
-                <h1>aldi</h1>
+                <h1><?= $mengikuti["objek"]?></h1>
             </figcaption>
         </a>
-    <?php endfor;?>
+    <?php endforeach;?>
     </div>
 
     <div class="list-follow" id="list-follower">
-    <?php for ($i = 1; $i < 4; $i++):?>
+        <p>Akun yang mengikuti</p>
+    <?php foreach($pengikut as $pengikut):?>
         <a href="profile.php" class="account-container">
             <i class="fa-solid fa-circle-user"></i>
             <figcaption class="identifier-container">
-                <h1>daffa</h1>
+                <h1><?= $pengikut["subjek"]?></h1>
             </figcaption>
         </a>
-    <?php endfor;?>
+    <?php endforeach;?>
     </div>
 </div>
 
 <script>
-    function follow(type){
-        following = document.getElementById("following-btn")
-        follower = document.getElementById("follower-btn")
-        list_following = document.getElementById("list-following")
-        list_follower = document.getElementById("list-follower")
-
-        if (type === "following"){
-            follower.classList.remove("follow-active")
-            following.classList.add("follow-active")
-            list_following.style.display = "block"
-            list_follower.style.display = "none"
-            following.style.color = "#f3f3f3"
-            follower.style.color = "#303841"
-
-
-        } else if (type === "follower"){
-            following.classList.remove("follow-active")
-            follower.classList.add("follow-active")
-            list_follower.style.display = "block"
-            list_following.style.display = "none"
-            following.style.color = "#303841"
-            follower.style.color = "#f3f3f3"
-        }
-    }
+    
 </script>
 
 <div class="followerpg">

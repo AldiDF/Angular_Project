@@ -140,6 +140,11 @@ a{
     margin-bottom: 40px;
 }
 
+.main-content .owner-content{
+    z-index: 2;
+    color: #f3f3f3;
+}
+
 .owner-name{
     font-size: 20px;
     margin-top: 7px;
@@ -589,9 +594,12 @@ a{
 .list-follow{
     display: flex;
     flex-direction: column;
-    gap: 20px;
     width: 60%;
     margin: 0 auto;
+}
+
+.list-follow .account-container{
+    margin-bottom: 20px;
 }
 
 .followingpg .title-upper{

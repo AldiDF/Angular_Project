@@ -383,6 +383,74 @@
         }
     }
 
+    function follow_action($conn){
+        $follow = $_GET["follow"];
+        $object = $_GET["objek"];
+        $subject = $_GET["subjek"];
+
+        if ($follow == "true"){
+            $query = mysqli_query($conn, "INSERT INTO follow VALUES (0, '$object', '$subject')");
+
+            if($query){
+                echo "
+                    <script>
+                        document.location.href = '../profile.php?user=$object';
+                    </script>
+                ";
+            } else {
+                echo "
+                    <script>
+                        document.location.href = '../profile.php?user=$object';
+                    </script>
+                ";
+            }
+
+        } else if ($follow == "false"){
+            $query = mysqli_query($conn, "DELETE FROM follow WHERE objek = '$object' AND subjek = '$subject'");
+
+            if($query){
+                echo "
+                    <script>
+                        document.location.href = '../profile.php?user=$object';
+                    </script>
+                ";
+            } else {
+                echo "
+                    <script>
+                        document.location.href = '../profile.php?user=$object';
+                    </script>
+                ";
+            }
+        }
+    }
+
+    function total_like($conn, $username){
+        $query = "SELECT * FROM like_content WHERE objek LIKE '%$username%'";
+        $result = mysqli_query($conn, $query);
+        $count = mysqli_num_rows($result);
+        return $count;
+    }
+
+    function checkFollow($conn, $objek, $subjek){
+        $query = "SELECT * FROM follow WHERE objek = '$objek' AND subjek = '$subjek'";
+        $result = mysqli_query($conn, $query);
+        $count = mysqli_num_rows($result);
+        return $count;
+    }
+
+    function select_follow($conn, $username, $where){
+        if ($where == "following"){
+            $query = "SELECT * FROM follow WHERE subjek = '$username'";
+            $result = mysqli_query($conn, $query);
+            return $result;
+
+        } else if ($where == "follower"){
+            $query = "SELECT * FROM follow WHERE objek = '$username'";
+            $result = mysqli_query($conn, $query);
+            return $result;
+        }
+    }
+
     if (isset($_POST["signup"])){
         insert_akun($_POST["username"], $_POST["full-name"], $_POST["email"], $_POST["password"], $conn);
         
@@ -469,5 +537,7 @@
         $status = "PUBLIK";
         status_account($conn, $status);
 
+    } else if (isset($_GET["follow"])){
+        follow_action($conn);
     }
 ?>

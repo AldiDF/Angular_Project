@@ -52,3 +52,59 @@ function open_confirm(){
 function close_confirm(){
     container_notif.classList.remove("open")
 }
+
+function follow(type){
+    const following = document.getElementById("following-btn")
+    const follower = document.getElementById("follower-btn")
+    const list_following = document.getElementById("list-following")
+    const list_follower = document.getElementById("list-follower")
+
+    if (type === "following"){
+        localStorage.setItem("following", "true")
+        localStorage.setItem("follower", "false")
+        follower.classList.remove("follow-active")
+        following.classList.add("follow-active")
+        list_following.style.display = "block"
+        list_follower.style.display = "none"
+        following.style.color = "#f3f3f3"
+        follower.style.color = "#303841"
+        
+    } else if (type === "follower"){
+        localStorage.setItem("follower", "true")
+        localStorage.setItem("following", "false")
+        following.classList.remove("follow-active")
+        follower.classList.add("follow-active")
+        list_follower.style.display = "block"
+        list_following.style.display = "none"
+        following.style.color = "#303841"
+        follower.style.color = "#f3f3f3"
+    }
+}
+
+function check_follow() {
+    const following = document.getElementById("following-btn");
+    const follower = document.getElementById("follower-btn");
+    const list_following = document.getElementById("list-following");
+    const list_follower = document.getElementById("list-follower");
+
+    if (localStorage.getItem("following") === "true") {
+        follower.classList.remove("follow-active")
+        following.classList.add("follow-active")
+        list_following.style.display = "block"
+        list_follower.style.display = "none"
+        following.style.color = "#f3f3f3"
+        follower.style.color = "#303841"
+        
+        
+
+    } else if (localStorage.getItem("follower") === "true") {
+        following.classList.remove("follow-active")
+        follower.classList.add("follow-active")
+        list_follower.style.display = "block"
+        list_following.style.display = "none"
+        following.style.color = "#303841"
+        follower.style.color = "#f3f3f3"
+    }
+}
+
+check_follow()
