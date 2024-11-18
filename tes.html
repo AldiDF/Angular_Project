@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pesan</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .back {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .search {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .riwayat-pesan {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .chat-item {
+        border: 3px solid black;
+        border-radius: 7px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .chat-item-profile {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 10px;
+    }
+
+    .chat-item-profile img {
+      width: 100%;
+      height : 100%;
+      object-fit: cover;
+    }
+
+    .chat-item-content {
+      flex: 1;
+    }
+
+    .chat-item-name {
+      font-weight: bold;
+    }
+
+    .chat-item-message {
+      color: #666;
+    }
+
+    .chat-item-time {
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="back">←</div>
+      <div class="title">Chat</div>
+    </div>
+    <input type="text" class="search" placeholder="Search...">
+    <div class="riwayat-pesan">Riwayat Pesan</div>
+    <div class="chat-item">
+      <div class="chat-item-profile">
+        <img src="profile1.jpg" alt="Profile">
+      </div>
+      <div class="chat-item-content">
+        <div class="chat-item-name">User  1</div>
+        <div class="chat-item-message">Hello, how are you?</div>
+        <div class="chat-item-time">10:00 AM</div>
+      </div>
+    </div>
+    <div class="chat-item">
+      <div class="chat-item-profile">
+        <img src="profile2.jpg" alt="Profile">
+      </div>
+      <div class="chat-item-content">
+        <div class="chat-item-name">User  2</div>
+        <div class="chat-item-message">Are you coming to the meeting?</div>
+        <div class="chat-item-time">10:05 AM</div>
+      </div>
+    </div>
+    <!-- Add more chat items as needed -->
+  </div>
+</body>
+</html>
