@@ -9,7 +9,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Akun dan Musik</title>
-    <!-- Link ke file edit.css dengan query string untuk mencegah cache -->
     <link rel="stylesheet" href="../styles/edit.css?v=<?php echo time(); ?>">
 </head>
 <body>
