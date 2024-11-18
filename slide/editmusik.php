@@ -24,7 +24,7 @@
             <div class="thumbnail-container">
                 <p>Tampilan:</p>
                 <label for="edit-thumbnail" class="input-thumbnail">
-                    <p id="edit-title-thumbnail">Tampilan</p>
+                    <p id="edit-title-thumbnail"></p>
                     <img alt="preview-thumbnail" id="edit-thumbnail-preview" class="thumbnail-preview">
                 </label>
                 <input type="file" id="edit-thumbnail" name="thumbnail" class="input-th" onchange="limit_size(event)">
