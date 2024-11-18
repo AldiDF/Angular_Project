@@ -1,4 +1,4 @@
-.edit-userpg {
+.edit-musicpg {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,6 +9,11 @@
     min-height: 700px;
     padding: 40px;
     margin: 0 auto;
+    box-sizing: border-box;
+    background-color: #303841;
+    border: 5px solid black;
+    border-radius: 14px;
+    color: white;
 }
 
 .form-container {
@@ -25,9 +30,26 @@
     box-sizing: border-box;
 }
 
+.thumbnail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.thumbnail-container img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #000;
+}
+
+.form-container input[type="file"],
 .form-container input[type="text"],
-.form-container input[type="email"],
-.form-container input[type="password"] {
+.form-container textarea {
     font-size: 14px;
     width: 100%;
     border-radius: 7px;
@@ -37,10 +59,8 @@
     color: black;
 }
 
-.submit-button-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+textarea {
+    resize: none;
 }
 
 .submit-button {
@@ -56,8 +76,6 @@
     background-color: #45a049;
 }
 
-.back-page {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+input[type="file"] {
+    margin-bottom: 20px;
 }
