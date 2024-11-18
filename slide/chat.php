@@ -133,7 +133,6 @@
         </div>
         <div class="chat-item-content">
           <div class="chat-item-name">User  1</div>
-
         </div>
       </div>
       <div class="chat-item">
