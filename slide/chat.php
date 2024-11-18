@@ -62,11 +62,14 @@
           outline: none;
       }
 
-      .riwayat-pesan{
-          text-align: left;
-          margin-top: 2rem;
-          margin-left: 25%;
-        }
+      .riwayat-pesan {
+        text-align: left;
+        margin-top: 2rem;
+        margin-left: 25%;
+        font-size: 20px;
+        color: #333;
+        font-weight: bold;
+      }
       .chat-item {
           cursor: pointer;
           border-width: 500px;
