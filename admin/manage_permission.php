@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../styles/admin.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <?php include("../navfooter/sidebar.php")?>
@@ -29,13 +30,13 @@
         <h1 class="heading-admin-permiss">KELOLA PERMINTAAN</h1>
         <search>
             <form action="" class="search-bar-admin" method="get">
-                <input type="text" placeholder="Cari User" name="search-account" class="input-search-admin">
-                <button type="submit" class="search-button-admin">
+                <input type="text" placeholder="Cari User" name="search-account" class="input-search-admin" id="keyword">
+                <button type="submit" class="search-button-admin" id="search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
         </search>
-        <table border=1>
+        <table border=1 id="table">
             <thead>
                 <tr>
                     <th>No</th>
@@ -93,8 +94,38 @@
         </table>
     </main>
     <?php include("../navfooter/footer.php")?>
-
+    
+    <script>
+        var keyword = document.getElementById('keyword');
+        var tombolCari = document.getElementById('search-btn');
+        var container = document.getElementById('table');
+                        
+        function searchData(url, queryParam) {
+            var xhr = new XMLHttpRequest();
+        
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    container.innerHTML = xhr.responseText;
+                }
+            }
+        
+            xhr.open('GET', url + '?' + queryParam + '=' + keyword.value, true);
+            xhr.send();
+        }
+        
+        keyword.addEventListener('keyup', function() {
+            var currentPage = window.location.pathname;
+        
+            if (currentPage.includes('manage_account')) {
+                searchData('../databases/liveSearch.php', 'A-keywordAccount');
+            } else if (currentPage.includes('manage_permission')) {
+                searchData('../databases/liveSearch.php', 'A-keywordPermission');
+            } else if (currentPage.includes('manage_music')) {
+                searchData('../databases/liveSearch.php', 'A-keywordContent');
+            }
+        });
+    </script>
     <script src="../scripts/main.js?v=<?php echo time(); ?>"></script>
-    <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
+    <script src="../scripts/transition.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

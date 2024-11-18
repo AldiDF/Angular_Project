@@ -12,27 +12,8 @@ window.addEventListener("click", (event) => {
     }
 });
 
-function pripub(type){
-    private = document.getElementById("private")
-    public = document.getElementById("public")
-
-    if (type === "private"){
-        public.classList.remove("pripub-active")
-        private.classList.add("pripub-active")
-        private.style.color = "#f3f3f3"
-        public.style.color = "#303841"
-        
-        
-    } else if (type === "public"){
-        private.classList.remove("pripub-active")
-        public.classList.add("pripub-active")
-        public.style.color = "#f3f3f3"
-        private.style.color = "#303841"
-    }
-}
-
 function limit_size(event){
-    const limit = 3 * 1024 *1024;
+    const limit = 12 * 1024 *1024;
     var file = event.target.files[0];
     var path = URL.createObjectURL(event.target.files[0]);
     var photo = document.getElementById("thumbnail").value;
@@ -41,7 +22,7 @@ function limit_size(event){
     var ext = file.name.split(".").pop();
 
     if (file.size > limit){
-        alert("Maksimal File adalah 3 MB");
+        alert("Maksimal File adalah 12 MB");
         event.target.value = "";
         return;
     }
@@ -71,3 +52,59 @@ function open_confirm(){
 function close_confirm(){
     container_notif.classList.remove("open")
 }
+
+function follow(type){
+    const following = document.getElementById("following-btn")
+    const follower = document.getElementById("follower-btn")
+    const list_following = document.getElementById("list-following")
+    const list_follower = document.getElementById("list-follower")
+
+    if (type === "following"){
+        localStorage.setItem("following", "true")
+        localStorage.setItem("follower", "false")
+        follower.classList.remove("follow-active")
+        following.classList.add("follow-active")
+        list_following.style.display = "block"
+        list_follower.style.display = "none"
+        following.style.color = "#f3f3f3"
+        follower.style.color = "#303841"
+        
+    } else if (type === "follower"){
+        localStorage.setItem("follower", "true")
+        localStorage.setItem("following", "false")
+        following.classList.remove("follow-active")
+        follower.classList.add("follow-active")
+        list_follower.style.display = "block"
+        list_following.style.display = "none"
+        following.style.color = "#303841"
+        follower.style.color = "#f3f3f3"
+    }
+}
+
+function check_follow() {
+    const following = document.getElementById("following-btn");
+    const follower = document.getElementById("follower-btn");
+    const list_following = document.getElementById("list-following");
+    const list_follower = document.getElementById("list-follower");
+
+    if (localStorage.getItem("following") === "true") {
+        follower.classList.remove("follow-active")
+        following.classList.add("follow-active")
+        list_following.style.display = "block"
+        list_follower.style.display = "none"
+        following.style.color = "#f3f3f3"
+        follower.style.color = "#303841"
+        
+        
+
+    } else if (localStorage.getItem("follower") === "true") {
+        following.classList.remove("follow-active")
+        follower.classList.add("follow-active")
+        list_follower.style.display = "block"
+        list_following.style.display = "none"
+        following.style.color = "#303841"
+        follower.style.color = "#f3f3f3"
+    }
+}
+
+check_follow()
