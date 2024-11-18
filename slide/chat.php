@@ -68,6 +68,7 @@
           margin-left: 25%;
         }
       .chat-item {
+          cursor: pointer;
           border-width: 500px;
           width: 50%;
           margin: 0 auto;
