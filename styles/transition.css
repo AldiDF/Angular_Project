@@ -91,6 +91,8 @@ body {
   flex-direction: column;
   transition: 1s ease;
   z-index: 4;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 .followerpg{

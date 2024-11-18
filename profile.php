@@ -2,8 +2,9 @@
     require "databases/connection.php";
     include "databases/query.php";
 
-    $akun = select_akun($conn, $_GET["user"]);
     $lagu = select_lagu($conn, "ACCEPT", $_GET["user"]);
+    $akun = select_akun($conn, $_GET["user"]);
+    $follow;
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +32,7 @@
     <?php include("navfooter/sidebar.php")?>
     <?php include("navfooter/navbar.php")?>
 
+    <?php $akun = select_akun($conn, $_GET["user"]); ?>
     <main>
         <div class="biography-container">
             <div class="biography-upper">
@@ -52,11 +54,16 @@
                     <button class="button-follow" onclick="open_slide('following')">Diikuti</button>
                     <p></p>
                 </div>
-                <div class="setting">
-                    <button class="button-setting" onclick="open_slide('setting')">Pengaturan</button>
+                <div class="mid-action">
+                    <?php if ($akun["username"] == $_SESSION["username"]):?>
+                        <button class="button-setting" onclick="open_slide('setting')">Pengaturan</button>
+                    <?php else:?>
+                        <button class="button-setting" onclick="open_slide('chat')">Pesan</button>
+                        <button class="button-setting"><a href="databases/query.php?follow=true">Ikuti</a></button>
+                    <?php endif;?>
                 </div>
                 <div class="follow-container">
-                    <button class="button-follow" onclick="open_slide('follower')">Mengikuti</button>
+                    <button class="button-follow" onclick="open_slide('following')">Mengikuti</button>
                     <p></p>
                 </div>
             </div>
@@ -74,6 +81,9 @@
                 </div>
             </div>
             <div class="profile-content">
+                <?php if ($akun["stats"] == "PRIVATE" && $akun["username"] != $_SESSION["username"]):?>
+                    <p>Akun Ini Privat</p>
+                <?php else:?>
                 <p>Lagu yang diunggah</p>
                 <?php $i = 0; foreach ($lagu as $lagu):?>
                     <?php $direktori = "databases/thumbnail/" . $lagu['thumbnail'];?>
@@ -91,10 +101,6 @@
                         </figure>
                     </a>
                 <?php $i++; endforeach;?>
-                <?php if ($i == 0):?>
-                    <div class="empty-content">
-                        <h2>Belum ada lagu yang diunggah</h2>
-                    </div>
                 <?php endif;?>
             </div>
         </div>

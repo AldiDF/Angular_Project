@@ -96,6 +96,7 @@
             return $akun;
             
         } else {
+            $akun;
             $select_akun = mysqli_query($conn, "SELECT * FROM account WHERE username = '$where'");
             $akun = mysqli_fetch_assoc($select_akun);
             return $akun;
@@ -364,6 +365,24 @@
         return $count;
     }
 
+    function status_account($conn, $status){
+        $username = $_GET["akun"];
+        $status_akun = mysqli_query($conn, "UPDATE account SET stats = '$status' WHERE username = '$username'");
+        if ($status_akun){
+            echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+            ";
+        }
+    }
+
     if (isset($_POST["signup"])){
         insert_akun($_POST["username"], $_POST["full-name"], $_POST["email"], $_POST["password"], $conn);
         
@@ -441,5 +460,14 @@
 
     } else if (isset($_GET["commentDelete"])){
         delete_komen($conn);
+
+    } else if (isset($_POST["private"])){
+        $status = "PRIVATE";
+        status_account($conn, $status);
+        
+    } else if (isset($_POST["public"])){
+        $status = "PUBLIK";
+        status_account($conn, $status);
+
     }
 ?>

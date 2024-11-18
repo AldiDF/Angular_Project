@@ -586,6 +586,29 @@ a{
     margin: 20px;
 }
 
+.list-follow{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.followingpg .title-upper{
+    display: flex;
+}
+
+.follow-active{
+    background-color: #303841;
+}
+
+.mid-action{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
 @media (max-width: 1290px){
     .footer-banner{
         width: auto;

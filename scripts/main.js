@@ -12,25 +12,6 @@ window.addEventListener("click", (event) => {
     }
 });
 
-function pripub(type){
-    private = document.getElementById("private")
-    public = document.getElementById("public")
-
-    if (type === "private"){
-        public.classList.remove("pripub-active")
-        private.classList.add("pripub-active")
-        private.style.color = "#f3f3f3"
-        public.style.color = "#303841"
-        
-        
-    } else if (type === "public"){
-        private.classList.remove("pripub-active")
-        public.classList.add("pripub-active")
-        public.style.color = "#f3f3f3"
-        private.style.color = "#303841"
-    }
-}
-
 function limit_size(event){
     const limit = 12 * 1024 *1024;
     var file = event.target.files[0];
