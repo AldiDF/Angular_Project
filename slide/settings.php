@@ -13,7 +13,7 @@
                 <button class="public-btn" id="public" onclick="pripub('public')">PUBLIK</button>
             </div>
     
-            <button class="li-btn" onclick="open_slide('music')">KELOLA LAGU</button>
+            <a href="slide/user_music.php"><button class="li-btn">KELOLA LAGU</button></a>
             <button class="li-btn" onclick="open_slide('userEdit')">UBAH AKUN</button>
             <button class="li-btn">HAPUS AKUN</button>
             <a href="databases/query.php?logout=true" onclick="closep('setting')"><button class="li-btn">KELUAR AKUN</button></a>

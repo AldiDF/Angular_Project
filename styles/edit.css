@@ -1,17 +1,3 @@
-.edit-userpg {
-    width: 400px;
-    margin: 50px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #303841;
-    color: white;
-    border: 5px black solid;
-    border-radius: 14px;
-    padding: 40px;
-    box-sizing: border-box;
-}
-
 .form-container {
     display: flex;
     flex-direction: column;
@@ -29,7 +15,6 @@
     padding: 10px;
     background-color: white;
     color: black;
-    box-sizing: border-box;
 }
 
 .submit-button-container {
