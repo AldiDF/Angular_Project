@@ -179,7 +179,7 @@
                 <?php endif;?>
                 <?php endforeach;?>
 
-                <div action="databases/query.php" method="POST" class="send-comment" id="input-comment">
+                <div class="send-comment" id="input-comment">
                     <textarea name="comment" id="comment" cols="30" rows="1" placeholder="Komentar Anda"></textarea>
                     <button type="submit" name="send-comment" id="send-comment"><i class="fa-regular fa-paper-plane-top"></i></button>
                 </div>

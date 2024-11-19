@@ -424,6 +424,61 @@
         }
     }
 
+    function insert_chat($conn){
+        $penerima = $_POST["penerima"];
+        $pengirim = $_POST["pengirim"];
+        $pesan = $_POST["pesan"];
+        $waktu = $_POST["waktu"];
+        $query = "INSERT INTO chat VALUES (0, '$pesan', '$waktu', '$penerima', '$pengirim' )";
+        $result = mysqli_query($conn, $query);
+        if ($result){
+            echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+            ";
+        }
+    }
+
+    function select_chat($conn, $last, $user1, $user2){
+        if ($last == "true"){
+            $chat;
+            $select_chat = mysqli_query($conn, "SELECT * FROM chat WHERE (penerima = '$user1' AND pengirim = '$user2') OR (penerima = '$user2' AND pengirim = '$user1') ORDER BY id DESC LIMIT 1");
+            $chat = mysqli_fetch_assoc($select_chat);
+
+            echo json_encode($chat);
+            return;
+
+        } else if ($last == "false"){
+            $chat = [];
+            $select_chat = mysqli_query($conn, "SELECT * FROM chat WHERE (penerima = '$user1' AND pengirim = '$user2') OR (penerima = '$user2' AND pengirim = '$user1') ORDER BY id ASC;");
+            while ($row = mysqli_fetch_assoc($select_chat)){
+                $chat[] = $row;
+            }
+            return $chat;
+
+        } else if ($last == ""){
+            $chat = [];
+            $select_history = mysqli_query($conn, "SELECT DISTINCT 
+                                                    CASE 
+                                                        WHEN pengirim = '$user1' THEN penerima 
+                                                        ELSE pengirim 
+                                                    END AS lawan_chat
+                                                FROM chat
+                                                WHERE pengirim = '$user1' OR penerima = '$user1';");
+            while ($row = mysqli_fetch_assoc($select_history)){
+                $chat[] = $row;
+            }
+            return $chat;
+        }
+    }
+
     function total_like($conn, $username){
         $query = "SELECT * FROM like_content WHERE objek LIKE '%$username%'";
         $result = mysqli_query($conn, $query);
@@ -539,5 +594,14 @@
 
     } else if (isset($_GET["follow"])){
         follow_action($conn);
+
+    } else if (isset($_GET["chat"])){
+        insert_chat($conn);
+
+    } else if (isset($_GET["last-chat"])){
+        $last = $_GET["last-chat"];
+        if ($last == "true"){
+            select_chat($conn, "true", $_POST["session"], $_POST["penerima"]);
+        }
     }
 ?>

@@ -81,6 +81,13 @@ function follow(type){
     }
 }
 
+function scrollToBottom() {
+    const container = document.getElementById('chatpg');
+    container.scrollTop = container.scrollHeight;
+}
+
+document.addEventListener('DOMContentLoaded', scrollToBottom);
+
 function check_follow() {
     const following = document.getElementById("following-btn");
     const follower = document.getElementById("follower-btn");

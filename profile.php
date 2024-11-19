@@ -1,15 +1,15 @@
 <?php
     require "databases/connection.php";
     include "databases/query.php";
-
+    
+    $profile = $_SESSION["username"];
     $lagu = select_lagu($conn, "ACCEPT", $_GET["user"]);
     $akun = select_akun($conn, $_GET["user"]);
     $jumlah_lagu = count($lagu);
     $jumlah_follower = num_row($conn,"follow", "objek", $akun["username"]);
     $jumlah_following = num_row($conn, "follow", "subjek", $akun["username"]);
     $jumlah_like = total_like($conn, $akun["username"]);
-    $isFollow = checkFollow($conn ,$akun["username"] ,$_SESSION["username"]);
-    
+    $isFollow = checkFollow($conn ,$akun["username"] ,$_SESSION["username"]);    
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="styles/sidebar.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/navfooter.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/profile.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/edit.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/user.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/chat.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -33,12 +36,13 @@
     <?php include("slide/user_music.php")?>
     <?php $akun = select_akun($conn, $_GET["user"]); ?>
     <?php include("slide/following_follower.php")?>
-    <?php include("slide/chat.php")?>
     <?php include("slide/upload_content.php")?>
-    <?php include("navfooter/sidebar.php")?>
+    <?php include("slide/chat.php")?>
     <?php include("navfooter/navbar.php")?>
+    <?php include("navfooter/sidebar.php")?>
 
     <?php $akun = select_akun($conn, $_GET["user"]); ?>
+    <?php $lagu = select_lagu($conn, "ACCEPT", $_GET["user"]); ?>
     <main>
         <div class="biography-container">
             <div class="biography-upper">
@@ -64,7 +68,7 @@
                     <?php if ($akun["username"] == $_SESSION["username"]):?>
                         <button class="button-setting" onclick="open_slide('setting')">Pengaturan</button>
                     <?php else:?>
-                        <button class="button-setting" onclick="open_slide('chat')">Pesan</button>
+                        <button class="button-setting" id="chat_<?= $akun["username"]?>" onclick="open_slide('chat')">Pesan</button>
                         <?php if ($isFollow == 1):?>
                             <a href="databases/query.php?follow=false&objek=<?= $akun["username"]?>&subjek=<?= $_SESSION["username"]?>"><button class="button-setting">Berhenti</button></a>
                         <?php else:?>
@@ -116,7 +120,9 @@
         </div>
     </main>
     <?php include("navfooter/footer.php")?>
+    <script>
 
+    </script>
     <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
     <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
 </body>

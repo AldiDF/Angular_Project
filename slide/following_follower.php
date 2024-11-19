@@ -37,10 +37,6 @@
     </div>
 </div>
 
-<script>
-    
-</script>
-
 <div class="followerpg">
     <div class="title-upper">
         <button class="back-page" onclick="closep('follower')"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
