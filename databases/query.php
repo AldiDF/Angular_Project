@@ -570,6 +570,39 @@
     }
     
 
+    function delete_notif($conn, $id){
+        $query = mysqli_query($conn, "SELECT FROM notification WHERE id = '$id'");
+        if($query){
+            echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+            ";
+        }
+    }
+
+    function deleteall_notif($conn, $username){
+        $query = mysqli_query($conn, "SELECT FROM notification WHERE username = '$username'");
+        if($query){
+            echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+            ";
+        }
+    }
 
     if (isset($_POST["signup"])){
         insert_akun($_POST["username"], $_POST["full-name"], $_POST["email"], $_POST["password"], $conn);
@@ -668,5 +701,9 @@
         echo editAkun($conn, $username, $fullName, $email, $password);
     } else if(isset($_POST['edit-music'])) {
         update_lagu($conn, $_POST['lagu']);
+    } else if(isset ($_GET['id-notif'])) {
+        delete_notif ($conn, $_GET['id']);
+    } else if(isset ($_GET['delete-all-notif'])) {
+        deleteall_notif ($conn, $_SESSIONp['username']);
     }
 ?>
