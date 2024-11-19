@@ -246,6 +246,12 @@
         if ($stats == "ACCEPT"){
             $update_status = mysqli_query($conn, "UPDATE content SET stats = '$stats' WHERE lagu = '$lagu'");
             if ($update_status){
+                date_default_timezone_set("Asia/Makassar");
+                $waktu = date("Y-m-d H.i.s");
+                $judul = mysqli_query($conn, "SELECT judul FROM content where lagu='$lagu'");
+                $user = mysqli_query($conn, "SELECT user FROM content where lagu='$lagu'");
+                $pesan = "Lagu anda yang berjuful ".$judul." telah disetujui";
+                mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$user', '$waktu')");
                 echo "
                     <script>
                         alert('Berhasil mengubah status');
@@ -295,7 +301,9 @@
             $action = mysqli_query($conn, "INSERT INTO like_content VALUES (0, '$lagu', '$username');");
             $pesan = $username." Telah Menyukai Lagu Anda";
             $orang = select_lagu_spesifik($conn, $lagu);
-            mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$orang'); ");
+            date_default_timezone_set("Asia/Makassar");
+            $waktu = date("Y-m-d H.i.s");
+            mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$orang', '$waktu'); ");
 
         } else {
             $action = mysqli_query($conn, "DELETE FROM like_content WHERE objek = '$lagu' AND subjek = '$username';");
@@ -417,6 +425,10 @@
 
         if ($follow == "true"){
             $query = mysqli_query($conn, "INSERT INTO follow (objek, subjek) VALUES ('$object', '$subject')");
+            date_default_timezone_set("Asia/Makassar");
+            $waktu = date("Y-m-d H.i.s");
+            $pesan = $subject." Telah mengikuti anda";
+            mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$object', '$waktu')");
 
             if($query){
                 echo "
