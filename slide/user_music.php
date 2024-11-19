@@ -1,5 +1,5 @@
 <?php
-require "../databases/connection.php";
+require "databases/connection.php";
 $lagu = select_lagu($conn, "ACCEPT", "");
 ?>
 

@@ -23,7 +23,7 @@
 <body>
     <?php include("slide/settings.php")?>
     <?php include("slide/edit.php")?>
-    <?php include("slide/user_music.php")?>
+    
     <?php include("slide/following_follower.php")?>
     <?php include("slide/chat.php")?>
     <?php include("slide/upload_content.php")?>
