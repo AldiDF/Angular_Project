@@ -26,7 +26,7 @@
     function insert_akun($username, $nama_lengkap, $email, $password, $conn){
         check_duplikat_akun($conn, $username);
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $sql_insert_akun = mysqli_query($conn, "INSERT INTO account VALUES ('$username', '$nama_lengkap', '$email', '$password', '', '', 'PUBLIK', 0, 0, 0, 0);");
+        $sql_insert_akun = mysqli_query($conn, "INSERT INTO account VALUES ('$username', '$nama_lengkap', '$email', '$password', '', '', 'PUBLIK');");
         if ($sql_insert_akun) {
             echo "
                 <script>
