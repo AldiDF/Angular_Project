@@ -27,15 +27,20 @@
         </thead>
         <tbody>
             <?php $i = 1; foreach($lagu as $lagu): ?>
-            <?php $direktori = "../databases/thumbnail/" . $lagu["thumbnail"]; ?>
+            <?php $direktori = "databases/thumbnail/" . $lagu["thumbnail"]; ?>
             <tr>
                 <td><?php echo $i; ?></td>
-                <td><i class="fa-solid fa-circle-user" style="font-size: 36px"></i></td>
+                <td>
+                    <img src="<?php echo $direktori; ?>" alt="Thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                </td>
                 <td><?php echo $lagu["judul"]; ?></td>
                 <td><?php echo $lagu["deskripsi"]; ?></td>
                 <td>
                     <div class="action-button">
-                        <button class="edit-icon" onclick="open_slide('musicEdit')">
+                        <button 
+                            class="edit-icon" 
+                            onclick="open_slide('musicEdit')"
+                            data-lagu="<?php echo $lagu['lagu']; ?>">
                             <i class="fa-solid fa-pen-to-square"></i> Edit
                         </button>
                         
@@ -51,3 +56,14 @@
         </tbody>
     </table>
 </div>
+<script>
+    document.querySelectorAll('.edit-icon').forEach(button => {
+    button.addEventListener('click', function() {
+        const lagu = this.getAttribute('data-lagu');
+
+        // Isi form
+        document.getElementById('edit-lagu-hidden').value = lagu;
+    });
+});
+
+</script>

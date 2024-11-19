@@ -43,6 +43,7 @@
             </label>
             <input type="file" id="edit-thumbnail" name="thumbnail" class="input-th" onchange="limit_size(event)">
         </div>
+        <input type="hidden" name="lagu" id="edit-lagu-hidden" value="">
         <label for="edit-music">Ubah Lagu:</label>
         <input type="file" id="edit-music" name="music" class="input-music"><br><br>
 
