@@ -15,12 +15,12 @@ function open_slide(index){
         login_page.classList.add("slide")
         const login = login_page.classList.contains("slide");
         if (login){
-            localStorage.setItem("slideL", "enabled");
+            sessionStorage.setItem("slideL", "enabled");
             sidebar.classList.remove("active");
             offScreenMenu.classList.remove("active");
     
         } else {
-            localStorage.setItem("slideL", "disabled");
+            sessionStorage.setItem("slideL", "disabled");
         }
 
     } else if (index == "signup"){
@@ -28,120 +28,120 @@ function open_slide(index){
         signup_page.classList.add("slide")
         const signup = signup_page.classList.contains("slide");
         if (signup){
-            localStorage.setItem("slideS", "enabled");
+            sessionStorage.setItem("slideS", "enabled");
             sidebar.classList.remove("active");
             offScreenMenu.classList.remove("active");
     
         } else {
-            localStorage.setItem("slideS", "disabled");
+            sessionStorage.setItem("slideS", "disabled");
         }
 
     } else if (index == "setting"){
         setting_page.classList.add("slide")
         const setting = setting_page.classList.contains("slide")
         if (setting){
-            localStorage.setItem("slideSET", "enabled");
+            sessionStorage.setItem("slideSET", "enabled");
             sidebar.classList.remove("active");
             offScreenMenu.classList.remove("active");
 
         } else {
-            localStorage.setItem("slideSET", "disabled");
+            sessionStorage.setItem("slideSET", "disabled");
         }
 
     } else if (index == "userEdit"){
         userEdit_page.classList.add("slide")
         const edit = userEdit_page.classList.contains("slide")
         if (edit){
-            localStorage.setItem("slideED", "enabled");
+            sessionStorage.setItem("slideED", "enabled");
             sidebar.classList.remove("active");
             offScreenMenu.classList.remove("active");
 
         } else {
-            localStorage.setItem("slideED", "disabled");
+            sessionStorage.setItem("slideED", "disabled");
         }
 
     } else if (index == "music"){
         listMusic_page.classList.add("slide")
         const edit = listMusic_page.classList.contains("slide")
         if (edit){
-            localStorage.setItem("slideMS", "enabled");
+            sessionStorage.setItem("slideMS", "enabled");
             sidebar.classList.remove("active");
             offScreenMenu.classList.remove("active");
 
         } else {
-            localStorage.setItem("slideMS", "disabled");
+            sessionStorage.setItem("slideMS", "disabled");
         }
 
     } else if (index == "musicEdit"){
         musicEdit_page.classList.add("slide")
         const edit = musicEdit_page.classList.contains("slide")
         if (edit){
-            localStorage.setItem("slideME", "enabled");
+            sessionStorage.setItem("slideME", "enabled");
             sidebar.classList.remove("active");
             offScreenMenu.classList.remove("active");
 
         } else {
-            localStorage.setItem("slideME", "disabled");
+            sessionStorage.setItem("slideME", "disabled");
         }
         
     } else if (index == "following"){
         following_page.classList.add("slide")
         const edit = following_page.classList.contains("slide")
         if (edit){
-            localStorage.setItem("slideFG", "enabled");
+            sessionStorage.setItem("slideFG", "enabled");
             sidebar.classList.remove("active");
             offScreenMenu.classList.remove("active");
 
         } else {
-            localStorage.setItem("slideFG", "disabled");
+            sessionStorage.setItem("slideFG", "disabled");
         }
 
     } else if (index == "follower"){
         follower_page.classList.add("slide")
         const edit = follower_page.classList.contains("slide")
         if (edit){
-            localStorage.setItem("slideFR", "enabled");
+            sessionStorage.setItem("slideFR", "enabled");
             sidebar.classList.remove("active");
             offScreenMenu.classList.remove("active");
 
         } else {
-            localStorage.setItem("slideFR", "disabled");
+            sessionStorage.setItem("slideFR", "disabled");
         }
 
     } else if (index == "history_chat"){
         history_chat_page.classList.add("slide")
         const edit = history_chat_page.classList.contains("slide")
         if (edit){
-            localStorage.setItem("slideHC", "enabled");
+            sessionStorage.setItem("slideHC", "enabled");
             sidebar.classList.remove("active");
             offScreenMenu.classList.remove("active");
 
         } else {
-            localStorage.setItem("slideHC", "disabled");
+            sessionStorage.setItem("slideHC", "disabled");
         }
 
     } else if (index == "chat"){
         chat_page.classList.add("slide")
         const edit = chat_page.classList.contains("slide")
         if (edit){
-            localStorage.setItem("slideCH", "enabled");
+            sessionStorage.setItem("slideCH", "enabled");
             sidebar.classList.remove("active");
             offScreenMenu.classList.remove("active");
 
         } else {
-            localStorage.setItem("slideCH", "disabled");
+            sessionStorage.setItem("slideCH", "disabled");
         }
 
     } else if (index == "upload"){
         upload_page.classList.add("slide")
         const edit = upload_page.classList.contains("slide")
         if (edit){
-            localStorage.setItem("slideUP", "enabled");
+            sessionStorage.setItem("slideUP", "enabled");
             sidebar.classList.remove("active");
             offScreenMenu.classList.remove("active");
 
         } else {
-            localStorage.setItem("slideUP", "disabled");
+            sessionStorage.setItem("slideUP", "disabled");
         }
     }
 }
@@ -150,62 +150,63 @@ window.onload = open_slide;
 function closep(index){
     if (index == "login"){
         login_page.classList.remove("slide")
-        localStorage.setItem("slideL", "disabled");
+        sessionStorage.setItem("slideL", "disabled");
         
     } else if (index == "signup"){
         signup_page.classList.remove("slide")
-        localStorage.setItem("slideS", "disabled");
+        sessionStorage.setItem("slideS", "disabled");
         
     } else if (index == "setting"){
         setting_page.classList.remove("slide")
-        localStorage.setItem("slideSET", "disabled")
+        sessionStorage.setItem("slideSET", "disabled")
         
     } else if (index == "userEdit"){
         userEdit_page.classList.remove("slide")
-        localStorage.setItem("slideED", "disabled")
+        sessionStorage.setItem("slideED", "disabled")
 
     } else if (index == "music"){
         listMusic_page.classList.remove("slide");
-        localStorage.setItem("slideMS", "disabled");
+        sessionStorage.setItem("slideMS", "disabled");
 
     } else if (index == "musicEdit"){
         musicEdit_page.classList.remove("slide");
-        localStorage.setItem("slideME", "disabled");
+        sessionStorage.setItem("slideME", "disabled");
 
     } else if (index == "following"){
         following_page.classList.remove("slide");
-        localStorage.setItem("slideFG", "disabled");
+        sessionStorage.setItem("slideFG", "disabled");
 
     } else if (index == "follower"){
         follower_page.classList.remove("slide");
-        localStorage.setItem("slideFR", "disabled");
+        sessionStorage.setItem("slideFR", "disabled");
 
     } else if (index == "history_chat"){
         history_chat_page.classList.remove("slide");
-        localStorage.setItem("slideHC", "disabled");
+        sessionStorage.setItem("slideHC", "disabled");
 
     } else if (index == "chat"){
         chat_page.classList.remove("slide");
-        localStorage.setItem("slideCH", "disabled");
+        sessionStorage.setItem("slideCH", "disabled");
 
     } else if (index == "upload"){
         upload_page.classList.remove("slide");
-        localStorage.setItem("slideUP", "disabled");
+        sessionStorage.setItem("slideUP", "disabled");
     }
 }
 
 function storage(){
-    const login = localStorage.getItem("slideL");
-    const signup = localStorage.getItem("slideS");
-    const setting = localStorage.getItem("slideSET")
-    const userEdit = localStorage.getItem("slideED")
-    const music = localStorage.getItem("slideMS")
-    const musicEdit = localStorage.getItem("slideME")
-    const following = localStorage.getItem("slideFG")
-    const follower = localStorage.getItem("slideFR")
-    const history_chat = localStorage.getItem("slideHC")
-    const chat = localStorage.getItem("slideCH")
-    const upload = localStorage.getItem("slideUP")
+    console.log("chat slide enabled")
+    const login = sessionStorage.getItem("slideL");
+    const signup = sessionStorage.getItem("slideS");
+    const setting = sessionStorage.getItem("slideSET")
+    const userEdit = sessionStorage.getItem("slideED")
+    const music = sessionStorage.getItem("slideMS")
+    const musicEdit = sessionStorage.getItem("slideME")
+    const following = sessionStorage.getItem("slideFG")
+    const follower = sessionStorage.getItem("slideFR")
+    const history_chat = sessionStorage.getItem("slideHC")
+    const chat = sessionStorage.getItem("slideCH")
+    const upload = sessionStorage.getItem("slideUP")
     
     if (login === "enabled"){
         login_page.classList.add("slide");
@@ -242,4 +243,5 @@ function storage(){
         upload_page.classList.add("slide")
     }
 }
+
 window.onload = storage;

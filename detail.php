@@ -2,11 +2,6 @@
     require "databases/connection.php";
     require "databases/query.php";
 
-    if (!isset($_GET['lagu']) || empty($_GET['lagu'])) {
-        header('Location: index.php'); 
-        exit;
-    }
-
     date_default_timezone_set("Asia/Makassar");
     $waktu = date("Y-m-d H:i");
 
@@ -184,7 +179,7 @@
                 <?php endif;?>
                 <?php endforeach;?>
 
-                <div action="databases/query.php" method="POST" class="send-comment" id="input-comment">
+                <div class="send-comment" id="input-comment">
                     <textarea name="comment" id="comment" cols="30" rows="1" placeholder="Komentar Anda"></textarea>
                     <button type="submit" name="send-comment" id="send-comment"><i class="fa-regular fa-paper-plane-top"></i></button>
                 </div>

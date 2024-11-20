@@ -1,6 +1,8 @@
 <?php
     require "databases/connection.php";
     include "databases/query.php";
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -23,12 +25,13 @@
     <link rel="stylesheet" href="styles/login_signup.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/edit.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/user.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/chat.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <style>
         .header-banner{
             width: 100%;
-            height: 480px;
+            height: calc(100vh - 4rem);
             background-size: cover;
             background: url("<?php if(isset($_SESSION["admin"])) {echo"assets/welcome.jpg";} else if (isset($_SESSION["user"])) {echo"assets/welcome.jpg";} else {echo"assets/join.jpg";}?>");
             background-size: cover;
