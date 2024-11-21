@@ -113,6 +113,3 @@ function toggleNotification() {
         notificationContainer.style.display = "none"; // Sembunyikan notifikasi
     }
 }
-
-// Event listener untuk ikon bell
-document.getElementById("bell-icon").addEventListener("click", toggleNotification);

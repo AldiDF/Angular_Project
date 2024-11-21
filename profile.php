@@ -46,8 +46,8 @@
 <body>
     <?php if (isset($_SESSION["username"])):?>
     <?php include("slide/settings.php")?>
-    <?php include("slide/edit.php")?>
     <?php include("slide/user_music.php")?>
+    <?php include("slide/edit.php")?>
     <?php $akun = select_akun($conn, $_GET["user"]); ?>
     <?php include("slide/following_follower.php")?>
     <?php include("slide/upload_content.php")?>

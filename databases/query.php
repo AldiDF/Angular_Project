@@ -867,5 +867,6 @@
 
     } else if (isset($_POST['edit-music'])) {
         update_lagu($conn, $_GET["lagu"]);
+
     }
 ?>

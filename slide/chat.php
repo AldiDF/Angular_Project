@@ -1,38 +1,16 @@
 <?php
   date_default_timezone_set("Asia/Makassar");
   $waktu = date("Y-m-d H:i:s");
+  $history_chat = select_chat($conn, "", $_SESSION["username"], "");
+
   if (isset($_SESSION["username"])){
-    if (isset($profile)){
-      if ($profile != $_SESSION["username"]){
-        $loadChat = select_chat($conn, "false", $_SESSION["username"], $akun["username"]);
-        $jumlah_chat = count($loadChat);
-        $chatcurr = $akun["username"];
-        $history_chat = select_chat($conn, "", $_SESSION["username"], "");
-        $penerima = $_SESSION["profile"];
-      } else {
-        $history_chat = select_chat($conn, "", $_SESSION["username"], "");
-        $loadChat = select_chat($conn, "false", $_SESSION["username"], $_SESSION["profile"]);
-        $jumlah_chat = count($loadChat);
-      }
-  
-    } else {
-      if (isset($_GET["privatechat"])){
-        $history_chat = select_chat($conn, "", $_SESSION["username"], "");
-        $chatcurr = $_GET["privatechat"];
-        $loadChat = select_chat($conn, "false", $_SESSION["username"], $chatcurr);
-        $jumlah_chat = count($loadChat);
-        $_SESSION["idLast"] = $loadChat[count($loadChat) - 1]["id"];
-        $penerima = $chatcurr;
-      }
-      $history_chat = select_chat($conn, "", $_SESSION["username"], "");
-      $jumlah_chat = 0;
+    if (isset($_POST["currentChat"])){
+      $currentChat = $_POST["currentChat"];
+      $akunChat = select_akun($conn, $currentChat);
+    } else if (isset($profile)){
+      $akunChat = select_akun($conn, $profile);
     }
-
-  } else {
-    $history_chat = select_chat($conn, "", $_SESSION["admin"], "");
-    $jumlah_chat = 0;
   }
-
   
   ?>
 
@@ -73,35 +51,26 @@
     if (event.target.id.includes("pchat_")){
       var currentPage = window.location.pathname;
       var filename = currentPage.split('/').pop();
-      var chatcurr = event.target.id.split('_').pop();
-      console.log(`${filename}?privatechat=${chatcurr}&user=${chatcurr}`);
-      console.log(chatcurr);
-      var pathprofil = `${filename}?privatechat=${chatcurr}&user=<?= $akun['username']?>`;
-      var pathdetail = `${filename}?privatechat=${chatcurr}&lagu=<?= $lagu['lagu']?>`;
-      var pathsearch = `${filename}?privatechat=${chatcurr}&navbar-search=<?= $_GET["navbar-search"]?>`;
-      var path = `${filename}?privatechat=${chatcurr}`;
-      if (currentPage.includes("profile.php")){
-        document.location.href = pathprofil;
-        
-      } else  if (currentPage.includes("detail.php")){
-        document.location.href = pathdetail;
-
-      } else if (currentPage.includes("detail.php")){
-        document.location.href = pathsearch;
-
-      } else {
-        document.location.href = path;
-      }
+      var currentChat = event.target.id.split('_').pop();
+      console.log(`${filename}`);
+      console.log(currentChat);
+      const xhr = new XMLHttpRequest();
+        xhr.open('POST', filename, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log('Response from server:', xhr.responseText);
+          }
+        }
+  
+        const data = `currentChat=${currentChat}`;
+        console.log(data);
+        xhr.send(data);
     }
   })
 
 </script>
-<?php 
-if (isset($chatcurr)){
-  $akunChat = select_akun($conn, $chatcurr);
-  $sessioncurr = select_akun($conn, $_SESSION["username"]);
-}
-  ?>
+
 <div class="chatpg" id="chatpg">
   <div class="title-upper">
       <button class="back-page" onclick="closep('chat'); open_slide('history_chat')"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
@@ -110,6 +79,13 @@ if (isset($chatcurr)){
         <span class="profile-name" id="profile-name"><?= $akunChat["username"]?></span>
       </div>
   </div>
+
+  <?php 
+    $loadChat = select_chat($conn, "false", $_SESSION["username"], $akunChat["username"]);
+    $lastChat = select_chat($conn, "true", $_SESSION["username"], $akunChat["username"]);
+    $jumlah_chat = count($loadChat);
+    $sessioncurr = select_akun($conn, $_SESSION["username"]);
+  ?>
 
   <div class="chat-container">
     <div class="chat-body" id="chat-body">
@@ -141,7 +117,7 @@ if (isset($chatcurr)){
 </div>
 
 <script>
-  let old_chatID = "<?php if ($jumlah_chat == 0) {echo 0;} else {echo $_SESSION["idLast"];}?>";
+  let old_chatID = "<?php if ($jumlah_chat == 0) {echo 0;} else {echo $lastChat;}?>";
   console.log(old_chatID);
   document.getElementById('send-chat').addEventListener('click', function() {
     const commentInput = document.getElementById('chat');
@@ -175,7 +151,7 @@ if (isset($chatcurr)){
         }
     
         const pengirim = "<?= $_SESSION["username"] ?>";
-        const penerima = "<?php if (isset($profile)){echo $akun["username"];} else {echo $penerima;} ?>"
+        const penerima = "<?= $akunChat["username"]?>"
         const waktu = "<?= $waktu ?>";
         const data = `pengirim=${pengirim}&penerima=${penerima}&waktu=${waktu}&pesan=${encodeURIComponent(commentText.replace(/\n/g, '<br>'))}`;
         console.log(data);
@@ -220,7 +196,7 @@ if (isset($chatcurr)){
               }
           };
           const sessionCurr = "<?= $_SESSION["username"]?>";
-          const penerima = "<?= $penerima?>"
+          const penerima = "<?= $akunChat["username"]?>"
           const last = "true";
           xhr.send(`session=${sessionCurr}&penerima=${penerima}&last-chat=${last}`);
       }

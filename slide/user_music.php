@@ -45,13 +45,13 @@
   
   document.addEventListener("click", function(event) {
       if (event.target.id.includes("music+")){
-          var lagucurr = event.target.id.split('+').pop();
-          console.log(lagucurr);
-        var currentPage = window.location.pathname;
-        var filename = "index.php";
-        console.log(`${filename}?editMusik=${lagucurr}&user=${lagucurr}`);
-        var path = `${filename}?editMusik=${lagucurr}`;
-        document.location.href = path;
+            var lagucurr = event.target.id.split('+').pop();
+            console.log(lagucurr);
+            var currentPage = window.location.pathname;
+            var filename = "index.php";
+            console.log(`${filename}?editMusik=${lagucurr}&user=${lagucurr}`);
+            var path = `${filename}?editMusik=${lagucurr}`;
+            document.location.href = path;
 
     }
   })
