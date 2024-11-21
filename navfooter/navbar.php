@@ -1,9 +1,15 @@
+<?php
+if (isset($_SESSION["username"])){
+    $currentSession = select_akun($conn, $_SESSION['username']);
+}
+?>
+
 <?php if (isset($_SESSION["admin"])): ?>
     <?php if (isset($admin)): ?>
         <nav>
             <div class="nav-left">
                 <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
-                <i class="fa-solid fa-bell" style="font-size: 36px"></i>
+                <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
                 <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
@@ -31,7 +37,7 @@
         <nav>
             <div class="nav-left">
                 <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
-                <i class="fa-solid fa-bell" style="font-size: 36px"></i>
+                <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
                 <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
@@ -59,8 +65,8 @@
 <?php elseif (isset($_SESSION["user"])): ?>
         <nav>
             <div class="nav-left">
-            <a href="profile.php?user=<?php echo $_SESSION['username']?>"><i class="fa-regular fa-circle-user" style="font-size: 36px"></i></a>
-                <i class="fa-solid fa-bell" style="font-size: 36px"></i>
+                <a href="profile.php?user=<?php echo $_SESSION['username']?>"><?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='nav-profile-picture'>";}?></a>
+                <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
                 <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
@@ -112,3 +118,14 @@
         </nav>
         <script src="scripts/liveSearching.js?v=<?php echo time(); ?>"></script>
 <?php endif; ?>
+
+
+<div class="notification-container" id="notification-container" style="display: none;">
+    <div class="header">
+        <span>Notifikasi</span>
+        <span class="close-btn" onclick="toggleNotification()">&times;</span>
+    </div>
+    <?php for ($i = 1; $i < 10; $i++): ?>
+    <div class="notification-item"><?= "Notifikasi " . $i + 1;?></div>
+    <?php endfor; ?>
+</div>

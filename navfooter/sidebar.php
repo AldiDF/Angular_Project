@@ -1,8 +1,8 @@
 <?php if (isset($_SESSION["admin"])): ?>
     <div class="off-screen-menu">
+        <?php if (isset($admin)):?>
         <img src="../assets/logo.png" alt="LOGO" class="logo-sidebar">
         <ul>
-            <?php if (isset($admin)):?>
                 <a href="../index.php">
                     <li class="list-sidebar">
                         Beranda <i class="fa-solid fa-house"></i>
@@ -31,7 +31,10 @@
                         Keluar <i class="fa-regular fa-arrow-right-from-bracket"></i>
                     </li>
                 </a>
+        </ul>
             <?php else :?>
+                <img src="assets/logo.png" alt="LOGO" class="logo-sidebar">
+        <ul>
                 <a href="index.php">
                     <li class="list-sidebar">
                         Beranda <i class="fa-solid fa-house"></i>

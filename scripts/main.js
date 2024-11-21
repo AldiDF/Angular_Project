@@ -12,14 +12,30 @@ window.addEventListener("click", (event) => {
     }
 });
 
-function limit_size(event){
+function limit_size(event, img){
     const limit = 12 * 1024 *1024;
     var file = event.target.files[0];
     var path = URL.createObjectURL(event.target.files[0]);
-    var photo = document.getElementById("thumbnail").value;
-    var title = document.getElementById("title-thumbnail");
-    var image = document.getElementById("thumbnail-preview");
-    var ext = file.name.split(".").pop();
+
+    if (img == "upThumbnail"){
+        var photo = document.getElementById("input-thumbnail").value;
+        var title = document.getElementById("title-thumbnail");
+        var image = document.getElementById("thumbnail-preview");
+        var ext = file.name.split(".").pop();
+        console.log(img);
+
+    } else if (img == "editProfile"){
+        var photo = document.getElementById("input-profile").value;
+        var title = document.getElementById("title-profile");
+        var image = document.getElementById("profile-preview");
+        var ext = file.name.split(".").pop();
+
+    } else {
+        var photo = document.getElementById("input-Thumbnail").value;
+        var title = document.getElementById("title-Thumbnail");
+        var image = document.getElementById("Thumbnail-preview");
+        var ext = file.name.split(".").pop();
+    }
 
     if (file.size > limit){
         alert("Maksimal File adalah 12 MB");
@@ -88,30 +104,15 @@ function scrollToBottom() {
 
 document.addEventListener('DOMContentLoaded', scrollToBottom);
 
-function check_follow() {
-    const following = document.getElementById("following-btn");
-    const follower = document.getElementById("follower-btn");
-    const list_following = document.getElementById("list-following");
-    const list_follower = document.getElementById("list-follower");
-
-    if (localStorage.getItem("following") === "true") {
-        follower.classList.remove("follow-active")
-        following.classList.add("follow-active")
-        list_following.style.display = "block"
-        list_follower.style.display = "none"
-        following.style.color = "#f3f3f3"
-        follower.style.color = "#303841"
-        
-        
-
-    } else if (localStorage.getItem("follower") === "true") {
-        following.classList.remove("follow-active")
-        follower.classList.add("follow-active")
-        list_follower.style.display = "block"
-        list_following.style.display = "none"
-        following.style.color = "#303841"
-        follower.style.color = "#f3f3f3"
+// Fungsi untuk toggle (menampilkan/menghilangkan) notifikasi
+function toggleNotification() {
+    const notificationContainer = document.getElementById("notification-container");
+    if (notificationContainer.style.display === "none" || notificationContainer.style.display === "") {
+        notificationContainer.style.display = "block"; // Tampilkan notifikasi
+    } else {
+        notificationContainer.style.display = "none"; // Sembunyikan notifikasi
     }
 }
 
-check_follow()
+// Event listener untuk ikon bell
+document.getElementById("bell-icon").addEventListener("click", toggleNotification);

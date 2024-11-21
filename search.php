@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="styles/transition.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/sidebar.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/navfooter.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/edit.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/chat.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -33,9 +35,8 @@
     <?php include("slide/upload_content.php")?>
     <?php if (isset($_SESSION["user"])):?>
         <?php include("slide/settings.php")?>
-        <?php include("slide/edit.php")?>
         <?php include("slide/user_music.php")?>
-        <?php include("slide/following_follower.php")?>
+        <?php include("slide/edit.php")?>
         <?php include("slide/chat.php")?>
     <?php if (isset($_SESSION["admin"]))?>
         <?php include("slide/chat.php")?>
@@ -60,7 +61,7 @@
                 </a>
             <?php else:?>
                 <a href="profile.php?user=<?= $result['username']?>" class="account-container">
-                    <i class="fa-solid fa-circle-user"></i>
+                <?php if ($result["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $result["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
                     <figcaption class="identifier-container">
                         <h1><?= $result["username"]?></h1>
                     </figcaption>

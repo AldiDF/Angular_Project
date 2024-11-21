@@ -84,3 +84,10 @@ h3{
 .profile-content-container{
     margin: 50px 40px;
 }
+
+.picture{
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    border: 5px #303841 solid;
+}

@@ -15,10 +15,15 @@
     <div class="list-follow" id="list-following">
         <p>Akun yang diikuti</p>
     <?php foreach($mengikuti as $mengikuti):?>
-        <a href="profile.php" class="account-container">
-            <i class="fa-solid fa-circle-user"></i>
+        <a href="profile.php?user=<?= $mengikuti["objek"]?>" class="account-container" onclick="closep('following')">
+            <?php $akun_mengikuti = select_akun($conn, $mengikuti["objek"])?>
+            <?php if ($akun_mengikuti['foto'] == ""):?>
+                <img src="assets/default.jpg" alt="profile-picture">
+            <?php else: ?>
+                <img src="databases/profile/<?php echo $akun_mengikuti['foto']?>" alt="profile-picture">
+            <?php endif;?>
             <figcaption class="identifier-container">
-                <h1><?= $mengikuti["objek"]?></h1>
+                <h1><?= $akun_mengikuti["username"]?></h1>
             </figcaption>
         </a>
     <?php endforeach;?>
@@ -27,15 +32,50 @@
     <div class="list-follow" id="list-follower">
         <p>Akun yang mengikuti</p>
     <?php foreach($pengikut as $pengikut):?>
-        <a href="profile.php" class="account-container">
-            <i class="fa-solid fa-circle-user"></i>
+        <a href="profile.php?user=<?= $pengikut["subjek"]?>" class="account-container" onclick="closep('following')">
+            <?php $akun_pengikut = select_akun($conn, $pengikut["subjek"])?>
+            <?php if ($akun_pengikut['foto'] == ""):?>
+                <img src="assets/default.jpg" alt="profile-picture">
+            <?php else: ?>
+                <img src="databases/profile/<?php echo $akun_pengikut['foto']?>" alt="profile-picture">
+            <?php endif;?>
             <figcaption class="identifier-container">
-                <h1><?= $pengikut["subjek"]?></h1>
+                <h1><?= $akun_pengikut["username"]?></h1>
             </figcaption>
         </a>
     <?php endforeach;?>
     </div>
 </div>
+
+<script>
+    function check_follow() {
+    const following = document.getElementById("following-btn");
+    const follower = document.getElementById("follower-btn");
+    const list_following = document.getElementById("list-following");
+    const list_follower = document.getElementById("list-follower");
+
+    if (localStorage.getItem("following") === "true") {
+        follower.classList.remove("follow-active")
+        following.classList.add("follow-active")
+        list_following.style.display = "block"
+        list_follower.style.display = "none"
+        following.style.color = "#f3f3f3"
+        follower.style.color = "#303841"
+        
+        
+
+    } else if (localStorage.getItem("follower") === "true") {
+        following.classList.remove("follow-active")
+        follower.classList.add("follow-active")
+        list_follower.style.display = "block"
+        list_following.style.display = "none"
+        following.style.color = "#303841"
+        follower.style.color = "#f3f3f3"
+    }
+}
+
+check_follow()
+</script>
 
 <div class="followerpg">
     <div class="title-upper">

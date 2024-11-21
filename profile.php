@@ -2,14 +2,27 @@
     require "databases/connection.php";
     include "databases/query.php";
     
-    $profile = $_SESSION["username"];
-    $lagu = select_lagu($conn, "ACCEPT", $_GET["user"]);
-    $akun = select_akun($conn, $_GET["user"]);
-    $jumlah_lagu = count($lagu);
-    $jumlah_follower = num_row($conn,"follow", "objek", $akun["username"]);
-    $jumlah_following = num_row($conn, "follow", "subjek", $akun["username"]);
-    $jumlah_like = total_like($conn, $akun["username"]);
-    $isFollow = checkFollow($conn ,$akun["username"] ,$_SESSION["username"]);    
+    $profile = $_GET["user"];
+    if (isset($_GET["user"])){
+        if (isset($_SESSION["username"])){
+            $lagu = select_lagu($conn, "ACCEPT", $_GET["user"]);
+            $akun = select_akun($conn, $_GET["user"]);
+            $jumlah_lagu = count($lagu);
+            $jumlah_follower = num_row($conn,"follow", "objek", $akun["username"]);
+            $jumlah_following = num_row($conn, "follow", "subjek", $akun["username"]);
+            $jumlah_like = total_like($conn, $akun["username"]);
+            $isFollow = checkFollow($conn ,$akun["username"] ,$_SESSION["username"]);    
+            $_SESSION["profile"] = $akun["username"];
+        } else {
+            $lagu = select_lagu($conn, "ACCEPT", $_GET["user"]);
+            $akun = select_akun($conn, $_GET["user"]);
+            $jumlah_lagu = count($lagu);
+            $jumlah_follower = num_row($conn,"follow", "objek", $akun["username"]);
+            $jumlah_following = num_row($conn, "follow", "subjek", $akun["username"]);
+            $jumlah_like = total_like($conn, $akun["username"]);
+        }
+
+    }
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +44,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
+    <?php if (isset($_SESSION["username"])):?>
     <?php include("slide/settings.php")?>
     <?php include("slide/edit.php")?>
     <?php include("slide/user_music.php")?>
@@ -38,8 +52,12 @@
     <?php include("slide/following_follower.php")?>
     <?php include("slide/upload_content.php")?>
     <?php include("slide/chat.php")?>
-    <?php include("navfooter/navbar.php")?>
-    <?php include("navfooter/sidebar.php")?>
+    <?php else:?>
+        <?php include("slide/chat.php")?>
+        <?php include("slide/following_follower.php")?>    
+    <?php endif;?>
+        <?php include("navfooter/sidebar.php")?>
+        <?php include("navfooter/navbar.php")?>
 
     <?php $akun = select_akun($conn, $_GET["user"]); ?>
     <?php $lagu = select_lagu($conn, "ACCEPT", $_GET["user"]); ?>
@@ -48,9 +66,9 @@
             <div class="biography-upper">
                 <div class="profile-picture">
                     <?php if ($akun['foto'] == ""):?>
-                        <i class="fa-regular fa-circle-user" style="font-size: 200px"></i>
+                        <img src="assets/default.jpg" alt="profile-picture" class="picture">
                     <?php else: ?>
-                        <img src="databases/profile_picture/<?php echo $akun['foto']?>" alt="profile-picture" class="picture">
+                        <img src="databases/profile/<?php echo $akun['foto']?>" alt="profile-picture" class="picture">
                     <?php endif;?>
                 </div>
                 <div class="biography">
@@ -65,6 +83,7 @@
                     <p><?= $jumlah_following?></p>
                 </div>
                 <div class="mid-action">
+                    <?php if (isset($_SESSION["user"])):?>
                     <?php if ($akun["username"] == $_SESSION["username"]):?>
                         <button class="button-setting" onclick="open_slide('setting')">Pengaturan</button>
                     <?php else:?>
@@ -75,6 +94,10 @@
                             <a href="databases/query.php?follow=true&objek=<?= $akun["username"]?>&subjek=<?= $_SESSION["username"]?>"><button class="button-setting">Ikuti</button></a>
                         <?php endif;?>
                     <?php endif;?>
+                    <?php else:?>
+                        <button class="button-setting" id="chat_<?= $akun["username"]?>" onclick="open_slide('chat')">Pesan</button>
+                    <?php endif;?>
+
                 </div>
                 <div class="follow-container">
                     <button class="button-follow" onclick="open_slide('following'), follow('follower')">Pengikut</button>
@@ -106,7 +129,7 @@
                             <img src="<?php echo $direktori?>" alt="gambar-konten" class="thumbnail">
                             <figcaption class="caption-content">
                                 <figure class="owner-content">
-                                    <i class="fa-solid fa-circle-user" style="font-size: 36px"></i>
+                                    <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
                                     <figcaption class="owner-name"><?php echo $lagu["user"]?></figcaption>
                                 </figure>
                                 <p><?php echo $lagu["judul"] ?></p>

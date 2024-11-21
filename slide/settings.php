@@ -1,5 +1,5 @@
 <?php
-    $akun = select_akun($conn, $_SESSION["username"]);
+    $currentSession = select_akun($conn, $_SESSION["username"]);
 ?>
 
 <div class="settingspg">
@@ -8,9 +8,7 @@
         <h1 style="text-align: center">PENGATURAN</h1>
     </div>
     <div class="setting-page">
-        <div class="profile-container">
-            <i class="fa-light fa-circle-user"></i>
-        </div>
+        <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='setting-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='setting-profile-picture'>";}?>
         <div class="setting-container">
             <form action="databases/query.php?akun=<?= $_SESSION["username"]?>" method="POST" class="pripub-btn">
                 <button type="submit" name="private" class="private-btn" id="private" onclick="pripub('private')">PRIVAT</button>
@@ -18,8 +16,8 @@
             </form>
     
             <button class="li-btn" onclick="open_slide('music')">KELOLA LAGU</button>
-            <button class="li-btn" onclick="open_slide('userEdit')">UBAH AKUN</button>
-            <button class="li-btn">HAPUS AKUN</button>
+            <button class="li-btn" onclick="open_slide('userEdit')">EDIT AKUN</button>
+            <button class="li-btn" onclick="confirm_delete()">HAPUS AKUN</button>
             <a href="databases/query.php?logout=true" onclick="closep('setting')"><button class="li-btn">KELUAR AKUN</button></a>
         </div>
     </div>
@@ -45,9 +43,23 @@
         }
     }
 
-    if ("<?= $akun["stats"]?>" === "PRIVATE"){
+    if ("<?= $currentSession["stats"]?>" === "PRIVATE"){
         pripub("private")
     } else {
         pripub("public")
+    }
+
+    function confirm_delete(){
+        var test = confirm("Apakah anda yakin ingin menghapus akun anda?");
+        if (test == true){
+            var conf = prompt("Ketik 'HAPUS AKUN SAYA' untuk menghapus akun anda dan ketik 'BATAL' untuk membatalkan");
+            if (conf == "HAPUS AKUN SAYA"){
+                alert("Akun anda telah dihapus");
+                return;
+            }
+            
+        } else{
+            return;
+        }
     }
 </script>

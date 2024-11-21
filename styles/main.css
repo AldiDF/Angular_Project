@@ -20,40 +20,102 @@ button{
 }
 
 .footer-banner{
-    width: auto;
-    height: 480px;
-    background: url("../assets/upload.jpg") no-repeat;
+    width: 100%;
+    height: calc(100vh - 57px);
     background-size: cover;
     background-position: center;
     display: flex;
     margin-bottom: 0;
     padding: 0;
+    position: relative;
 }
 
-.button-banner{
+.button-banner {
     display: flex;
-    background-color: #f3f3f3;
-    border: 2px #303841 solid;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 350px;
-    margin-bottom: auto;
-    width: 120px;
-    height: 60px;
-    align-items: center;   
-    font-size: 16px;
-    justify-content: center;
+    margin: 420px auto auto auto;
+    padding: 15px 40px;
+    outline: none;
+    color: #303841;
     cursor: pointer;
-    border-radius: 2px;
+    position: relative;
+    z-index: 0;
+    border-radius: 12px;
+    font-weight: 600;
 }
+
+.button-banner::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, cyan, yellow,magenta,  cyan);
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+    animation: pp 10s linear infinite;
+    transition: opacity .3s ease-in-out;
+    filter: blur(8px);
+}
+/* glow */
+.button-banner::before {
+    content: "";
+    background: linear-gradient(
+      45deg,
+      #FF0000, #FF7300, #FFFB00, #48FF00,
+      #00FFD5, #002BFF, #FF00C8, #FF0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 600%;
+    z-index: -1;
+    width: calc(100% + 4px);
+    height:  calc(100% + 4px);
+    filter: blur(8px);
+    animation: glowing 10s linear infinite;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+    opacity: 0;
+}
+
+@keyframes glowing {
+    0% {background-position: 0 0;}
+    50% {background-position: 400% 0;}
+    100% {background-position: 0 0;}
+}
+
+@keyframes pp {
+    0% {background-position: 0 0;}
+    50% {background-position: 400% 0;}
+    100% {background-position: 0 0;}
+}
+
+/* hover */
+.button-banner:hover::before {
+    opacity: 1;
+}
+.button-banner:active:after {
+    background: transparent;
+}
+.button-banner:active {
+    color: #000;
+    font-weight: bold;
+}
+
 a{
     text-decoration: none;
     
 }
 
+.recomend{
+    margin: 20px 0 5px 0;
+}
+
 .title-upper{
     margin: 20px;
     max-height: 80px;
+    min-height: 34px;
 }
 
 .title-upper h1{
@@ -63,6 +125,7 @@ a{
 
 .back-page{
     position: absolute;
+    border: none;
 }
 
 .back-page:hover{
@@ -70,12 +133,6 @@ a{
     background-color: rgb(70, 70, 70);
     border-radius: 5px;
     
-}
-
-.button-banner:hover{
-    background-color: #303841;
-    color: #f3f3f3;
-    border-radius: 2px;
 }
 
 .create-account-button{
@@ -99,9 +156,8 @@ a{
 .list-content-container{
     flex-direction: column;
     gap: 10px;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    width: auto;
+    margin: 0 40px;
 }
 
 .content-container{
@@ -121,8 +177,8 @@ a{
 }
 
 .thumbnail{
-    width: 293.3px;
-    height: 200px;
+    width: 240px;
+    height: 146.7px;
     border: 1px #303841 solid;
     border-radius: 10px;
     margin: 10px;
@@ -229,6 +285,11 @@ a{
     max-width: 400px;
 }
 
+.li-btn:hover:nth-child(4){
+    background-color: red;
+    color: #f3f3f3;
+}
+
 .li-btn:hover{
     background-color: #303841;
     color: #f3f3f3;
@@ -246,8 +307,8 @@ a{
     padding: 20px;
 }
 
-.form-container input[type="text"]{
-    width: 94%;
+/* .form-container input[type="text"]{
+    width: 429px;
     height: auto;
     border: 1px #303841 solid;
     border-radius: 6px;
@@ -255,20 +316,24 @@ a{
     font-size: 14px;
     margin-left: auto;
     margin-right: auto;
-}
+    background-color: #f3f3f3;
+} */
 
-.profile-container i{
-    font-size: 200px;
-    color: #303841;
+.setting-profile-picture{
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    border: 2px #303841 solid;
 }
 
 .input-th{
     opacity: 0;
+    display: none;
 }
 
 .input-thumbnail{
-    width: 293.3px;
-    height: 200px;
+    width: 240px;
+    height: 146.7px;
     border: 1px #303841 solid;
     border-radius: 10px;
     margin: 10px auto;
@@ -322,6 +387,11 @@ a{
     width: 100%;
     height: 100%;
     display: none;
+}
+
+.thumbnail-review{
+    width: 100%;
+    height: 100%;
 }
 
 .comment-section{
@@ -554,6 +624,11 @@ a{
     background-color: #f3f3f3;
 }
 
+.comment-section button, .main-content button{
+    background: none;
+    border: none;
+}
+
 .click-lyric{
     height: 60%;
     width: 95%;
@@ -587,9 +662,12 @@ a{
     background-color: rgba(0, 0, 0, 0.279);
 }
 
-.account-container i{
-    font-size: 150px;
+.account-container img{
+    height: 150px;
+    width: 150px;
     margin: 20px;
+    border: 2px #303841 solid;
+    border-radius: 100%;
 }
 
 .list-follow{

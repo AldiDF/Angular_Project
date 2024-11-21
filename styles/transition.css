@@ -51,7 +51,9 @@ body {
   right:-100%;
   flex-direction: column;
   transition: 1s ease;
-  z-index: 5;
+  z-index: 6;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 .manage-musicpg{
@@ -65,6 +67,8 @@ body {
   flex-direction: column;
   transition: 1s ease;
   z-index: 5;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 .edit-musicpg{
@@ -78,6 +82,8 @@ body {
   flex-direction: column;
   transition: 1s ease;
   z-index: 6;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 .followingpg{

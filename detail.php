@@ -6,11 +6,19 @@
     $waktu = date("Y-m-d H:i");
 
     if (isset($_GET["lagu"])){
-        $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
-        $jumlah_like = num_row($conn, "like_content", "objek", $_GET["lagu"]);
-        $jumlah_komen = num_row($conn, "comment", "lagu", $_GET["lagu"]);
-        $komen = select_komen($conn, $_GET["lagu"], false);
-        $like = select_like($conn, $_GET["lagu"], $_SESSION["username"]);
+        if (isset($_SESSION["username"])){
+            $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
+            $jumlah_like = num_row($conn, "like_content", "objek", $_GET["lagu"]);
+            $jumlah_komen = num_row($conn, "comment", "lagu", $_GET["lagu"]);
+            $komen = select_komen($conn, $_GET["lagu"], false);
+            $like = select_like($conn, $_GET["lagu"], $_SESSION["username"]);
+        } else {
+            $komen = select_komen($conn, $_GET["lagu"], false);
+            $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
+            $jumlah_like = num_row($conn, "like_content", "objek", $_GET["lagu"]);
+            $jumlah_komen = num_row($conn, "comment", "lagu", $_GET["lagu"]);
+            $_SESSION["username"] = "";
+        }
 
     } else {
         echo "
@@ -33,6 +41,8 @@
     <link rel="stylesheet" href="styles/sidebar.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/navfooter.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/profile.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/edit.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/chat.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -63,19 +73,32 @@
     </style>
 </head>
 <body>
+    <?php if (isset($_SESSION["username"])):?>
     <?php include("slide/settings.php")?>
     <?php include("slide/edit.php")?>
     <?php include("slide/user_music.php")?>
-    <?php include("slide/following_follower.php")?>
     <?php include("slide/chat.php")?>
     <?php include("slide/upload_content.php")?>
     <?php include("navfooter/sidebar.php")?>
     <?php include("navfooter/navbar.php")?>
+    <?php else:?>
+    <?php include("slide/chat.php")?>
+    <?php endif;?>
 
+
+    <?php 
+    $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
+    $akun = select_akun($conn, $lagu["user"]);
+    $jumlah_follower = num_row($conn,"follow", "objek", $akun["username"]);
+ ?>
     <main>
     <section class="main-content" id="main-content">
         <div class="owner-content">
-            <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
+            <?php if ($akun['foto'] == ""):?>
+                <img src="assets/default.jpg" alt="profile-picture" class="picture">
+            <?php else: ?>
+                <img src="databases/profile/<?php echo $akun['foto']?>" alt="profile-picture" class="nav-profile-picture">
+            <?php endif;?>
             <div class="owner-name"><?php echo $lagu["user"]?></div>
         </div>
         <div class="click-lyric" onclick="show_lyric()"></div>
@@ -115,6 +138,7 @@
                 <div class="info-specify">
                     <div class="info-center">
                         <div>
+                            <?php if ($_SESSION["username"] != ""):?>
                             <?php if ($like == 1):?>
                                 <button type="submit" name="unsend-like" onclick="cancel_like()" id="liked">
                                     <i class="fa-solid fa-heart"></i>
@@ -130,6 +154,12 @@
                                     <i class="fa-solid fa-heart"></i>
                                 </button>
                             <?php endif;?>
+                            <?php else :?>
+                                <button type="submit" name="send-like" id="like">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button>
+                            <?php endif;?>
+
                         </div>
                         <div><p id="like-count"><?php echo $jumlah_like?></p></div>
                     </div>
@@ -139,7 +169,7 @@
                     </div>
                     <div class="info-center">
                         <i class="fa-solid fa-user"></i>
-                        <div><p>123</p></div>
+                        <div><p><?= $jumlah_follower?></p></div>
                     </div>
                 </div>
                 <div class="report">
@@ -156,7 +186,7 @@
                     <div class="comment-right" id="comment-right">
                         <div class="comment-owner">
                             <div><?= $komen["user"]?></div>
-                            <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
+                            <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
                             
                         </div>
                         <div class="comment-content-right" id="<?= "komen_" . $komen["id"]?>">
@@ -167,7 +197,8 @@
                 <?php else:?>
                     <div class="comment-left">
                         <div class="comment-owner">
-                            <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
+                            <?php $akun_komen = select_akun($conn, $komen['user'])?>
+                            <?php if ($akun_komen["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akun_komen["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
                             <div><?= $komen["user"]?></div>
 
                         </div>
@@ -209,6 +240,7 @@
             });
         });
 
+        <?php if (isset($_SESSION["username"])):?>
         document.getElementById('send-comment').addEventListener('click', function() {
             const commentInput = document.getElementById('comment');
             const commentText = commentInput.value.trim();
@@ -226,7 +258,7 @@
                         newComment.innerHTML = `
                             <div class="comment-owner">
                                 <div><p><?= $_SESSION["username"]?></p></div>
-                                <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
+                                <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
 
                             </div>
                             <div class="comment-content-right">
@@ -275,7 +307,7 @@
                         newComment.classList.add('comment-left');
                         newComment.innerHTML = `
                             <div class="comment-owner">
-                                <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
+                                <?php if ($akun_komen["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akun_komen["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
                                 <div><p>${newComments.user}</p></div>
                             </div>
                             <div class="comment-content">
@@ -343,6 +375,7 @@
             const username = "<?= $_SESSION['username'] ?>";
             xhr.send(`lagu=${lagu}&username=${username}`);
         }
+        <?php endif;?>
 
         function show_lyric(){
             const mainContentContainer = document.getElementById('main-content');

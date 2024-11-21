@@ -30,14 +30,12 @@
         if ($sql_insert_akun) {
             echo "
                 <script>
-                    alert('Berhasil Membuat Akun');
                     document.location.href = '../index.php';
                 </script>
             ";
         } else {
             echo "
                 <script>
-                    alert('Gagal Membuat Akun');
                     document.location.href = '../index.php';
                 </script>
             ";
@@ -51,7 +49,6 @@
             $_SESSION["admin"] = true;
             echo "
                 <script>
-                    alert('Login Berhasil');
                     document.location.href = '../index.php';
                 </script>
             ";
@@ -66,7 +63,6 @@
                 $_SESSION["username"] = $akun[$count]["username"];
                 echo "
                     <script>
-                        alert('Login Berhasil');
                         document.location.href = '../index.php';
                     </script>
                 ";
@@ -234,14 +230,12 @@
             if ($update_status){
                 echo "
                     <script>
-                        alert('Berhasil mengubah status');
                         document.location.href = '../admin/manage_permission.php';
                     </script>
                 ";
             } else {
                 echo "
                     <script>
-                        alert('Gagal mengubah status');
                         document.location.href = '../admin/manage_permission.php';
                     </script>
                 ";
@@ -251,14 +245,12 @@
             if ($update_status){
                 echo "
                     <script>
-                        alert('Berhasil mengubah status');
                         document.location.href = '../admin/manage_permission.php';
                     </script>
                 ";
             } else {
                 echo "
                     <script>
-                        alert('Gagal mengubah status');
                         document.location.href = '../admin/manage_permission.php';
                     </script>
                 ";
@@ -506,6 +498,163 @@
         }
     }
 
+    function editAkun($conn, $fullName, $email, $newPassword = null) {
+        date_default_timezone_set("Asia/Makassar");
+        $waktu = date("Y-m-d H.i.s");
+
+        $oldUsername = $_SESSION["username"];
+        $akun = select_akun($conn, $oldUsername);
+        $oldFoto = $akun["foto"];
+
+        $foto = $_FILES["profile-pic"]["name"];
+        $temp = $_FILES["profile-pic"]["tmp_name"];
+        $deskripsi = $_POST["desc"];
+
+        $ekstensi = explode('.', $foto);
+        $ekstensi = strtolower(end($ekstensi));
+        $namabaru = $_SESSION["username"] ."_". date("Y-m-d H.i.s") . "." . $ekstensi;
+        $direktori = "profile/" . $namabaru;
+        
+        if (move_uploaded_file($temp, $direktori)){
+            unlink("profile/" . $akun["foto"]);
+            if (!empty($newPassword)) {
+                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $query = "UPDATE account SET 
+                            nama_lengkap = '$fullName', 
+                            email = '$email', 
+                            pasword = '$hashedPassword', 
+                            deskripsi = '$deskripsi',
+                            foto = '$namabaru'
+                          WHERE username = '$oldUsername'";
+            } else {
+                $query = "UPDATE account SET 
+                            username = '$username',
+                            nama_lengkap = '$fullName', 
+                            email = '$email',
+                            deskripsi = '$deskripsi',
+                            foto = '$namabaru'
+                          WHERE username = '$oldUsername'";
+            }
+
+            $result = mysqli_query($conn, $query);
+            if($result){
+                echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+                ";
+            }else{
+                echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+                ";
+            }
+        } else {
+            if (!empty($newPassword)) {
+                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $query = "UPDATE account SET 
+                            nama_lengkap = '$fullName', 
+                            email = '$email', 
+                            pasword = '$hashedPassword', 
+                            deskripsi = '$deskripsi',
+                            foto = '$oldFoto'
+                          WHERE username = '$oldUsername'";
+            } else {
+                $query = "UPDATE account SET 
+                            nama_lengkap = '$fullName', 
+                            email = '$email',
+                            deskripsi = '$deskripsi',
+                            foto = '$oldFoto'
+                          WHERE username = '$oldUsername'";
+            }
+
+            $result = mysqli_query($conn, $query);
+            if($result){
+                echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+                ";
+            }else{
+                echo "
+                <script>
+                    document.location.href = '../index.php';
+                </script>
+                ";
+            }
+        }
+    }
+
+    function update_lagu($conn, $lagu){
+        date_default_timezone_set("Asia/Makassar");
+        $waktu = date("Y-m-d H.i.s");
+        $lagu = $_GET["lagu"];
+        $select_lagu = select_lagu_spesifik($conn, $lagu);
+        $direktoriLama = $select_lagu["thumbnail"];    
+
+        $judul = $_POST["edit-title"];
+        $lirik = $_POST["edit-lyrics"];
+        $deskripsi = $_POST["edit-description"];
+        $thumbnail = $_FILES["input-Thumbnail"]["name"];
+        $temp = $_FILES["input-Thumbnail"]["tmp_name"];
+
+        $ekstensi = explode('.', $thumbnail);
+        $ekstensi = strtolower(end($ekstensi));
+        $namaBaru_thumbnail = $_SESSION["username"] . "_" . $waktu . "." . $ekstensi;
+        $direktori_thumbnail = 'thumbnail/' . $namaBaru_thumbnail;
+
+        if ($thumbnail == ""){
+            $query = "UPDATE content SET judul = '$judul', lirik = '$lirik', deskripsi = '$deskripsi' WHERE lagu = '$lagu'";
+            $result = mysqli_query($conn, $query);
+            if($result){
+                echo "
+                <script>
+                    window.location.href = '../index.php';
+                </script>
+                ";
+            }else{
+                echo "
+                <script>
+                    window.location.href = '../index.php';
+                </script>
+                ";
+            }
+
+        } else {
+            $query = "UPDATE content SET thumbnail = '$namaBaru_thumbnail', judul = '$judul', lirik = '$lirik', deskripsi = '$deskripsi' WHERE lagu = '$lagu'";
+            unlink("thumbnail/" . $direktoriLama);
+
+            if (move_uploaded_file($temp, $direktori_thumbnail)){
+                $result = mysqli_query($conn, $query);
+                if($result){
+                    echo "
+                    <script>
+                        window.location.href = '../index.php';
+                    </script>
+                    ";
+                }else{
+                    echo "
+                    <script>
+                        window.location.href = '../index.php'; 
+                    </script>
+                    ";
+                }
+            }
+        }
+    
+    }
+
+    function recomendation($conn){
+        $query = "SELECT * FROM content WHERE stats = 'ACCEPT' ORDER BY lagu DESC LIMIT 3";
+        $result = mysqli_query($conn, $query);
+        $lagu = [];
+        while ($row = mysqli_fetch_assoc($result)){
+            $lagu[] = $row;
+        }
+        return $lagu;
+    }
+
     if (isset($_POST["signup"])){
         insert_akun($_POST["username"], $_POST["full-name"], $_POST["email"], $_POST["password"], $conn);
         
@@ -517,7 +666,6 @@
         session_destroy();
         echo "
         <script>
-            alert('Anda telah logout');
             document.location.href = '../index.php';
         </script>
         ";
@@ -603,5 +751,15 @@
         if ($last == "true"){
             select_chat($conn, "true", $_POST["session"], $_POST["penerima"]);
         }
+
+    } else if (isset($_POST['edit-account'])) {
+        $fullName = $_POST['full-name'];
+        $email = $_POST['email'];
+        $password = $_POST['password']; 
+    
+        editAkun($conn, $fullName, $email, $password);
+
+    } else if (isset($_POST['edit-music'])) {
+        update_lagu($conn, $_GET["lagu"]);
     }
 ?>
