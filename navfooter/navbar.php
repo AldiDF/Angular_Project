@@ -1,7 +1,9 @@
 <?php
 if (isset($_SESSION["username"])){
     $currentSession = select_akun($conn, $_SESSION['username']);
+    $select_notif = select_notif($conn, $_SESSION['username']);
 }
+
 ?>
 
 <?php if (isset($_SESSION["admin"])): ?>
@@ -125,7 +127,7 @@ if (isset($_SESSION["username"])){
         <span>Notifikasi</span>
         <span class="close-btn" onclick="toggleNotification()">&times;</span>
     </div>
-    <?php for ($i = 1; $i < 10; $i++): ?>
-    <div class="notification-item"><?= "Notifikasi " . $i + 1;?></div>
-    <?php endfor; ?>
+    <?php foreach($select_notif as $notif): ?>
+    <div class="notification-item"><?= $notif["isi_notif"]?></div>
+    <?php endforeach; ?>
 </div>

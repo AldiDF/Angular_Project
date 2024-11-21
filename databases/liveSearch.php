@@ -125,17 +125,19 @@
             </thead>
             <tbody>
                 <?php $i = 1; foreach($akun as $acc): ?>
-                <?php $direktori = "../databases/profile_picture/" . $acc["foto"];?>
+                <?php $direktori = "../databases/profile/" . $acc["foto"];?>
                 <tr>
                     <td><?php echo $i . ".";?></td>
-                    <td><?php if ($acc["foto"] == "") {echo "<i class='fa-light fa-circle-user' style='font-size: 50px;'></i>";} else {echo "<img src='$direktori' alt='profile-picture' class='profile-user'>";}?></td>
+                    <td><?php if ($acc["foto"] == "") {echo"<img src='../assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='$direktori' alt='profile' class='nav-profile-picture'>";}?></td>
                     <td><?php echo $acc["username"]?></td>
                     <td><?php echo $acc["email"]?></td>
                     <td>
                         <div class="action-button">
-                            <button class="edit-icon">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
+                            <a href="../profile.php?user=<?= $acc["username"]?>">
+                                <button class="edit-icon">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </a>
                             <a href="../databases/query.php?delete=true&session=admin&username=<?php echo $acc['username']?>" onclick="return confirm('Yakin ingin menghapus akun ini?')">
                                 <button class="delete-icon">
                                     <i class="fa-light fa-trash-can"></i>
@@ -229,9 +231,11 @@
                     <td><?php echo $lagu["user"]?></td>
                     <td>
                         <div class="action-button">
-                            <button class="edit-icon">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
+                            <a href="../detail.php?lagu=<?= $lagu["lagu"]?>">
+                                <button class="edit-icon">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </a>
                             <a href="../databases/query.php?delete_lagu=true&session=admin&lagu=<?php echo $lagu['lagu']?>" onclick="return confirm('Yakin ingin menghapus lagu ini?')">
                                 <button class="delete-icon">
                                     <i class="fa-light fa-trash-can"></i>

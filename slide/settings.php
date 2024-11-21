@@ -52,10 +52,10 @@
     function confirm_delete(){
         var test = confirm("Apakah anda yakin ingin menghapus akun anda?");
         if (test == true){
-            var conf = prompt("Ketik 'HAPUS AKUN SAYA' untuk menghapus akun anda dan ketik 'BATAL' untuk membatalkan");
+            var conf = prompt("Ketik 'HAPUS AKUN SAYA' untuk menghapus akun anda");
             if (conf == "HAPUS AKUN SAYA"){
-                alert("Akun anda telah dihapus");
-                return;
+                document.location.href = "databases/query.php?delete-akun=true&session=user&username=<?=$_SESSION["username"]?>";
+
             }
             
         } else{

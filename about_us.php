@@ -10,11 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <?php if (isset($_SESSION["admin"])):?>
-        <title>Beranda - ADMIN</title>
+        <title>Tentang Kamin - ADMIN</title>
     <?php elseif(isset($_SESSION["user"])):?>
-        <title>Beranda - <?php echo $_SESSION["username"]?></title>
+        <title>Tentang Kamin - <?php echo $_SESSION["username"]?></title>
     <?php else:?>
-        <title>Beranda</title>
+        <title>Tentang Kamin</title>
     <?php endif;?>
     <link rel="stylesheet" href="styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/transition.css?v=<?php echo time(); ?>">

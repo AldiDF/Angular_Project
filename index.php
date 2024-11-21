@@ -141,10 +141,10 @@
         </section>
         <section class="footer-banner">
             <div class="footer-banner-slide" style="background-image: url('assets/p.jpg');">
-                <button class="button-banner">Upload Lagu</button>
+                <button class="button-banner" onclick="open_slide('upload')">Upload Lagu</button>
             </div>
             <div class="footer-banner-slide" style="background-image: url('assets/p1.jpg');">
-                <button class="button-banner">Upload Lagu</button>
+                <button class="button-banner" onclick="open_slide('upload')">Upload Lagu</button>
             </div>
         </section>
     </main>

@@ -31,9 +31,10 @@
                 <div class="edit-button" title="Edit" id="music+<?= $lagu['lagu']?>" onclick="open_slide('musicEdit'); closep('music'); closep('setting')">
                     <i class="fa-solid fa-pen-to-square" id="music+<?= $lagu['lagu']?>" onclick="open_slide('musicEdit'); closep('music'); closep('setting')"></i>
                 </div>
-                <div onclick="return confirm('Yakin ingin menghapus lagu ini?')" class="delete-button" title="Hapus">
-                    <i class="fa-light fa-trash-can"></i>
-                </div>
+                <form action="databases/query.php?delete_lagu=true&lagu=<?= $lagu['lagu']?>" onclick="return confirm('Yakin ingin menghapus lagu ini?')"  title="Hapus">
+                    <button type="submit" class="delete-button"><i class="fa-light fa-trash-can"></i></button>
+                    
+                </form>
             </div>
         </div>
         <?php endforeach;?>

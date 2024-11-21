@@ -208,12 +208,13 @@ a{
 }
 
 .about-us{
-    margin: 40px 70px;
+    margin: 40px;
     text-align: justify;
 }
 
 .about-us p{
     line-height: 1.5;
+    text-indent: 40px;
 }
 
 .main-logo{
@@ -283,6 +284,11 @@ a{
     cursor: pointer;
     color: #303841;
     max-width: 400px;
+}
+
+.li-btn:nth-child(4){
+    background-color: red;
+    color: #f3f3f3;
 }
 
 .li-btn:hover:nth-child(4){
@@ -400,7 +406,7 @@ a{
 }
 
 .descript-container{
-    margin: 20px;
+    margin: 20px 40px;
 }
 
 .playback-container{
@@ -461,7 +467,7 @@ a{
 }
 
 .comment-column{
-    padding: 0 20px;
+    padding: 0 40px;
     display: flex;
     flex-direction: column;
 }
@@ -579,7 +585,7 @@ a{
 
 .main-content .owner-content.show{
     top: 90px;
-    left: 20px;
+    left: 40px;
 }
 
 .lyric-container{

@@ -231,6 +231,7 @@ h3 {
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-align: justify;
 }
 
 /* Hover pada item notifikasi */
