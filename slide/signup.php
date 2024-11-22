@@ -8,6 +8,8 @@
         <h1 style="text-align: center">Daftar</h1>
     </div>
     <div class="signup-page">
+        <img src="assets/playlist.png" alt="LOGO" class="logo">
+        <div class="signup-line"></div>
         <div class="signup-container">
             <form action="databases/query.php" class="login-form-container" method="POST" onsubmit="return closep('signup')">
                 <label for="full-name">Nama Lengkap:</label>
