@@ -35,8 +35,14 @@
 
 .riwayat-pesan {
     text-align: left;
-    margin-top: 2rem;
-    margin-left: 25%;
+    margin: 20px auto;
+}
+
+.riwayat-pesan p {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin: 0;
 }
 
 .chat-item {
@@ -142,12 +148,14 @@
     justify-content: flex-start;
     align-items: center;
     gap: 15px;
+    margin-left: 30px;
 }
 
 .message.right {
     justify-content: flex-end;
     align-items: center;
     gap: 15px;
+    margin-right: 30px;
 }
 
 .message-pic {
@@ -253,7 +261,7 @@
     bottom: 0; 
     background: transparent; 
     z-index: 2; 
-    padding: 20px 10px;
+    padding: 20px 30px;
 }
 
 .send-chat textarea{
@@ -263,7 +271,7 @@
     border-radius: 10px;
     padding: 10px;
     font-size: 16px;
-    max-width: calc(100% - 40px);
+    max-width: 100%;
     background-color: #f3f3f3;
     resize: none;
     overflow: hidden;
@@ -275,7 +283,6 @@
 .send-chat i{
     font-size: 30px;
     cursor: pointer;
-    padding: 8px;
     border-radius: 5px;
 }
 

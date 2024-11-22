@@ -3,7 +3,11 @@ body {
 }
 
 .loginpg{
-  background-color: #f3f3f3;
+  /* background-color: #f3f3f3; */
+  background: linear-gradient(to bottom right, #4affde 0%, #5b9dff 40%, #d06bff 60%, #ff34d2 100%);
+  background-size: 200% 200%;
+  animation: gradient 5s linear infinite alternate;
+  background-position: center;
   height: 100%;
   width: 100%;
   max-width: 100%;
@@ -176,4 +180,12 @@ body {
       opacity: 1;
 
     }
+}
+
+@keyframes gradient{
+  from{
+    background-position: 0 0;
+  } to{
+    background-position: 100% 100%;
+  }
 }

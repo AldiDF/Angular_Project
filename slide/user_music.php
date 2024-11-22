@@ -14,11 +14,11 @@
     
     <search>
         <form action="" class="chat-search-bar" method="get">
-            <input type="text" placeholder="Cari Lagu" name="search-music" class="chat-input-search">
+            <input type="text" placeholder="Cari Lagu" name="search-music" class="chat-input-search" id="keyword">
         </form>
     </search>
         
-    <div class="music-list">
+    <div class="music-list" id="music-list">
         <p>Lagu yang diunggah</p>
         <?php foreach($lagu as $lagu):?>
         <div class="music-card">
@@ -56,4 +56,31 @@
     }
   })
 
+</script>
+
+<script>
+    var keyword = document.getElementById('keyword');
+    var container = document.getElementById('music-list');
+
+    function searchData(url, queryParam) {
+        var xhr = new XMLHttpRequest();
+    
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText);
+                container.innerHTML = xhr.responseText;
+            }
+        }
+    
+        xhr.open('GET', url + '?' + queryParam + '=' + keyword.value, true);
+        xhr.send();
+    }
+    
+    keyword.addEventListener('keyup', function() {
+        var currentPage = window.location.pathname;
+        console.log(currentPage);
+    
+        searchData('databases/liveSearch.php', 'userContent');
+        
+    });
 </script>

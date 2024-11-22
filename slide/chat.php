@@ -22,11 +22,12 @@
   <div>
     <div class="custom-line"></div>
     <search>
-      <form action="" class="chat-search-bar" method="get">
-          <input type="text" placeholder="Cari konten atau user" name="search-account" class="chat-input-search">
-      </form>
+      <div action="" class="chat-search-bar" method="get">
+          <input type="text" placeholder="Cari konten atau user" name="search-account" class="chat-input-search" id="keyword-chat">
+      </div>
     </search>
-    <div class="riwayat-pesan">Riwayat Pesan</div>
+  <div class="riwayat-pesan" id="chat-list">
+    <p>Riwayat Pesan</p> <br>
     <?php foreach($history_chat as $hist):?> 
     <?php $lastChat = select_chat($conn, "false", $_SESSION["username"], $hist["lawan_chat"]); ?>
     <div class="chat-item" onclick="open_slide('chat'); closep('history_chat')" id="pchat_<?= $hist['lawan_chat']?>">
@@ -34,8 +35,8 @@
         <?php $akunChat = select_akun($conn, $hist["lawan_chat"]);?>
         <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' >";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile'>";}?>
       </div>
-      <div class="chat-item-content" id="pchat_<?= $hist['lawan_chat']?>">
-        <div class="chat-item-name" id="pchat_<?= $hist['lawan_chat']?>"><?= $hist["lawan_chat"]?></div>
+    <div class="chat-item-content" id="pchat_<?= $hist['lawan_chat']?>">
+      <div class="chat-item-name" id="pchat_<?= $hist['lawan_chat']?>"><?= $hist["lawan_chat"]?></div>
         <div class="chat-item-message" id="pchat_<?= $hist['lawan_chat']?>">
           <?= $lastChat[count($lastChat) - 1]["isi"]?>
         </div>
@@ -69,6 +70,33 @@
     }
   })
 
+</script>
+
+<script>
+    var keyword = document.getElementById('keyword-chat');
+    var container = document.getElementById('chat-list');
+
+    function searchData(url, queryParam) {
+        var xhr = new XMLHttpRequest();
+    
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText);
+                container.innerHTML = xhr.responseText;
+            }
+        }
+    
+        xhr.open('GET', url + '?' + queryParam + '=' + keyword.value, true);
+        xhr.send();
+    }
+    
+    keyword.addEventListener('keyup', function() {
+        var currentPage = window.location.pathname;
+        console.log(currentPage);
+    
+        searchData('databases/liveSearch.php', 'userChat');
+        
+    });
 </script>
 
 <div class="chatpg" id="chatpg">

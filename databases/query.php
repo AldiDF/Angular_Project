@@ -437,6 +437,7 @@
         $username = $_GET["akun"];
         $status_akun = mysqli_query($conn, "UPDATE account SET stats = '$status' WHERE username = '$username'");
         if ($status_akun){
+            return;
             echo "
                 <script>
                     document.location.href = '../index.php';
@@ -464,12 +465,14 @@
                 date_default_timezone_set("Asia/Makassar");
                 $waktu = date("Y-m-d H.i.s");
                 mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$object', '$waktu'); ");
+                
                 echo "
                     <script>
                         document.location.href = '../profile.php?user=$object';
                     </script>
                 ";
             } else {
+                
                 echo "
                     <script>
                         document.location.href = '../profile.php?user=$object';
@@ -481,12 +484,14 @@
             $query = mysqli_query($conn, "DELETE FROM follow WHERE objek = '$object' AND subjek = '$subject'");
 
             if($query){
+                
                 echo "
                     <script>
                         document.location.href = '../profile.php?user=$object';
                     </script>
                 ";
             } else {
+                
                 echo "
                     <script>
                         document.location.href = '../profile.php?user=$object';

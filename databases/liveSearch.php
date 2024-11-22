@@ -1,5 +1,6 @@
 <?php
     require "connection.php";
+    include "query.php";
 
     if (isset($_GET["action"])){
         $action = $_GET["action"];
@@ -25,6 +26,15 @@
         $lagu = adminSearchContent($keyword);
         $type = "SearchContent";
 
+    } else if (isset($_GET["userContent"])){
+        $keyword = $_GET["userContent"];
+        $lagu = userSearchConntent($keyword);
+        $userAction = "userContent";
+
+    } else if (isset($_GET["userChat"])){
+        $keyword = $_GET["userChat"];
+        $history_chat = userSearchChat($keyword);
+        $userAction = "userChat";
     }
 
     function liveSearch($keyword){
@@ -107,6 +117,40 @@
         }
 
         return $data;
+    }
+
+    function userSearchConntent($keyword){
+        global $conn;
+
+        $search_content = "SELECT * FROM content WHERE stats = 'ACCEPT' AND judul LIKE '%$keyword%'";
+
+        $result_content = mysqli_query($conn, $search_content);
+
+        $data = [];
+        while ($row = mysqli_fetch_assoc($result_content)) {
+            $data[] = $row;
+        }
+
+        return $data;
+    }
+
+    function userSearchChat($keyword){
+        global $conn;
+        $sesi = $_SESSION["username"];
+        $chat = [];
+        $select_history = mysqli_query($conn, "SELECT DISTINCT 
+                                                CASE 
+                                                    WHEN pengirim = '$sesi' THEN penerima 
+                                                    ELSE pengirim 
+                                                END AS lawan_chat
+                                            FROM chat
+                                            WHERE pengirim LIKE '%$keyword%' OR penerima LIKE '%$keyword%';");
+        while ($row = mysqli_fetch_assoc($select_history)){
+            if ($row["lawan_chat"] != $_SESSION["username"]){
+                $chat[] = $row;
+            }
+        }
+        return $chat;
     }
 
 ?>
@@ -248,5 +292,51 @@
             </tbody>
         </table>
 
+    <?php endif;?>
+<?php endif;?>
+
+<?php if (isset($userAction)):?>
+    <?php if ($userAction == "userContent"):?>
+        <div class="music-list" id="music-list">
+            <p>Lagu yang diunggah</p>
+            <?php foreach($lagu as $lagu):?>
+            <div class="music-card">
+                <img src="<?= "databases/thumbnail/" . $lagu["thumbnail"]?>" alt="Thumbnail" class="thumbnail-user">
+                <div class="music-info">
+                    <h2 class="music-title"><?= $lagu["judul"]?></h2>
+                    <p class="music-description"><?= $lagu["deskripsi"]?></p>
+                </div>
+                <div class="action-buttons">
+                    <div class="edit-button" title="Edit" id="music+<?= $lagu['lagu']?>" onclick="open_slide('musicEdit'); closep('music'); closep('setting')">
+                        <i class="fa-solid fa-pen-to-square" id="music+<?= $lagu['lagu']?>" onclick="open_slide('musicEdit'); closep('music'); closep('setting')"></i>
+                    </div>
+                    <form action="databases/query.php?delete_lagu=true&lagu=<?= $lagu['lagu']?>" onclick="return confirm('Yakin ingin menghapus lagu ini?')"  title="Hapus">
+                        <button type="submit" class="delete-button"><i class="fa-light fa-trash-can"></i></button>
+
+                    </form>
+                </div>
+            </div>
+            <?php endforeach;?>
+        </div>
+
+    <?php elseif ($userAction == "userChat"):?>
+        <div class="riwayat-pesan" id="chat-list"><p>Riwayat Pesan</p>
+          <?php foreach($history_chat as $hist):?> 
+          <?php $lastChat = select_chat($conn, "false", $_SESSION["username"], $hist["lawan_chat"]); ?>
+          <div class="chat-item" onclick="open_slide('chat'); closep('history_chat')" id="pchat_<?= $hist['lawan_chat']?>">
+            <div class="chat-item-profile" id="pchat_<?= $hist['lawan_chat']?>">
+              <?php $akunChat = select_akun($conn, $hist["lawan_chat"]);?>
+              <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' >";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile'>";}?>
+            </div>
+            <div class="chat-item-content" id="pchat_<?= $hist['lawan_chat']?>">
+              <div class="chat-item-name" id="pchat_<?= $hist['lawan_chat']?>"><?= $hist["lawan_chat"]?></div>
+              <div class="chat-item-message" id="pchat_<?= $hist['lawan_chat']?>">
+                <?= $lastChat[count($lastChat) - 1]["isi"]?>
+              </div>
+              <div class="chat-item-time" id="pchat_<?= $hist['lawan_chat']?>"><?= $lastChat[count($lastChat) - 1]["waktu"]?></div>
+            </div>
+          </div>
+          <?php endforeach;?>
+        </div>
     <?php endif;?>
 <?php endif;?>

@@ -10,10 +10,10 @@
     <div class="setting-page">
         <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='setting-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='setting-profile-picture'>";}?>
         <div class="setting-container">
-            <form action="databases/query.php?akun=<?= $_SESSION["username"]?>" method="POST" class="pripub-btn">
+            <div action="databases/query.php?akun=<?= $_SESSION["username"]?>" method="POST" class="pripub-btn">
                 <button type="submit" name="private" class="private-btn" id="private" onclick="pripub('private')">PRIVAT</button>
                 <button type="submit" name="public" class="public-btn" id="public" onclick="pripub('public')">PUBLIK</button>
-            </form>
+            </div>
     
             <button class="li-btn" onclick="open_slide('music')">KELOLA LAGU</button>
             <button class="li-btn" onclick="open_slide('userEdit')">EDIT AKUN</button>
@@ -62,4 +62,39 @@
             return;
         }
     }
+
+    document.addEventListener("click", function(event) {
+        if (event.target.id.includes("private")){
+            var button_target = event.target.id;
+            console.log(button_target);
+            const xhr = new XMLHttpRequest();
+                xhr.open('POST', "databases/query.php?akun=<?= $_SESSION["username"]?>", true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
+                  if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log('Response from server:', xhr.responseText);
+                  }
+                }
+              
+                const data = `private=true`;
+                console.log(data);
+                xhr.send(data);
+
+        } else if (event.target.id.includes("public")){
+            var button_target = event.target.id;
+            console.log(button_target);
+            const xhr = new XMLHttpRequest();
+                xhr.open('POST', "databases/query.php?akun=<?= $_SESSION["username"]?>", true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
+                  if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log('Response from server:', xhr.responseText);
+                  }
+                }
+              
+                const data = `public=true`;
+                console.log(data);
+                xhr.send(data);
+        }
+    })
 </script>
