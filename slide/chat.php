@@ -33,8 +33,6 @@
         <div class="chat-item-time" id="pchat_<?= $hist['lawan_chat']?>"><?= $lastChat[count($lastChat) - 1]["waktu"]?></div>
       </div>
     </div>
-    <?php $_SESSION["currentChat"] = $hist["lawan_chat"]?>
-    <?php include("slide/detail_chat.php");?>
     <?php endforeach;?>
   </div>
 </div>
@@ -99,10 +97,12 @@
       $jumlah_chat = count($loadChat);
       $sessioncurr = select_akun($conn, $_SESSION["username"]);
   } else {
+    if (isset($profile)){
       $Chat = $profile;
       $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
       $jumlah_chat = count($loadChat);
       $sessioncurr = select_akun($conn, $_SESSION["username"]);
+    }
   }
   ?>
   <p class="json"><?php $lastChat = select_chat($conn, "true", $_SESSION["username"], $Chat);?></p>
