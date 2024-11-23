@@ -532,7 +532,7 @@
             $chat = mysqli_fetch_assoc($select_chat);
 
             echo json_encode($chat);
-            return;
+            return $chat;
 
         } else if ($last == "false"){
             $chat = [];

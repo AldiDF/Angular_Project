@@ -8,7 +8,8 @@
         <h1 style="text-align: center">Masuk</h1>
     </div>
     <div class="login-page">
-        <img src="assets/logo.png" alt="LOGO" class="logo">
+        <img src="assets/wave.png" alt="LOGO" class="logo">
+        <div class="login-line"></div>
         <div class="login-container">
             <form action="databases/query.php" class="login-form-container" method="POST" onsubmit="return closep('login')">
                 <label for="username">Nama Pengguna:</label>

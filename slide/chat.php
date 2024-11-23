@@ -2,24 +2,14 @@
   date_default_timezone_set("Asia/Makassar");
   $waktu = date("Y-m-d H:i:s");
   $history_chat = select_chat($conn, "", $_SESSION["username"], "");
-
-  if (isset($_SESSION["username"])){
-    if (isset($_POST["currentChat"])){
-      $currentChat = $_POST["currentChat"];
-      $akunChat = select_akun($conn, $currentChat);
-    } else if (isset($profile)){
-      $akunChat = select_akun($conn, $profile);
-    }
-  }
   
-  ?>
+?>
 
 <div class="history-chatpg">
   <div class="title-upper">
     <button class="back-page" onclick="closep('history_chat');"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
     <h1>PESAN</h1>
   </div>
-  <div>
     <div class="custom-line"></div>
     <search>
       <div action="" class="chat-search-bar" method="get">
@@ -35,41 +25,44 @@
         <?php $akunChat = select_akun($conn, $hist["lawan_chat"]);?>
         <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' >";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile'>";}?>
       </div>
-    <div class="chat-item-content" id="pchat_<?= $hist['lawan_chat']?>">
-      <div class="chat-item-name" id="pchat_<?= $hist['lawan_chat']?>"><?= $hist["lawan_chat"]?></div>
-        <div class="chat-item-message" id="pchat_<?= $hist['lawan_chat']?>">
-          <?= $lastChat[count($lastChat) - 1]["isi"]?>
-        </div>
+      <div class="chat-item-content" id="pchat_<?= $hist['lawan_chat']?>">
+        <div class="chat-item-name" id="pchat_<?= $hist['lawan_chat']?>"><?= $hist["lawan_chat"]?></div>
+          <div class="chat-item-message" id="pchat_<?= $hist['lawan_chat']?>">
+            <?= $lastChat[count($lastChat) - 1]["isi"]?>
+          </div>
         <div class="chat-item-time" id="pchat_<?= $hist['lawan_chat']?>"><?= $lastChat[count($lastChat) - 1]["waktu"]?></div>
       </div>
     </div>
+    <?php $_SESSION["currentChat"] = $hist["lawan_chat"]?>
+    <?php include("slide/detail_chat.php");?>
     <?php endforeach;?>
   </div>
 </div>
+
 <script>
-  
   document.addEventListener("click", function(event) {
-    if (event.target.id.includes("pchat_")){
-      var currentPage = window.location.pathname;
-      var filename = currentPage.split('/').pop();
-      var currentChat = event.target.id.split('_').pop();
-      console.log(`${filename}`);
-      console.log(currentChat);
-      const xhr = new XMLHttpRequest();
-        xhr.open('POST', filename, true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log('Response from server:', xhr.responseText);
-          }
-        }
-  
-        const data = `currentChat=${currentChat}`;
-        console.log(data);
-        xhr.send(data);
+      if (event.target.id.includes("pchat_")){
+            var lawanChat = event.target.id.split('_').pop();
+            console.log(lawanChat);
+            var currentPage = window.location.pathname.split('/').pop();
+            if (currentPage == "profile.php"){
+              var path = `${currentPage}?user=${"<?php if (isset($profile)){echo $profile;} else {echo"";} ?>"}&lawanChat=${lawanChat}`;
+              document.location.href = path;
+                    
+            } else if (currentPage == "detail.php"){
+              var path = `${currentPage}?lagu=${"<?php if (isset($lagu)){echo $lagu['lagu'];} else {echo"";} ?>"}&lawanChat=${lawanChat}`;
+              document.location.href = path;
+            
+            } else if (currentPage == "search.php"){
+              var path = `${currentPage}?navbar-search=${"<?php if (isset($_GET["navbar-search"])) {echo $_GET["navbar-search"];} else {echo"";}?>"}&lawanChat=${lawanChat}`;
+              document.location.href = path;
+              
+            } else {
+              var path = `${currentPage}?lawanChat=${lawanChat}`;
+              document.location.href = path;
+            }
     }
   })
-
 </script>
 
 <script>
@@ -99,21 +92,28 @@
     });
 </script>
 
+<?php
+  if (isset($_GET["lawanChat"])){
+      $Chat = $_GET["lawanChat"];
+      $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
+      $jumlah_chat = count($loadChat);
+      $sessioncurr = select_akun($conn, $_SESSION["username"]);
+  } else {
+      $Chat = $profile;
+      $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
+      $jumlah_chat = count($loadChat);
+      $sessioncurr = select_akun($conn, $_SESSION["username"]);
+  }
+  ?>
+  <p class="json"><?php $lastChat = select_chat($conn, "true", $_SESSION["username"], $Chat);?></p>
 <div class="chatpg" id="chatpg">
   <div class="title-upper">
-      <button class="back-page" onclick="closep('chat'); open_slide('history_chat')"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
+      <button class="back-page" onclick="closep('chat'); open_slide('history_chat'); clearURL()"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
       <div class="profile-info">
         <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
-        <span class="profile-name" id="profile-name"><?= $akunChat["username"]?></span>
+        <span class="profile-name" id="profile-name"><?= $Chat?></span>
       </div>
   </div>
-
-  <?php 
-    $loadChat = select_chat($conn, "false", $_SESSION["username"], $akunChat["username"]);
-    $lastChat = select_chat($conn, "true", $_SESSION["username"], $akunChat["username"]);
-    $jumlah_chat = count($loadChat);
-    $sessioncurr = select_akun($conn, $_SESSION["username"]);
-  ?>
 
   <div class="chat-container">
     <div class="chat-body" id="chat-body">
@@ -145,7 +145,30 @@
 </div>
 
 <script>
-  let old_chatID = "<?php if ($jumlah_chat == 0) {echo 0;} else {echo $lastChat;}?>";
+  function clearURL(){
+    var currentPage = window.location.pathname.split('/').pop();
+    if (currentPage == "profile.php"){
+      var path = `${currentPage}?user=${"<?php if (isset($profile)){echo $profile;} else {echo"";} ?>"}`;
+      document.location.href = path;
+
+    } else if (currentPage == "detail.php"){
+      var path = `${currentPage}?lagu=${"<?php if (isset($_GET["lagu"])){echo $_GET["lagu"];} else {echo"";} ?>"}`;
+      document.location.href = path;
+
+    } else if (currentPage == "search.php"){
+      var path = `${currentPage}?navbar-search=${"<?php if (isset($_GET["navbar-search"])) {echo $_GET["navbar-search"];} else {echo"";}?>"}`;
+      document.location.href = path;
+      
+    } else {
+      var path = `${currentPage}`;
+      document.location.href = path;
+    }
+  }
+
+</script>
+
+<script>
+  let old_chatID = "<?php if ($jumlah_chat == 0) {echo 0;} else {echo $lastChat["id"];}?>";
   console.log(old_chatID);
   document.getElementById('send-chat').addEventListener('click', function() {
     const commentInput = document.getElementById('chat');

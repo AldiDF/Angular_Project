@@ -90,7 +90,7 @@
         <?php include("slide/user_music.php")?>
         <?php include("slide/edit.php")?>
         <?php include("slide/chat.php")?>
-    <?php if (isset($_SESSION["admin"]))?>
+    <?php elseif (isset($_SESSION["admin"])):?>
         <?php include("slide/chat.php")?>
     <?php endif;?>
     <?php include("navfooter/sidebar.php")?>

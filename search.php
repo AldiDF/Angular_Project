@@ -1,6 +1,5 @@
 <?php
     require "databases/connection.php";
-    include "databases/query.php";
     include "databases/liveSearch.php";
 
     $searchResult = searchResult($_GET["navbar-search"]);
