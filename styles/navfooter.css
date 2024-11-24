@@ -121,6 +121,8 @@ nav{
     display: flex;
     flex-direction: row;
     z-index: 2;
+    margin-top: 3px;
+    margin-bottom: 2px;
     
 }
 
@@ -157,6 +159,10 @@ nav{
 .link-search:hover{
     background-color: #303841;
     color: #f3f3f3;
+}
+
+.link-search .nav-profile-picture{
+    margin-left: 15px;
 }
 
 footer{

@@ -2,7 +2,7 @@
     require "databases/connection.php";
 ?>
 
-<div class="loginpg">    
+<div class="loginpg" id="particles-js">
     <div class="title-upper">
         <button class="back-page" id="close-login" onclick="closep('login')"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
         <h1 style="text-align: center">Masuk</h1>

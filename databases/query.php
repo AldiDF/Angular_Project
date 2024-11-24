@@ -116,7 +116,7 @@
                 }
                 return $lagu;
             } else {
-                $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stats = '$where' AND user = '$username'");
+                $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stats = '$where' AND user = '$username' ORDER BY lagu DESC");
                 while ($row = mysqli_fetch_assoc($select_lagu)){
                     $lagu[] = $row; 
                 }
@@ -559,7 +559,13 @@
     }
 
     function total_like($conn, $username){
-        $query = "SELECT * FROM like_content WHERE objek LIKE '%$username%'";
+        $query = "SELECT 
+        acc.username,
+        lk.objek
+        FROM account acc
+        JOIN content ct ON ct.user = acc.username
+        JOIN like_content lk ON lk.objek = ct.lagu
+        WHERE acc.username = '$username'";
         $result = mysqli_query($conn, $query);
         $count = mysqli_num_rows($result);
         return $count;
@@ -733,7 +739,7 @@
     }
 
     function recomendation($conn){
-        $query = "SELECT * FROM content WHERE stats = 'ACCEPT' ORDER BY lagu DESC LIMIT 3";
+        $query = "SELECT * FROM content WHERE stats = 'ACCEPT' ORDER BY lagu DESC LIMIT 6";
         $result = mysqli_query($conn, $query);
         $lagu = [];
         while ($row = mysqli_fetch_assoc($result)){
@@ -749,6 +755,27 @@
             $notif[] = $row;
         }
         return $notif;
+    }
+
+    function timeAgo($inputTime) {
+        date_default_timezone_set("Asia/Makassar");
+        $now = new DateTime();
+        $past = new DateTime($inputTime);
+        $diff = $now->diff($past);
+    
+        if ($diff->y > 0) {
+            return $diff->y . " tahun yang lalu";
+        } elseif ($diff->m > 0) {
+            return $diff->m . " bulan yang lalu";
+        } elseif ($diff->d > 0) {
+            return $diff->d . " hari yang lalu";
+        } elseif ($diff->h > 0) {
+            return $diff->h . " jam yang lalu";
+        } elseif ($diff->i > 0) {
+            return $diff->i . " menit yang lalu";
+        } else {
+            return $diff->s . " detik yang lalu";
+        }
     }
 
     if (isset($_POST["signup"])){

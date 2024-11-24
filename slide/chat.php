@@ -1,7 +1,9 @@
 <?php
   date_default_timezone_set("Asia/Makassar");
   $waktu = date("Y-m-d H:i:s");
-  $history_chat = select_chat($conn, "", $_SESSION["username"], "");
+  if (isset($_SESSION["user"])){
+    $history_chat = select_chat($conn, "", $_SESSION["username"], "");
+  }
   
 ?>
 

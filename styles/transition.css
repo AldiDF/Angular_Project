@@ -15,6 +15,7 @@ body {
   flex-direction: column;
   transition: 1s ease;
   z-index: 4;
+  display: flex;
 }
 
 
@@ -172,6 +173,9 @@ body {
   right: 0;
 }
 
+.particles-js-canvas-el{
+  position: absolute;
+}
 
 @keyframes transitionIn {
     from {

@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: #f3f3f3;
+    background-color: #ffffff;
     scrollbar-width: none;
     font-family: 'helvetica' !important;
 }
@@ -32,7 +32,7 @@ button{
 
 .button-banner {
     display: flex;
-    margin: 420px auto auto auto;
+    margin: calc(100vh - 38vh) auto auto auto;
     padding: 15px 40px;
     outline: none;
     color: #303841;
@@ -109,13 +109,18 @@ a{
 }
 
 .recomend{
-    margin: 20px 0 5px 0;
+    margin: 20px 0 0 0;
+    font-size: 36px;
+    text-align: center;
+    font-weight: bold;
 }
 
 .title-upper{
     margin: 20px;
     max-height: 80px;
     min-height: 34px;
+    z-index: 5;
+    order: 2;
 }
 
 .title-upper h1{
@@ -126,6 +131,7 @@ a{
 .back-page{
     position: absolute;
     border: none;
+    background: none;
 }
 
 .back-page:hover{
@@ -154,22 +160,41 @@ a{
 }
 
 .list-content-container{
-    flex-direction: column;
-    gap: 10px;
+    display: flex;
+    gap: 20px;
     width: auto;
-    margin: 0 40px;
+    margin: 40px;
+    flex-wrap: wrap;   
+    justify-content: space-evenly;
 }
 
 .content-container{
     display: flex;
-    width: 100%;
+    width: 635px;
     background-color: #f3f3f3;
-    border: 2px #303841 solid;
-    border-radius: 15px;
-    margin-left: 0;
-    margin-right: 0;
-    gap: 15px;
+    border: 1px #303841 solid;
+    border-radius: 8px;
+    margin: 0;
     color: #303841;
+    overflow: hidden;
+    max-width: 635px;
+    max-height: 167px;
+    position: relative;
+
+}
+
+.info-caption p{
+    margin: 0;
+    display: flex;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 300px !important;
+}
+
+.info-caption p:nth-child(1){
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .content-container:hover{
@@ -177,16 +202,18 @@ a{
 }
 
 .thumbnail{
-    width: 240px;
-    height: 146.7px;
-    border: 1px #303841 solid;
-    border-radius: 10px;
-    margin: 10px;
-    margin-right: 60px;
+    width: 296.4px;
+    height: 100%;
+    margin: 0 20px 0 0;
 }
 
 .caption-content{
     text-align: left;
+}
+
+.time-up{
+    font-size: 16px;
+    text-align: right;
 }
 
 .owner-content{
@@ -194,7 +221,10 @@ a{
     text-align: left;
     margin-left: 0;
     gap: 10px;
-    margin-bottom: 40px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .main-content .owner-content{

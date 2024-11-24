@@ -3,6 +3,9 @@
     include "databases/query.php";
 
     $Recomendation = recomendation($conn);
+    if (isset($_SESSION["username"])){
+        $currentSession = select_akun($conn, $_SESSION["username"]);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -120,22 +123,31 @@
             </div>
         </section>
         
+        <p class="recomend">Rekomendasi Lagu</p>
         <section class="list-content-container">        
-            <p class="recomend">Rekomendasi Lagu</p>
             <?php $i = 0; foreach ($Recomendation as $rec):?>
+                <?php
+                    $filename = $rec['lagu'];
+                    preg_match('/\d{4}-\d{2}-\d{2} \d{2}\.\d{2}\.\d{2}/', $filename, $matches);
+                        // Format ulang menjadi hh:mm:ss
+                    $time = str_replace('.', ':', $matches[0]);
+                ?>
                 <?php $foto_akun = select_akun($conn, $rec['user'])?>
                     <a href="detail.php?lagu=<?php echo $rec['lagu'];?>">
-                        <figure class="content-container">
+                        <div class="content-container">
                             <img src="<?= "databases/thumbnail/" . $rec["thumbnail"];?>" alt="gambar-konten" class="thumbnail">
                             <figcaption class="caption-content">
                                 <figure class="owner-content">
                                 <?php if ($foto_akun["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $foto_akun["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
                                     <figcaption class="owner-name"><?php echo $rec["user"]?></figcaption>
                                 </figure>
-                                <p><?php echo $rec["judul"] ?></p>
-                                <p><?php echo $rec["deskripsi"]?></p>
+                                <div class="info-caption">
+                                    <p id="text-overflow"><?php echo $rec["judul"] ?></p>
+                                    <p id="text-overflow"><?php echo $rec["deskripsi"]?></p>
+                                </div>
+                                <p class="time-up"><?= timeAgo($time)?></p>
                             </figcaption>
-                        </figure>
+                        </div>
                     </a>
                 <?php $i++; endforeach;?>
         </section>
@@ -151,8 +163,26 @@
 
     <?php include("navfooter/footer.php")?>
 
+    <script>
+        function overflow(selector, maxLength) {
+            const elements = document.querySelectorAll(selector);
+
+            elements.forEach((element) => {
+            const text = element.textContent;
+                if (text.length > maxLength) {
+                    element.textContent = text.substring(0, maxLength) + "...";
+                }
+            });
+        }
+        overflow("#text-overflow", 36);
+        
+    </script>
+
     <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
     <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
+    <script type="text/javascript" src="scripts/particles.js?v=<?php echo time(); ?>"></script>
+    <script type="text/javascript" src="scripts/app.js?v=<?php echo time(); ?>"></script>
+
     <script>
         let currentSlide = 0; // Awal slide
         const slides = document.querySelectorAll('.banner-slide');
