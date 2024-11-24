@@ -4,8 +4,25 @@
 ?>
 
 <div class="manage-musicpg">
+    <div class="wrapper">
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+    </div>
+
     <div class="title-upper">
-        <button class="back-page" onclick="closep('music')">
+        <button class="back-page" onclick="closep('music'); open_slide('setting')">
             <i class="fa-solid fa-arrow-left" style="font-size: 30px"></i>
         </button>
         <h1>Kelola Lagu</h1>
@@ -13,9 +30,9 @@
     <div class="underline"></div>
     
     <search>
-        <form action="" class="chat-search-bar" method="get">
-            <input type="text" placeholder="Cari Lagu" name="search-music" class="chat-input-search" id="keyword">
-        </form>
+        <div action="" class="chat-search-bar" method="get">
+            <input type="text" placeholder="Cari Lagu" name="search-music" class="chat-input-search" id="keyword-content">
+        </div>
     </search>
         
     <div class="music-list" id="music-list">
@@ -59,28 +76,29 @@
 </script>
 
 <script>
-    var keyword = document.getElementById('keyword');
-    var container = document.getElementById('music-list');
+    var keywordContent = document.getElementById('keyword-content');
+    var container_content = document.getElementById('music-list');
+    console.log(keywordContent);
 
-    function searchData(url, queryParam) {
+    function searchDataContent(url, queryParam) {
         var xhr = new XMLHttpRequest();
     
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                console.log(xhr.responseText);
-                container.innerHTML = xhr.responseText;
+                // console.log(xhr.responseText);
+                container_content.innerHTML = xhr.responseText;
             }
         }
     
-        xhr.open('GET', url + '?' + queryParam + '=' + keyword.value, true);
+        xhr.open('GET', url + '?' + queryParam + '=' + keywordContent.value, true);
         xhr.send();
     }
     
-    keyword.addEventListener('keyup', function() {
+    keywordContent.addEventListener('keyup', function() {
         var currentPage = window.location.pathname;
         console.log(currentPage);
     
-        searchData('databases/liveSearch.php', 'userContent');
+        searchDataContent('databases/liveSearch.php', 'userContent');
         
     });
 </script>

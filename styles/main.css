@@ -165,7 +165,7 @@ a{
     width: auto;
     margin: 40px;
     flex-wrap: wrap;   
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .content-container{

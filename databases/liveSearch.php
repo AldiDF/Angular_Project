@@ -297,10 +297,10 @@
 
 <?php if (isset($userAction)):?>
     <?php if ($userAction == "userContent"):?>
-        <div class="music-list" id="music-list">
+        
             <p>Lagu yang diunggah</p>
             <?php foreach($lagu as $lagu):?>
-            <div class="music-card">
+            <div class="music-card" style="min-width: 621px;">
                 <img src="<?= "databases/thumbnail/" . $lagu["thumbnail"]?>" alt="Thumbnail" class="thumbnail-user">
                 <div class="music-info">
                     <h2 class="music-title"><?= $lagu["judul"]?></h2>
@@ -317,7 +317,6 @@
                 </div>
             </div>
             <?php endforeach;?>
-        </div>
 
     <?php elseif ($userAction == "userChat"):?>
         <div class="riwayat-pesan" id="chat-list"><p>Riwayat Pesan</p>

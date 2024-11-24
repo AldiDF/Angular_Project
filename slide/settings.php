@@ -3,6 +3,22 @@
 ?>
 
 <div class="settingspg">
+    <div class="wrapper">
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+        <div class="round"></div>
+    </div>
     <div class="title-upper">
         <button class="back-page" onclick="closep('setting')"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
         <h1 style="text-align: center">PENGATURAN</h1>
@@ -15,7 +31,7 @@
                 <button type="submit" name="public" class="public-btn" id="public" onclick="pripub('public')">PUBLIK</button>
             </div>
     
-            <button class="li-btn" onclick="open_slide('music')">KELOLA LAGU</button>
+            <button class="li-btn" onclick="open_slide('music'); closep('setting')">KELOLA LAGU</button>
             <button class="li-btn" onclick="open_slide('userEdit')">EDIT AKUN</button>
             <button class="li-btn" onclick="confirm_delete()">HAPUS AKUN</button>
             <a href="databases/query.php?logout=true" onclick="closep('setting')"><button class="li-btn">KELUAR AKUN</button></a>

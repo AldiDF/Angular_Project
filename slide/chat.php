@@ -68,6 +68,7 @@
 <script>
     var keyword = document.getElementById('keyword-chat');
     var container = document.getElementById('chat-list');
+    console.log(keyword.value);
 
     function searchData(url, queryParam) {
         var xhr = new XMLHttpRequest();
@@ -82,14 +83,20 @@
         xhr.open('GET', url + '?' + queryParam + '=' + keyword.value, true);
         xhr.send();
     }
+
+    if (keyword.value != ""){
+      console.log(keyword.value);
+      
+    } else {
+      keyword.addEventListener('keyup', function() {
+          var currentPage = window.location.pathname;
+          console.log(currentPage);
+      
+          searchData('databases/liveSearch.php', 'userChat');
+          
+      });
+    }
     
-    keyword.addEventListener('keyup', function() {
-        var currentPage = window.location.pathname;
-        console.log(currentPage);
-    
-        searchData('databases/liveSearch.php', 'userChat');
-        
-    });
 </script>
 
 <?php

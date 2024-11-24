@@ -93,14 +93,6 @@
  ?>
     <main>
     <section class="main-content" id="main-content">
-        <div class="owner-content">
-            <?php if ($akun['foto'] == ""):?>
-                <img src="assets/default.jpg" alt="profile-picture" class="picture">
-            <?php else: ?>
-                <img src="databases/profile/<?php echo $akun['foto']?>" alt="profile-picture" class="nav-profile-picture">
-            <?php endif;?>
-            <div class="owner-name"><?php echo $lagu["user"]?></div>
-        </div>
         <div class="click-lyric" onclick="show_lyric()"></div>
         <div class="lyric-container" onclick="show_lyric()">
             <pre id="lyric-content"></pre>

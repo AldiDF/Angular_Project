@@ -129,6 +129,8 @@ h1 {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    z-index: 6;
+    order: 3;
 }
 
 .signup-container{
