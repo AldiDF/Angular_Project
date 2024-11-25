@@ -10,7 +10,7 @@ if (isset($_SESSION["username"])){
     <?php if (isset($admin)): ?>
         <nav>
             <div class="nav-left">
-                <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
+                <img src='../databases/profile/admin.png' alt='profile' class='admin-profile-picture'>
                 <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
@@ -38,7 +38,7 @@ if (isset($_SESSION["username"])){
     <?php else:?>
         <nav>
             <div class="nav-left">
-                <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
+                <img src='databases/profile/admin.png' alt='profile' class='admin-profile-picture'>
                 <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>

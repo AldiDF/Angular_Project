@@ -247,3 +247,14 @@ footer h3 {
 .notification-container .notification-item:hover {
     background-color: #e9ecef;
 }
+
+
+.admin-profile-picture{
+    width: 36px;
+    height: 36px;
+    max-width: 36px;
+    max-height: 36px;
+    border-radius: 100%;
+    border: 2px #303841 solid;
+    background-color: white;
+}

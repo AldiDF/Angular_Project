@@ -87,7 +87,9 @@
             $select_akun = mysqli_query($conn, "SELECT * FROM account");
             $akun = [];
             while ($row = mysqli_fetch_assoc($select_akun)){
-                $akun[] = $row; 
+                if ($row["username"] != "admin"){
+                    $akun[] = $row; 
+                }
             }
             return $akun;
             

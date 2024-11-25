@@ -51,7 +51,9 @@
         }
 
         while ($row = mysqli_fetch_assoc($result_account)) {
-            $data[] = $row;
+            if ($row["username"] != "admin"){
+                $data[] = $row;
+            }
         }
         
         echo json_encode($data);
@@ -71,7 +73,9 @@
         }
 
         while ($row = mysqli_fetch_assoc($result_account)) {
-            $data[] = $row;
+            if ($row["username"] != "admin"){
+                $data[] = $row;
+            }
         }
 
         return $data;
