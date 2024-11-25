@@ -23,8 +23,8 @@
                         Kelola Lagu <i class="fa-solid fa-pen-to-square"></i>
                     </li>
                 </a>
-                <li class="list-sidebar" onclick="open_slide('history_chat')">
-                    Pesan <i class="fa-solid fa-message"></i>
+                <li class="list-sidebar" id="pesanAdmin" onclick="open_slide('history_chat')">
+                    Pesan <i id="pesanAdmin" class="fa-solid fa-message"></i>
                 </li>
                 <a href="../databases/query.php?logout=true">
                     <li class="list-sidebar">
@@ -81,7 +81,7 @@
                 Pesan <i class="fa-solid fa-message"></i>
             </li>
             <li class="list-sidebar" id="layanan_admin" onclick="open_slide('chat')">
-                Layanan Pelanggan <i class="fa-solid fa-headset"></i>
+                Layanan Pelanggan <i id="layanan_admin" class="fa-solid fa-headset"></i>
             </li>
             <li class="list-sidebar" onclick="open_slide('setting')">
                 Pengaturan Akun <i class="fa-solid fa-gear"></i>
@@ -146,6 +146,15 @@
               var path = `${currentPage}?lawanChat=${lawanChat}`;
               document.location.href = path;
             }
+
+        } else if (event.target.id.includes("pesanAdmin")){
+            var currentPage = window.location.pathname.split('/').pop();
+            <?php if (isset($_SESSION["admin"])):?>
+                if (currentPage.includes("manage")){
+                    var path = `../index.php`;
+                    document.location.href = path;
+                }
+            <?php endif;?>
         }
     })
 </script>

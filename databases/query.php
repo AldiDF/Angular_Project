@@ -848,6 +848,25 @@
         return $cleanText;
     }
 
+    function delete_chat($conn){
+        $id = $_GET["chatID"];
+        $lawan_chat = $_GET["Lawanchat"];
+        $delete_chat = mysqli_query($conn, "DELETE FROM chat WHERE id = '$id'");
+        if ($delete_chat){
+            echo "
+                <script>
+                    document.location.href = '../index.php?lawanChat=$lawan_chat';
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    document.location.href = '../index.php?lawanChat=$lawan_chat';
+                </script>
+            ";
+        }
+    }
+
     if (isset($_POST["signup"])){
         insert_akun($_POST["username"], $_POST["full-name"], $_POST["email"], $_POST["password"], $conn);
         
@@ -924,5 +943,7 @@
     } else if (isset($_POST['edit-music'])) {
         update_lagu($conn, $_GET["lagu"]);
 
+    } else if (isset($_GET["chatID"])){
+        delete_chat($conn);
     }
 ?>

@@ -9,7 +9,7 @@
                 <p id="title-thumbnail">Tampilan</p>
                 <img alt="preview-thumbnail" id="thumbnail-preview" class="thumbnail-preview">
             </label>
-            <input type="file" id="input-thumbnail" name="thumbnail" class="input-th" onchange="limit_size(event, 'upThumbnail')" require>
+            <input type="file" id="input-thumbnail" name="thumbnail" class="input-th" onchange="limit_size(event, 'upThumbnail')" required>
         </div>
         <label for="music">Unggah Lagu:</label>
         <input type="file" id="music" name="music" class="input-music" required><br>

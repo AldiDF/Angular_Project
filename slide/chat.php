@@ -139,8 +139,9 @@ if (isset($_GET["lawanChat"])){
 
 }
 ?>
-
-  <p class="json"><?php $lastChat = select_chat($conn, "true", $_SESSION["username"], $Chat);?></p>
+  <?php if (!isset($admin)):?>
+    <p class="json"><?php $lastChat = select_chat($conn, "true", $_SESSION["username"], $Chat);?></p>
+  <?php endif;?>
 <div class="chatpg" id="chatpg">
   <div class="title-upper">
       <button class="back-page" onclick="closep('chat'); open_slide('history_chat'); clearURL()"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
@@ -155,7 +156,7 @@ if (isset($_GET["lawanChat"])){
       <?php foreach($loadChat as $chat):?>
       <?php if ($_SESSION["username"] == $chat["pengirim"]):?>
         <div class="message right">
-          <div class="message-bubble">
+          <div class="message-bubble" id="idchat_<?= $chat['id']?>" onclick="del_chat()">
             <p><?= $chat["isi"]?></p>
             <span class="message-time-right"><?= $chat["waktu"]?></span>
           </div>
@@ -203,6 +204,22 @@ if (isset($_GET["lawanChat"])){
 </script>
 
 <script>
+  
+    document.addEventListener("click", function(event) {
+      if (event.target.id.includes("idchat_")) {
+        let chaTID = event.target.id.split("_")[1];
+        console.log(event.target.id);
+          if (confirm("Apakah Anda yakin ingin menghapus chat ini?")) {
+              document.location.href = `databases/query.php?chatID=${chaTID}&Lawanchat=<?= $Chat?>`;
+          } else {
+              return;
+          }
+        }
+      });
+  
+</script>
+
+<script>
   let old_chatID = "<?php if ($jumlah_chat == 0) {echo 0;} else {echo $lastChat["id"];}?>";
   console.log(old_chatID);
   document.getElementById('send-chat').addEventListener('click', function() {
@@ -237,7 +254,7 @@ if (isset($_GET["lawanChat"])){
         }
     
         const pengirim = "<?= $_SESSION["username"] ?>";
-        const penerima = "<?= $akunChat["username"]?>"
+        const penerima = "<?= $Chat?>"
         const waktu = "<?= $waktu ?>";
         const data = `pengirim=${pengirim}&penerima=${penerima}&waktu=${waktu}&pesan=${encodeURIComponent(commentText.replace(/\n/g, '<br>'))}`;
         console.log(data);
@@ -256,7 +273,7 @@ if (isset($_GET["lawanChat"])){
                   const loadChat = JSON.parse(xhr.responseText);
                   console.log(loadChat.id);
                   console.log(old_chatID);
-                  if (old_chatID == loadChat.id) {
+                  if (old_chatID == loadChat.id || loadChat.pengirim != "<?= $Chat?>") {
                       return;
                   } else {
                       if (loadChat.pengirim === "<?= $_SESSION["username"]?>"){

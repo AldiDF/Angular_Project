@@ -253,24 +253,17 @@ a{
     font-size: 16px;
 }
 
-.about-us{
-    margin: 40px;
-    text-align: justify;
-}
-
-.about-us p{
-    line-height: 1.5;
-    text-indent: 40px;
-}
-
-.main-logo{
+/* .main-logo{
     width: 200px;
     height: 200px;
     border-radius: 100%;
     display: flex;
     margin: 40px auto;
     border: 1px #303841 solid;
-}
+} */
+
+
+
 .setting-page{
     display: flex;
     justify-content: center;
