@@ -24,17 +24,19 @@
         <div class="music-card">
             <img src="<?= $direktori . $lagu["thumbnail"]?>" alt="Thumbnail" class="thumbnail-user">
             <div class="music-info">
-                <h2 class="music-title"><?= $lagu["judul"]?></h2>
-                <p class="music-description"><?= $lagu["deskripsi"]?></p>
+                <?php $jdl = overflow($lagu["judul"], 10);?>
+                <h2 class="music-title"><?= $jdl?></h2>
+
+                <?php $desk = overflow($lagu["deskripsi"], 18);?>
+                <p class="music-description"><?= $desk?></p>
             </div>
             <div class="action-buttons">
                 <div class="edit-button" title="Edit" id="music+<?= $lagu['lagu']?>" onclick="open_slide('musicEdit'); closep('music'); closep('setting')">
                     <i class="fa-solid fa-pen-to-square" id="music+<?= $lagu['lagu']?>" onclick="open_slide('musicEdit'); closep('music'); closep('setting')"></i>
                 </div>
-                <form action="databases/query.php?delete_lagu=true&lagu=<?= $lagu['lagu']?>" onclick="return confirm('Yakin ingin menghapus lagu ini?')"  title="Hapus">
-                    <button type="submit" class="delete-button"><i class="fa-light fa-trash-can"></i></button>
-                    
-                </form>
+                <a href="databases/query.php?delete_lagu=true&lagu=<?= $lagu['lagu']?>" onclick="return confirm('Yakin ingin menghapus lagu ini?')"  title="Hapus">
+                    <button type="submit" name="delete_lagu" class="delete-button"><i class="fa-light fa-trash-can"></i></button>
+                </a>
             </div>
         </div>
         <?php endforeach;?>

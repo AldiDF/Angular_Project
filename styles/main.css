@@ -749,10 +749,16 @@ a{
 .list-follow{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
     width: 100%;
-    justify-content: center;
 }
+
+.list-fol{
+    display: flex;
+    flex-direction: column;
+}
+
 
 .list-follow .account-container{
     margin-bottom: 20px;

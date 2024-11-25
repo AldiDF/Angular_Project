@@ -2,7 +2,11 @@
   date_default_timezone_set("Asia/Makassar");
   $waktu = date("Y-m-d H:i:s");
   if (isset($_SESSION["user"])){
+    $user = $_SESSION["username"];
     $history_chat = select_chat($conn, "", $_SESSION["username"], "");
+  } else if ($_SESSION["admin"]){
+    $user = "admin";
+    $history_chat = select_chat($conn, "", "admin", "");
   }
   
 ?>
@@ -30,7 +34,8 @@
       <div class="chat-item-content" id="pchat_<?= $hist['lawan_chat']?>">
         <div class="chat-item-name" id="pchat_<?= $hist['lawan_chat']?>"><?= $hist["lawan_chat"]?></div>
           <div class="chat-item-message" id="pchat_<?= $hist['lawan_chat']?>">
-            <?= $lastChat[count($lastChat) - 1]["isi"]?>
+            <?php $formattedText = overflow($lastChat[count($lastChat) - 1]["isi"], 65);?>
+            <?= $formattedText?>
           </div>
         <div class="chat-item-time" id="pchat_<?= $hist['lawan_chat']?>"><?= $lastChat[count($lastChat) - 1]["waktu"]?></div>
       </div>
@@ -38,19 +43,6 @@
     <?php endforeach;?>
   </div>
 </div>
-
-<script>
-    function overflow(selector, maxLength) {
-        const elements = document.querySelectorAll(selector);
-        elements.forEach((element) => {
-        const text = element.textContent;
-            if (text.length > maxLength) {
-                element.textContent = text.substring(0, maxLength) + "...";
-            }
-        });
-    }
-    overflow(".chat-item-message", 75);
-</script>
 
 <script>
   document.addEventListener("click", function(event) {
@@ -113,20 +105,41 @@
 </script>
 
 <?php
-  if (isset($_GET["lawanChat"])){
-      $Chat = $_GET["lawanChat"];
-      $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
-      $jumlah_chat = count($loadChat);
-      $sessioncurr = select_akun($conn, $_SESSION["username"]);
+if (isset($_GET["lawanChat"])){
+  if(!isset($_SESSION["admin"])){
+    $Chat = $_GET["lawanChat"];
+    $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
+    $jumlah_chat = count($loadChat);
+    $sessioncurr = select_akun($conn, $_SESSION["username"]);
+
+  } else if ($_GET["lawanChat"] == "admin"){
+    $Chat = "admin";
+    $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
+    $jumlah_chat = count($loadChat);
+    $sessioncurr = select_akun($conn, $_SESSION["username"]);
+
   } else {
-    if (isset($profile)){
-      $Chat = $profile;
+    $Chat = $_GET["lawanChat"];
+    $loadChat = select_chat($conn, "false", "admin", $Chat);
+    $jumlah_chat = count($loadChat);
+    $sessioncurr = select_akun($conn, "admin");
+  }
+} else if (isset($profile)){
+    $Chat = $profile;
+    $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
+    $jumlah_chat = count($loadChat);
+    $sessioncurr = select_akun($conn, $_SESSION["username"]);
+} else {
+    if(!isset($_SESSION["admin"])){
+      $Chat = "admin";
       $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
       $jumlah_chat = count($loadChat);
       $sessioncurr = select_akun($conn, $_SESSION["username"]);
     }
-  }
-  ?>
+
+}
+?>
+
   <p class="json"><?php $lastChat = select_chat($conn, "true", $_SESSION["username"], $Chat);?></p>
 <div class="chatpg" id="chatpg">
   <div class="title-upper">

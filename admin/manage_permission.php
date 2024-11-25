@@ -18,11 +18,13 @@
     <link rel="stylesheet" href="../styles/sidebar.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../styles/navfooter.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../styles/admin.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../styles/chat.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
+    <?php include("../slide/chat.php")?>
     <?php include("../navfooter/sidebar.php")?>
     <?php include("../navfooter/navbar.php")?>
 

@@ -45,20 +45,20 @@
     function login($username, $password, $conn){
         $sql_select_akun = mysqli_query($conn, "SELECT * FROM account");
 
-        if ($username == "admin" && $password == "admin"){
-            $_SESSION["admin"] = true;
-            echo "
-                <script>
-                    document.location.href = '../index.php';
-                </script>
-            ";
-            exit;
-        }
-
         $count = 0;
         while ($row = mysqli_fetch_assoc($sql_select_akun)){
             $akun[] = $row;
             if ($akun[$count]["username"] == $username && password_verify($password, $akun[$count]["pasword"])){
+                if ($username == "admin" && $password == "admin"){
+                    $_SESSION["admin"] = true;
+                    $_SESSION["username"] = $akun[$count]["username"];
+                    echo "
+                        <script>
+                            document.location.href = '../index.php';
+                        </script>
+                    ";
+                    exit;
+                }
                 $_SESSION["user"] = true;
                 $_SESSION["username"] = $akun[$count]["username"];
                 echo "
@@ -416,6 +416,64 @@
                     document.location.href = '../detail.php?lagu=$lagu';
                 </script>
             ";
+        }
+    }
+
+    function delete_lagu($conn){
+        $lagu_user = $_GET["lagu"];
+        $query = "SELECT * FROM content WHERE lagu = '$lagu_user'";
+        $result = mysqli_query($conn, $query);
+        $lagu = mysqli_fetch_assoc($result);
+        $user = $lagu['user'];
+        $juduls = $lagu['judul'];
+        date_default_timezone_set("Asia/Makassar");
+        $waktu = date('Y-m-d H.i.s');
+        
+        if($lagu){
+            $image_path = 'thumbnail/' . $lagu['thumbnail'];
+            $song_path = 'music/' . $lagu['lagu'];
+            if(file_exists($image_path)){
+                unlink($image_path);
+            }
+            if(file_exists($song_path)){
+                unlink($song_path);
+            }
+        }
+
+        $delete_query = "DELETE FROM content WHERE lagu = '$lagu_user'";
+        if (mysqli_query($conn, $delete_query)) {
+            if (!isset($_SESSION["admin"])){
+                echo "<script>
+                    alert('Lagu Telah Dihapus');
+                    document.location.href = '../index.php';
+                </script>";
+            } else {
+                date_default_timezone_set("Asia/Makassar");
+                $waktu = date("Y-m-d H.i.s");
+                
+                $pesan = "Lagu anda yang berjudul $juduls telah dihapus oleh admin";
+        
+                
+                mysqli_query($conn, "INSERT INTO notification VALUES (0, '$pesan', '$user', '$waktu')");
+                echo "<script>
+                        alert('Lagu Telah Dihapus');
+                        document.location.href = '../admin/manage_music.php';
+                      </script>";
+            }
+        } else {
+            if (!isset($_SESSION["admin"])){
+                echo "<script>
+                    alert('Gagal Menghapus lagu');
+                    document.location.href = '../index.php';
+                  </script>";
+
+            } else {
+                echo "<script>
+                    alert('Gagal Menghapus lagu');
+                    document.location.href = '../admin/manage_music.php';
+                  </script>";
+            }
+            
         }
     }
 
@@ -778,6 +836,18 @@
         }
     }
 
+    function overflow($text, $maxLength) {
+        // Menghapus semua newline (\n atau \r) dari teks
+        $cleanText = str_replace(["\r", "\n"], ' ', $text);
+        
+        // Jika panjang teks lebih dari maxLength, potong teks dan tambahkan '...'
+        if (strlen($cleanText) > $maxLength) {
+            $cleanText = substr($cleanText, 0, $maxLength) . '...';
+        }
+    
+        return $cleanText;
+    }
+
     if (isset($_POST["signup"])){
         insert_akun($_POST["username"], $_POST["full-name"], $_POST["email"], $_POST["password"], $conn);
         
@@ -807,53 +877,7 @@
         }
 
     } else if (isset($_GET["delete_lagu"])){
-        $lagu_user = $_GET["lagu"];
-        $query = "SELECT * FROM content WHERE lagu = '$lagu_user'";
-        $result = mysqli_query($conn, $query);
-        $lagu = mysqli_fetch_assoc($result);
-        $user = $lagu['user'];
-        $juduls = $lagu['judul'];
-        $waktu = date('Y-m-d H.i.s');
-        
-        if($lagu){
-            $image_path = 'thumbnail/' . $lagu['thumbnail'];
-            $song_path = 'music/' . $lagu['lagu'];
-            if(file_exists($image_path)){
-                unlink($image_path);
-            }
-            if(file_exists($song_path)){
-                unlink($song_path);
-            }
-        }
-
-        $delete_query = "DELETE FROM content WHERE lagu = '$lagu_user'";
-        if (mysqli_query($conn, $delete_query)) {
-            if (isset($_SESSION["username"])){
-                echo "<script>
-                    alert('Lagu Telah Dihapus');
-                    document.location.href = '../index.php';
-                </script>";
-            } else {
-                echo "<script>
-                        alert('Lagu Telah Dihapus');
-                        document.location.href = '../admin/manage_music.php';
-                      </script>";
-            }
-        } else {
-            if (isset($_SESSION["username"])){
-                echo "<script>
-                    alert('Gagal Menghapus lagu');
-                    document.location.href = '../index.php';
-                  </script>";
-
-            } else {
-                echo "<script>
-                    alert('Gagal Menghapus lagu');
-                    document.location.href = '../admin/manage_music.php';
-                  </script>";
-            }
-            
-        }
+        delete_lagu($conn);
 
     } else if (isset($_GET["comment"])){
         insert_komen($conn);

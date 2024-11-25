@@ -80,20 +80,22 @@ function follow(type){
         localStorage.setItem("follower", "false")
         follower.classList.remove("follow-active")
         following.classList.add("follow-active")
-        list_following.style.display = "block"
+        list_following.style.display = "flex"
         list_follower.style.display = "none"
         following.style.color = "#f3f3f3"
         follower.style.color = "#303841"
+        sessionStorage.setItem("follow", "following")
         
     } else if (type === "follower"){
         localStorage.setItem("follower", "true")
         localStorage.setItem("following", "false")
         following.classList.remove("follow-active")
         follower.classList.add("follow-active")
-        list_follower.style.display = "block"
+        list_follower.style.display = "flex"
         list_following.style.display = "none"
         following.style.color = "#303841"
         follower.style.color = "#f3f3f3"
+        sessionStorage.setItem("follow", "follower")
     }
 }
 

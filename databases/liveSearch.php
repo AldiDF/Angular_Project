@@ -139,12 +139,13 @@
         $sesi = $_SESSION["username"];
         $chat = [];
         $select_history = mysqli_query($conn, "SELECT DISTINCT 
-                                                CASE 
-                                                    WHEN pengirim = '$sesi' THEN penerima 
-                                                    ELSE pengirim 
-                                                END AS lawan_chat
-                                            FROM chat
-                                            WHERE pengirim LIKE '%$keyword%' OR penerima LIKE '%$keyword%';");
+                                                    CASE 
+                                                        WHEN pengirim = '$sesi' THEN penerima 
+                                                        ELSE pengirim 
+                                                    END AS lawan_chat
+                                                FROM chat
+                                                WHERE (pengirim = '$sesi' OR penerima = '$sesi')
+                                                  AND (pengirim LIKE '%$keyword%' OR penerima LIKE '%$keyword%');");
         while ($row = mysqli_fetch_assoc($select_history)){
             if ($row["lawan_chat"] != $_SESSION["username"]){
                 $chat[] = $row;
@@ -302,8 +303,11 @@
             <div class="music-card">
                 <img src="<?= "databases/thumbnail/" . $lagu["thumbnail"]?>" alt="Thumbnail" class="thumbnail-user">
                 <div class="music-info">
-                    <h2 class="music-title"><?= $lagu["judul"]?></h2>
-                    <p class="music-description"><?= $lagu["deskripsi"]?></p>
+                    <?php $jdl = overflow($lagu["judul"], 10);?>
+                    <h2 class="music-title"><?= $jdl?></h2>
+                
+                    <?php $desk = overflow($lagu["deskripsi"], 18);?>
+                    <p class="music-description"><?= $desk?></p>
                 </div>
                 <div class="action-buttons">
                     <div class="edit-button" title="Edit" id="music+<?= $lagu['lagu']?>" onclick="open_slide('musicEdit'); closep('music'); closep('setting')">
@@ -318,23 +322,23 @@
             <?php endforeach;?>
 
     <?php elseif ($userAction == "userChat"):?>
-        <div class="riwayat-pesan" id="chat-list"><p>Riwayat Pesan</p>
-          <?php foreach($history_chat as $hist):?> 
-          <?php $lastChat = select_chat($conn, "false", $_SESSION["username"], $hist["lawan_chat"]); ?>
-          <div class="chat-item" onclick="open_slide('chat'); closep('history_chat')" id="pchat_<?= $hist['lawan_chat']?>">
-            <div class="chat-item-profile" id="pchat_<?= $hist['lawan_chat']?>">
-              <?php $akunChat = select_akun($conn, $hist["lawan_chat"]);?>
-              <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' >";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile'>";}?>
-            </div>
-            <div class="chat-item-content" id="pchat_<?= $hist['lawan_chat']?>">
-              <div class="chat-item-name" id="pchat_<?= $hist['lawan_chat']?>"><?= $hist["lawan_chat"]?></div>
-              <div class="chat-item-message" id="pchat_<?= $hist['lawan_chat']?>">
-                <?= $lastChat[count($lastChat) - 1]["isi"]?>
+        <p>Riwayat Pesan</p> <br>
+        <?php foreach($history_chat as $hist):?> 
+            <?php $lastChat = select_chat($conn, "false", $_SESSION["username"], $hist["lawan_chat"]); ?>
+            <div class="chat-item" onclick="open_slide('chat'); closep('history_chat')" id="pchat_<?= $hist['lawan_chat']?>">
+              <div class="chat-item-profile" id="pchat_<?= $hist['lawan_chat']?>">
+                <?php $akunChat = select_akun($conn, $hist["lawan_chat"]);?>
+                <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' >";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile'>";}?>
               </div>
-              <div class="chat-item-time" id="pchat_<?= $hist['lawan_chat']?>"><?= $lastChat[count($lastChat) - 1]["waktu"]?></div>
+              <div class="chat-item-content" id="pchat_<?= $hist['lawan_chat']?>">
+                <div class="chat-item-name" id="pchat_<?= $hist['lawan_chat']?>"><?= $hist["lawan_chat"]?></div>
+                  <div class="chat-item-message" id="pchat_<?= $hist['lawan_chat']?>">
+                    <?php $formattedText = overflow($lastChat[count($lastChat) - 1]["isi"], 65);?>
+                    <?= $formattedText?>
+                  </div>
+                <div class="chat-item-time" id="pchat_<?= $hist['lawan_chat']?>"><?= $lastChat[count($lastChat) - 1]["waktu"]?></div>
+              </div>
             </div>
-          </div>
-          <?php endforeach;?>
-        </div>
-    <?php endif;?>
+            <?php endforeach;?>
+        <?php endif;?>
 <?php endif;?>

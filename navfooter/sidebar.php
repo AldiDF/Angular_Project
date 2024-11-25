@@ -55,7 +55,7 @@
                         Kelola Lagu <i class="fa-solid fa-pen-to-square"></i>
                     </li>
                 </a>
-                <li class="list-sidebar">
+                <li class="list-sidebar" onclick="open_slide('history_chat')">
                     Pesan <i class="fa-solid fa-message"></i>
                 </li>
                 <a href="databases/query.php?logout=true">
@@ -80,7 +80,7 @@
             <li class="list-sidebar" onclick="open_slide('history_chat')">
                 Pesan <i class="fa-solid fa-message"></i>
             </li>
-            <li class="list-sidebar" onclick="open_slide('chat')">
+            <li class="list-sidebar" id="layanan_admin" onclick="open_slide('chat')">
                 Layanan Pelanggan <i class="fa-solid fa-headset"></i>
             </li>
             <li class="list-sidebar" onclick="open_slide('setting')">
@@ -123,3 +123,29 @@
         </div>
     </div>
 <?php endif; ?>
+
+<script>
+    document.addEventListener("click", function(event) {
+        if (event.target.id.includes("layanan_")){
+            var lawanChat = event.target.id.split('_').pop();
+            console.log(lawanChat);
+            var currentPage = window.location.pathname.split('/').pop();
+            if (currentPage == "profile.php"){
+              var path = `${currentPage}?user=${"<?php if (isset($profile)){echo $profile;} else {echo"";} ?>"}&lawanChat=${lawanChat}`;
+              document.location.href = path;
+                    
+            } else if (currentPage == "detail.php"){
+              var path = `${currentPage}?lagu=${"<?php if (isset($_GET["lagu"])){echo $_GET["lagu"];} else {echo"";} ?>"}&lawanChat=${lawanChat}`;
+              document.location.href = path;
+            
+            } else if (currentPage == "search.php"){
+              var path = `${currentPage}?navbar-search=${"<?php if (isset($_GET["navbar-search"])) {echo $_GET["navbar-search"];} else {echo"";}?>"}&lawanChat=${lawanChat}`;
+              document.location.href = path;
+              
+            } else {
+              var path = `${currentPage}?lawanChat=${lawanChat}`;
+              document.location.href = path;
+            }
+        }
+    })
+</script>
