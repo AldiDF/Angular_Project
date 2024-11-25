@@ -3,7 +3,12 @@ body {
 }
 
 .loginpg{
-  background-color: #f3f3f3;
+  /* background: linear-gradient(to bottom right, #4affde 0%, #5b9dff 40%, #d06bff 60%, #ff34d2 100%); */
+  background: url(../assets/chat.jpeg);
+  background-position: center;
+  background-size: cover;
+  /* background-size: 200% 200%; */
+  /* animation: gradient 5s linear infinite alternate; */
   height: 100%;
   width: 100%;
   max-width: 100%;
@@ -13,10 +18,17 @@ body {
   flex-direction: column;
   transition: 1s ease;
   z-index: 4;
+  display: flex;
 }
 
+
 .signuppg{
-  background-color: #f3f3f3;
+  /* background: linear-gradient(to bottom right, #4affde 0%, #5b9dff 40%, #d06bff 60%, #ff34d2 100%); */
+  background: url(../assets/chat.jpeg);
+  background-position: center;
+  background-size: cover;
+  /* background-size: 200% 200%; */
+  /* animation: gradient 5s linear infinite alternate;   */
   height: 100%;
   width: 100%;
   max-width: 100%;
@@ -25,11 +37,14 @@ body {
   right:-100%;
   flex-direction: column;
   transition: 1s ease;
+  display: flex;
   z-index: 5;
 }
 
 .settingspg{
-  background-color: #f3f3f3;
+  background: url(../assets/chat.jpeg);
+  background-position: center;
+  background-size: cover;
   height: 100%;
   width: 100%;
   max-width: 100%;
@@ -42,33 +57,9 @@ body {
 }
 
 .edit-userpg{
-  background-color: #f3f3f3;
-  height: 100%;
-  width: 100%;
-  max-width: 100%;
-  position: fixed;
-  top: 0;
-  right:-100%;
-  flex-direction: column;
-  transition: 1s ease;
-  z-index: 5;
-}
-
-.manage-musicpg{
-  background-color: #f3f3f3;
-  height: 100%;
-  width: 100%;
-  max-width: 100%;
-  position: fixed;
-  top: 0;
-  right:-100%;
-  flex-direction: column;
-  transition: 1s ease;
-  z-index: 5;
-}
-
-.edit-musicpg{
-  background-color: #f3f3f3;
+  background: url(../assets/chat.jpeg);
+  background-position: center;
+  background-size: cover;
   height: 100%;
   width: 100%;
   max-width: 100%;
@@ -78,10 +69,49 @@ body {
   flex-direction: column;
   transition: 1s ease;
   z-index: 6;
+  overflow: scroll;
+  scrollbar-width: none;
+}
+
+.manage-musicpg{
+  background: url(../assets/chat.jpeg);
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 5;
+  overflow: scroll;
+  scrollbar-width: none;
+  background-attachment: fixed;
+}
+
+.edit-musicpg{
+  background: url(../assets/chat.jpeg);
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  right:-100%;
+  flex-direction: column;
+  transition: 1s ease;
+  z-index: 6;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 .followingpg{
-  background-color: #f3f3f3;
+  background: url(../assets/chat.jpeg);
+  background-position: center;
+  background-size: cover;
   height: 100%;
   width: 100%;
   max-width: 100%;
@@ -93,10 +123,13 @@ body {
   z-index: 4;
   overflow: scroll;
   scrollbar-width: none;
+  background-attachment: fixed;
 }
 
 .followerpg{
-  background-color: #f3f3f3;
+  background: url(../assets/chat.jpeg);
+  background-position: center;
+  background-size: cover;
   height: 100%;
   width: 100%;
   max-width: 100%;
@@ -106,10 +139,14 @@ body {
   flex-direction: column;
   transition: 1s ease;
   z-index: 4;
+  background-attachment: fixed;
 }
 
 .history-chatpg{
-  background-color: #f3f3f3;
+  /* background: url(../assets/chat.jpeg);
+  background-position: center;
+  background-size: cover; */
+  background: url(../assets/chat.jpeg);
   height: 100%;
   width: 100%;
   max-width: 100%;
@@ -121,10 +158,17 @@ body {
   z-index: 4;
   overflow: scroll;
   scrollbar-width: none;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .chatpg{
-  background-color: #f3f3f3;
+  /* background-color: #f3f3f3; */
+  background-image: url(../assets/chat.jpeg);
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
   height: 100%;
   width: 100%;
   max-width: 100%;
@@ -161,6 +205,118 @@ body {
   right: 0;
 }
 
+.particles-js-canvas-el{
+  position: absolute;
+}
+
+/* .wrapper {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	pointer-events: none;
+}
+.round {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #01b4f9;
+	border: 5px solid #01b4f9;
+	opacity: 0;
+	box-shadow: 0 0 100px #01b4f9, 0 0 10px #01b4f9, 0 0 20px #01b4f9;
+	animation: animate 4s linear infinite, ani-2 2s linear infinite;
+}
+.round:nth-child(1) {
+	left: 5%;
+	animation-delay: 0.5s;
+}
+.round:nth-child(2) {
+	left: 65%;
+	animation-delay: 1s;
+}
+.round:nth-child(3) {
+	left: 90%;
+	animation-delay: 1.5s;
+}
+.round:nth-child(4) {
+	left: 18%;
+	animation-delay: 2s;
+}
+.round:nth-child(5) {
+	left: 93%;
+	animation-delay: 2.5s;
+}
+.round:nth-child(6) {
+	left: 52%;
+	animation-delay: 3s;
+}
+.round:nth-child(7) {
+	left: 65%;
+	animation-delay: 3.5s;
+}
+.round:nth-child(8) {
+	left: 35%;
+	animation-delay: 4s;
+}
+.round:nth-child(9) {
+	left: 85%;
+	animation-delay: 4.5s;
+}
+.round:nth-child(10) {
+	left: 45%;
+	animation-delay: 5s;
+}
+.round:nth-child(11) {
+	left: 36%;
+	animation-delay: 5.5s;
+}
+.round:nth-child(12) {
+	left: 72%;
+	animation-delay: 6s;
+}
+.round:nth-child(13) {
+	left: 14%;
+	animation-delay: 6.5s;
+}
+.round:nth-child(14) {
+	left: 70%;
+	animation-delay: 7s;
+}
+@keyframes animate {
+	0% {
+		top: 0;
+		opacity: 1;
+	}
+	20% {
+		top: 20%;
+		opacity: 0.8;
+	}
+	40% {
+		top: 40%;
+		opacity: 0.6;
+	}
+	60% {
+		top: 60%;
+		opacity: 0.4;
+	}
+	80% {
+		top: 80%;
+		opacity: 0.2;
+	}
+	100% {
+		top: 100%;
+		opacity: 0;
+	}
+}
+@keyframes ani-2 {
+	0%, 100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(2.5);
+	}
+} */
 
 @keyframes transitionIn {
     from {
@@ -170,4 +326,12 @@ body {
       opacity: 1;
 
     }
+}
+
+@keyframes gradient{
+  from{
+    background-position: 0 0;
+  } to{
+    background-position: 100% 100%;
+  }
 }

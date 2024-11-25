@@ -6,76 +6,73 @@
         <h1>EDIT AKUN</h1>
     </div>
     <div class="edit-user-container">
-        <form action="databases/query.php" method="POST" class="form-container" onsubmit="return closep('userEdit')">
-            <label for="edit-full-name">Nama Lengkap:</label>
-            <input type="text" id="edit-full-name" name="full-name" class="form-login" value="[Nama Lengkap]" required><br>
+        <form action="databases/query.php" method="POST" class="form-container" enctype="multipart/form-data" onsubmit="return closep('userEdit')">
+            <div class="profile-pic-container">
+                <label for="input-profile" class="input-thumbnail">
+                    <img id="title-profile" src="<?php if ($currentSession["foto"] == "") {echo "assets/default.jpg";} else {echo "databases/profile/" . $currentSession["foto"];}?>" alt="Foto Profil" class="thumbnail-review">
+                    <img id="profile-preview" alt="Foto Profil" class="thumbnail-preview">
+                </label>
+                <input type="file" id="input-profile" name="profile-pic" class="input-th" accept="image/*" onchange="limit_size(event, 'editProfile')">
+            </div>
 
-            <label for="edit-email">Surel:</label>
-            <input type="email" id="edit-email" name="email" class="form-login" value="[Surel]" required><br>
+            <label for="edit-full-name">Nama Lengkap: <br>
+                <input type="text" id="edit-full-name" name="full-name" class="form-pw" placeholder="Nama Lengkap" value="<?= $currentSession["nama_lengkap"]?>" required>
+            </label>
 
-            <label for="edit-username">Nama Pengguna:</label>
-            <input type="text" id="edit-username" name="username" class="form-login" readonly><br>
+            <label for="edit-desc">Deskripsi Akun: <br>
+                <input type="text" id="edit-desc" name="desc" class="form-pw" placeholder="Deskripsi Akun" value="<?= $currentSession["deskripsi"]?>">
+            </label>
 
-            <label for="edit-password">Sandi Baru:</label>
-            <input type="password" id="edit-password" name="password" class="form-login"><br>
+            <label for="edit-email">Surel: <br>
+                <input type="email" id="edit-email" name="email" class="form-pw" placeholder="Surel" value="<?= $currentSession["email"]?>" required>
+            </label>
+
+            <label for="edit-password">Sandi Baru: <br>
+                <input type="password" id="edit-password" name="password" placeholder="Kosongkan jika tidak mengubah" class="form-pw">
+            </label>
             
-            <div class="submit-button-container">
-                <input type="submit" id="submit-edit" name="edit-account" value="Simpan Perubahan" class="submit-button">
-            </div><br>
+            <input type="submit" id="submit-edit" name="edit-account" value="Simpan Perubahan" class="submit-button">
+
         </form>
     </div>
 </div>
 
-
+<?php
+    if (isset($_GET["editMusik"])){
+        $LaguCurr = select_lagu_spesifik($conn, $_GET["editMusik"]);
+    }
+?>
 <div class="edit-musicpg">
     <div class="title-upper">
-        <button class="back-page" onclick="closep('musicEdit')">
+        <button class="back-page" onclick="closep('musicEdit'); open_slide('setting')">
             <i class="fa-solid fa-arrow-left" style="font-size: 30px"></i>
         </button>
         <h1>EDIT MUSIK</h1>
     </div>
-    <form action="databases/query.php" method="POST" class="form-container" enctype="multipart/form-data" onsubmit="return closep('musicEdit')">
+    <form action="databases/query.php?lagu=<?= $LaguCurr["lagu"]?>&direktori=<?= $LaguCurr["thumbnail"]?>" method="POST" class="form-container" enctype="multipart/form-data" onsubmit="return closep('musicEdit')">
         <div class="thumbnail-container">
-            <p>Tampilan:</p>
-            <label for="edit-thumbnail" class="input-thumbnail">
-                <p id="edit-title-thumbnail"></p>
-                <img alt="preview-thumbnail" id="edit-thumbnail-preview" class="thumbnail-preview">
+            <label for="input-Thumbnail" class="input-thumbnail">
+                <img id="title-Thumbnail" src="<?= "databases/thumbnail/" . $LaguCurr['thumbnail']?>" alt="Foto Profil" class="thumbnail-review">
+                <img alt="preview-thumbnail" id="Thumbnail-preview" class="thumbnail-preview">
             </label>
-            <input type="file" id="edit-thumbnail" name="thumbnail" class="input-th" onchange="limit_size(event)">
+            <input type="file" id="input-Thumbnail" name="input-Thumbnail" class="input-th" onchange="limit_size(event, 'editThumbnail')">
         </div>
-        <input type="hidden" name="lagu" id="edit-lagu-hidden" value="">
-        <label for="edit-music">Ubah Lagu:</label>
-        <input type="file" id="edit-music" name="music" class="input-music"><br><br>
 
-        <label for="edit-title">Judul:</label>
-        <input type="text" id="edit-title" name="title" value="[Judul Lagu]" required><br><br>
+        <label for="edit-title">
+            Judul: <br>
+            <input type="text" id="edit-title" name="edit-title" class="form-pw" value="<?= $LaguCurr['judul']?>" required>
+        </label>
 
-        <label for="edit-lyrics">Lirik:</label>
-        <textarea name="lyrics" id="edit-lyrics" cols="30" rows="3" class="text-area">[Lirik]</textarea><br><br>
+        <label for="edit-lyrics">
+            Lirik:
+            <textarea name="edit-lyrics" id="edit-lyrics" cols="30" rows="3" class="text-area"><?= $LaguCurr['lirik']?></textarea>
+        </label>
 
-        <label for="edit-description">Deskripsi:</label>
-        <textarea name="description" id="edit-description" cols="30" rows="3" class="text-area">[Deskripsi]</textarea><br><br>
+        <label for="edit-description">
+            Deskripsi:
+            <textarea name="edit-description" id="edit-description" cols="30" rows="3" class="text-area"><?= $LaguCurr['deskripsi']?></textarea>
+        </label>
 
         <input type="submit" id="submit-edit-music" name="edit-music" value="Simpan Perubahan" class="submit-button">
     </form>
 </div>
-
-    <script>
-        document.getElementById('edit-music').addEventListener('input', function() {
-            const limit = 15 * 1024 * 1024;
-            var file = this.files[0];
-            var ext = file.name.split(".").pop();
-
-            if (file.size > limit) {
-                alert('Maksimal File Adalah 15 MB');
-                this.value = "";
-            }
-
-            if (ext == "mp3" || ext == "wav" || ext == "mp4" || ext == "mp4a") {
-                return;
-            } else {
-                alert("Ekstensi File Harus mp3, mp4, mp4a, wav");
-                this.value = "";
-            }
-        });
-    </script>

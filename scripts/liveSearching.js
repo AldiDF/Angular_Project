@@ -44,6 +44,11 @@ if (currentPage.includes("admin")){
                     if (result.length > 0){
                         let limitedResults = result.slice(0, 4);
                         $.each(result, function(index, item){
+                            if (item["foto"] == ""){
+                                var direktoriFoto = "assets/default.jpg";
+                            } else {
+                                var direktoriFoto = `databases/profile/${item["foto"]}`;
+                            }
                             if (item.judul){
                                 html += `
                                 <li class="list-search">
@@ -57,7 +62,7 @@ if (currentPage.includes("admin")){
                                 html += `
                                 <li class="list-search">
                                     <a href="profile.php?user=${item["username"]}" class="link-search">
-                                        <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
+                                        <img src='${direktoriFoto}' alt='profile' class='nav-profile-picture'>
                                         <p>${item["username"]}</p>
                                     </a>
                                 </li>`;
@@ -116,7 +121,13 @@ if (currentPage.includes("admin")){
     
                     if (result.length > 0){
                         let limitedResults = result.slice(0, 4);
-                        $.each(result, function(index, item){
+                        $.each(limitedResults, function(index, item){
+                            if (item["foto"] == ""){
+                                var direktoriFoto = "assets/default.jpg";
+                            } else {
+                                var direktoriFoto = `databases/profile/${item["foto"]}`;
+                            }
+
                             if (item.judul){
                                 html += `
                                 <li class="list-search">
@@ -130,7 +141,7 @@ if (currentPage.includes("admin")){
                                 html += `
                                 <li class="list-search">
                                     <a href="profile.php?user=${item["username"]}" class="link-search">
-                                        <i class="fa-regular fa-circle-user" style="font-size: 36px"></i>
+                                        <img src='${direktoriFoto}' alt='profile' class='nav-profile-picture'>
                                         <p>${item["username"]}</p>
                                     </a>
                                 </li>`;

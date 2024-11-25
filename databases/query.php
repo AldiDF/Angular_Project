@@ -25,16 +25,6 @@
 
     function insert_akun($username, $nama_lengkap, $email, $password, $conn){
         check_duplikat_akun($conn, $username);
-        $passwords = $password;
-        if (strlen($passwords) < 8) {
-            echo "
-            <script>
-            alert('Password harus minimal 8 karakter');
-            document.location.href = '../index.php';
-            </script>
-            ";
-            exit;
-        }
         $password = password_hash($password, PASSWORD_DEFAULT);
         $sql_insert_akun = mysqli_query($conn, "INSERT INTO account VALUES ('$username', '$nama_lengkap', '$email', '$password', '', '', 'PUBLIK');");
         if ($sql_insert_akun) {
@@ -55,20 +45,20 @@
     function login($username, $password, $conn){
         $sql_select_akun = mysqli_query($conn, "SELECT * FROM account");
 
-        if ($username == "admin" && $password == "admin"){
-            $_SESSION["admin"] = true;
-            echo "
-                <script>
-                    document.location.href = '../index.php';
-                </script>
-            ";
-            exit;
-        }
-
         $count = 0;
         while ($row = mysqli_fetch_assoc($sql_select_akun)){
             $akun[] = $row;
-            if ($akun[$count]["username"] == $username && password_verify($password, $akun[$count]["password"])){
+            if ($akun[$count]["username"] == $username && password_verify($password, $akun[$count]["pasword"])){
+                if ($username == "admin" && $password == "admin"){
+                    $_SESSION["admin"] = true;
+                    $_SESSION["username"] = $akun[$count]["username"];
+                    echo "
+                        <script>
+                            document.location.href = '../index.php';
+                        </script>
+                    ";
+                    exit;
+                }
                 $_SESSION["user"] = true;
                 $_SESSION["username"] = $akun[$count]["username"];
                 echo "
@@ -97,12 +87,14 @@
             $select_akun = mysqli_query($conn, "SELECT * FROM account");
             $akun = [];
             while ($row = mysqli_fetch_assoc($select_akun)){
-                $akun[] = $row; 
+                if ($row["username"] != "admin"){
+                    $akun[] = $row; 
+                }
             }
             return $akun;
             
         } else {
-            // $akun;
+            $akun;
             $select_akun = mysqli_query($conn, "SELECT * FROM account WHERE username = '$where'");
             $akun = mysqli_fetch_assoc($select_akun);
             return $akun;
@@ -126,7 +118,7 @@
                 }
                 return $lagu;
             } else {
-                $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stats = '$where' AND user = '$username'");
+                $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stats = '$where' AND user = '$username' ORDER BY lagu DESC");
                 while ($row = mysqli_fetch_assoc($select_lagu)){
                     $lagu[] = $row; 
                 }
@@ -178,9 +170,9 @@
                 $result = mysqli_query($conn, $query);
     
                 if ($result) {
-                    echo "<script>alert('Berhasil menambah lagu!'); document.location.href = '../index.php';</script>";
+                    echo "<script>document.location.href = '../index.php';</script>";
                 } else {
-                    echo "<script>alert('Gagal menambah lagu!'); document.location.href = '../index.php';</script>";
+                    echo "<script>document.location.href = '../index.php';</script>";
                 }
             } else {
                 echo "<script>alert('Gagal meng-upload lagu!');</script>";
@@ -191,14 +183,18 @@
     function delete_akun($conn, $username, $session){
         $query = "SELECT * FROM content WHERE user = '$username'";
         $result = mysqli_query($conn, $query);
-        while ($row = mysqli_fetch_assoc($result)){
-            $image_path = 'thumbnail/' . $row['thumbnail'];
-            $song_path = 'music/' . $row['lagu'];
-            if(file_exists($image_path)){
-                unlink($image_path);
-            }
-            if(file_exists($song_path)){
-                unlink($song_path);
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $image_path = 'thumbnail/' . $row['thumbnail'];
+                $song_path = 'music/' . $row['lagu'];
+
+                if (file_exists($image_path)) {
+                    unlink($image_path);
+                }
+
+                if (file_exists($song_path)) {
+                    unlink($song_path);
+                }
             }
         }
         $akun = select_akun($conn, $username);
@@ -246,7 +242,6 @@
             }
         }
     }
-
 
     function select_pesan($conn, $penerima, $pengirim){
         $select_pesan = mysqli_query($conn, "SELECT * FROM chat WHERE pengirim = '$pengirim' AND penerima = '$penerima'");
@@ -357,18 +352,16 @@
             }
         }
     }
-    
-
 
     function action_like($conn, $lagu, $username, $status){
         if ($status){
-            $action = mysqli_query($conn, "INSERT INTO like_content VALUES (0, '$lagu', '$username');");
             $judul = mysqli_query($conn, "SELECT judul FROM content where lagu= '$lagu';");
             $pesan = $username." Telah Menyukai Lagu Anda ". $judul ;
             $orang = select_lagu_spesifik($conn, $lagu);
             date_default_timezone_set("Asia/Makassar");
             $waktu = date("Y-m-d H.i.s");
             mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$orang', '$waktu'); ");
+            $action = mysqli_query($conn, "INSERT INTO like_content VALUES (0, '$lagu', '$username');");
 
         } else {
             $action = mysqli_query($conn, "DELETE FROM like_content WHERE objek = '$lagu' AND subjek = '$username';");
@@ -414,7 +407,7 @@
 
     function select_komen($conn, $lagu, $last){
         if ($last == true){
-            
+            $komen;
             $select_komen = mysqli_query($conn, "SELECT * FROM comment WHERE lagu = '$lagu' ORDER BY id DESC LIMIT 1");
             $komen = mysqli_fetch_assoc($select_komen);
             echo json_encode($komen);
@@ -451,8 +444,66 @@
         }
     }
 
+    function delete_lagu($conn){
+        $lagu_user = $_GET["lagu"];
+        $query = "SELECT * FROM content WHERE lagu = '$lagu_user'";
+        $result = mysqli_query($conn, $query);
+        $lagu = mysqli_fetch_assoc($result);
+        $user = $lagu['user'];
+        $juduls = $lagu['judul'];
+        date_default_timezone_set("Asia/Makassar");
+        $waktu = date('Y-m-d H.i.s');
+        
+        if($lagu){
+            $image_path = 'thumbnail/' . $lagu['thumbnail'];
+            $song_path = 'music/' . $lagu['lagu'];
+            if(file_exists($image_path)){
+                unlink($image_path);
+            }
+            if(file_exists($song_path)){
+                unlink($song_path);
+            }
+        }
+
+        $delete_query = "DELETE FROM content WHERE lagu = '$lagu_user'";
+        if (mysqli_query($conn, $delete_query)) {
+            if (!isset($_SESSION["admin"])){
+                echo "<script>
+                    alert('Lagu Telah Dihapus');
+                    document.location.href = '../index.php';
+                </script>";
+            } else {
+                date_default_timezone_set("Asia/Makassar");
+                $waktu = date("Y-m-d H.i.s");
+                
+                $pesan = "Lagu anda yang berjudul $juduls telah dihapus oleh admin";
+        
+                
+                mysqli_query($conn, "INSERT INTO notification VALUES (0, '$pesan', '$user', '$waktu')");
+                echo "<script>
+                        alert('Lagu Telah Dihapus');
+                        document.location.href = '../admin/manage_music.php';
+                      </script>";
+            }
+        } else {
+            if (!isset($_SESSION["admin"])){
+                echo "<script>
+                    alert('Gagal Menghapus lagu');
+                    document.location.href = '../index.php';
+                  </script>";
+
+            } else {
+                echo "<script>
+                    alert('Gagal Menghapus lagu');
+                    document.location.href = '../admin/manage_music.php';
+                  </script>";
+            }
+            
+        }
+    }
+
     function select_like($conn, $lagu, $username){
-        // $like;
+        $like;
         $select_like = mysqli_query($conn, "SELECT * FROM like_content WHERE objek = '$lagu' AND subjek = '$username'");
         $like = mysqli_num_rows($select_like);
         return $like;
@@ -469,6 +520,7 @@
         $username = $_GET["akun"];
         $status_akun = mysqli_query($conn, "UPDATE account SET stats = '$status' WHERE username = '$username'");
         if ($status_akun){
+            return;
             echo "
                 <script>
                     document.location.href = '../index.php';
@@ -496,12 +548,14 @@
                 date_default_timezone_set("Asia/Makassar");
                 $waktu = date("Y-m-d H.i.s");
                 mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$object', '$waktu'); ");
+                
                 echo "
                     <script>
                         document.location.href = '../profile.php?user=$object';
                     </script>
                 ";
             } else {
+                
                 echo "
                     <script>
                         document.location.href = '../profile.php?user=$object';
@@ -513,12 +567,14 @@
             $query = mysqli_query($conn, "DELETE FROM follow WHERE objek = '$object' AND subjek = '$subject'");
 
             if($query){
+                
                 echo "
                     <script>
                         document.location.href = '../profile.php?user=$object';
                     </script>
                 ";
             } else {
+                
                 echo "
                     <script>
                         document.location.href = '../profile.php?user=$object';
@@ -554,12 +610,12 @@
 
     function select_chat($conn, $last, $user1, $user2){
         if ($last == "true"){
-            // $chat;
+            $chat;
             $select_chat = mysqli_query($conn, "SELECT * FROM chat WHERE (penerima = '$user1' AND pengirim = '$user2') OR (penerima = '$user2' AND pengirim = '$user1') ORDER BY id DESC LIMIT 1");
             $chat = mysqli_fetch_assoc($select_chat);
 
             echo json_encode($chat);
-            return;
+            return $chat;
 
         } else if ($last == "false"){
             $chat = [];
@@ -586,7 +642,13 @@
     }
 
     function total_like($conn, $username){
-        $query = "SELECT * FROM like_content WHERE objek LIKE '%$username%'";
+        $query = "SELECT 
+        acc.username,
+        lk.objek
+        FROM account acc
+        JOIN content ct ON ct.user = acc.username
+        JOIN like_content lk ON lk.objek = ct.lagu
+        WHERE acc.username = '$username'";
         $result = mysqli_query($conn, $query);
         $count = mysqli_num_rows($result);
         return $count;
@@ -759,57 +821,75 @@
     
     }
 
-    function select_notif ($conn, $username){
-        $notif = [];
-        $select_notif = mysqli_query($conn, "SELECT * FROM notification WHERE (username = '$username' ORDER BY id DESC;");
-        while ($row = mysqli_fetch_assoc($select_notif)){
-            $notif[] = $row;
-        }
-        return $notif;
-    }
-
-    function deleteall_notif($conn, $username){
-        $query = mysqli_query($conn, "DELETE FROM notification WHERE username = '$username'");
-        if($query){
-            echo "
-                <script>
-                    document.location.href = 'index.php';
-                </script>
-            ";
-        } else {
-            echo "
-                <script>
-                    document.location.href = 'index.php';
-                </script>
-            ";
-        }
-    }
-
-    function delete_notif($conn, $id){
-        $query = mysqli_query($conn, "DELETE FROM notification WHERE id = '$id'");
-        if($query){
-            echo "
-                <script>
-                    document.location.href = 'index.php';
-                </script>
-            ";
-        } else {
-            echo "
-                <script>
-                    document.location.href = 'index.php';
-                </script>
-            ";
-        }
-    }
-
     function recomendation($conn){
-        $query = "SELECT * FROM content WHERE stats = 'ACCEPT' ORDER BY lagu DESC LIMIT 3";
+        $query = "SELECT * FROM content WHERE stats = 'ACCEPT' ORDER BY lagu DESC LIMIT 6";
         $result = mysqli_query($conn, $query);
         $lagu = [];
         while ($row = mysqli_fetch_assoc($result)){
             $lagu[] = $row;
         }
         return $lagu;
+    }
+
+    function select_notif ($conn, $username){
+        $notif = [];
+        $select_notif = mysqli_query($conn, "SELECT * FROM notification WHERE username = '$username' ORDER BY waktu DESC;");
+        while ($row = mysqli_fetch_assoc($select_notif)){
+            $notif[] = $row;
+        }
+        return $notif;
+    }
+
+    function timeAgo($inputTime) {
+        date_default_timezone_set("Asia/Makassar");
+        $now = new DateTime();
+        $past = new DateTime($inputTime);
+        $diff = $now->diff($past);
+    
+        if ($diff->y > 0) {
+            return $diff->y . " tahun yang lalu";
+        } elseif ($diff->m > 0) {
+            return $diff->m . " bulan yang lalu";
+        } elseif ($diff->d > 0) {
+            return $diff->d . " hari yang lalu";
+        } elseif ($diff->h > 0) {
+            return $diff->h . " jam yang lalu";
+        } elseif ($diff->i > 0) {
+            return $diff->i . " menit yang lalu";
+        } else {
+            return $diff->s . " detik yang lalu";
+        }
+    }
+
+    function overflow($text, $maxLength) {
+        // Menghapus semua newline (\n atau \r) dari teks
+        $cleanText = str_replace(["\r", "\n"], ' ', $text);
+        
+        // Jika panjang teks lebih dari maxLength, potong teks dan tambahkan '...'
+        if (strlen($cleanText) > $maxLength) {
+            $cleanText = substr($cleanText, 0, $maxLength) . '...';
+        }
+    
+        return $cleanText;
+    }
+
+    function delete_chat($conn){
+        $id = $_GET["chatID"];
+        $lawan_chat = $_GET["Lawanchat"];
+        $delete_chat = mysqli_query($conn, "DELETE FROM chat WHERE id = '$id'");
+        if ($delete_chat){
+            echo "
+                <script>
+                    document.location.href = '../index.php?lawanChat=$lawan_chat';
+                </script>
+            ";
+        } else {
+            echo "
+                <script>
+                    document.location.href = '../index.php?lawanChat=$lawan_chat';
+                </script>
+            ";
+        }
     }
 
     if (isset($_POST["signup"])){
@@ -841,38 +921,7 @@
         }
 
     } else if (isset($_GET["delete_lagu"])){
-        $lagu_user = $_GET["lagu"];
-        $query = "SELECT * FROM content WHERE lagu = '$lagu_user'";
-        $result = mysqli_query($conn, $query);
-        $lagu = mysqli_fetch_assoc($result);
-        $user = $lagu['user'];
-        $juduls = $lagu['judul'];
-        $waktu = date('Y-m-d H.i.s');
-        
-        if($lagu){
-            $image_path = 'thumbnail/' . $lagu['thumbnail'];
-            $song_path = 'music/' . $lagu['lagu'];
-            if(file_exists($image_path)){
-                unlink($image_path);
-            }
-            if(file_exists($song_path)){
-                unlink($song_path);
-            }
-        }
-
-        $delete_query = "DELETE FROM content WHERE lagu = '$lagu_user'";
-        if (mysqli_query($conn, $delete_query)) {
-
-            echo "<script>
-                    alert('Lagu Telah Dihapus');
-                    document.location.href = '../admin/manage_music.php';
-                  </script>";
-        } else {
-            echo "<script>
-                    alert('Gagal Menghapus lagu');
-                    document.location.href = '../admin/manage_music.php';
-                  </script>";
-        }
+        delete_lagu($conn);
 
     } else if (isset($_GET["comment"])){
         insert_komen($conn);
@@ -918,5 +967,8 @@
 
     } else if (isset($_POST['edit-music'])) {
         update_lagu($conn, $_GET["lagu"]);
+
+    } else if (isset($_GET["chatID"])){
+        delete_chat($conn);
     }
 ?>

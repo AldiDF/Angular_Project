@@ -2,6 +2,11 @@
     require "../databases/connection.php";
     include "../databases/query.php";
 
+    if (!isset($_SESSION["admin"])){
+        header('Location: ../index.php');
+        exit;
+    }
+
     $admin = true;
     $lagu = select_lagu($conn, "ACCEPT", "");
 ?>
@@ -22,6 +27,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
+    <?php include("../slide/chat.php")?>
     <?php include("../navfooter/sidebar.php")?>
     <?php include("../navfooter/navbar.php")?>
     <main>
@@ -56,10 +62,12 @@
                     <td><?php echo $lagu["user"]?></td>
                     <td>
                         <div class="action-button">
-                            <button class="edit-icon">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <a href="../databases/query.php?delete_lagu=true&session=admin&lagu=<?php echo $lagu['lagu']?>" onclick="return confirm('Yakin ingin menghapus lagu ini?')">
+                            <a href="../detail.php?lagu=<?= $lagu["lagu"]?>">
+                                <button class="edit-icon">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </a>
+                            <a href="../databases/query.php?delete_lagu=true&lagu=<?php echo $lagu['lagu']?>" onclick="return confirm('Yakin ingin menghapus lagu ini?')">
                                 <button class="delete-icon">
                                     <i class="fa-light fa-trash-can"></i>
                                 </button>

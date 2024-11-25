@@ -69,7 +69,7 @@ seek.addEventListener('input', () => {
     dot.style.left = `${seek.value}%`;
 });
 
-const mainContent = document.querySelector(".main-content .owner-content");
+const mainContent = document.querySelector(".main-content");
 const mainContentContainer = document.getElementById("main-content");
 
 mainContentContainer.addEventListener("mouseover", function(event) {

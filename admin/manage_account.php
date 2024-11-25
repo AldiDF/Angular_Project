@@ -2,6 +2,11 @@
     require "../databases/connection.php";
     include "../databases/query.php";
     
+    if (!isset($_SESSION["admin"])){
+        header('Location: ../index.php');
+        exit;
+    }
+
     $admin = true;
     $akun = select_akun($conn, "");
 ?>
@@ -22,6 +27,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
+    <?php include("../slide/chat.php")?>
     <?php include("../navfooter/sidebar.php")?>
     <?php include("../navfooter/navbar.php")?>
     <main>
@@ -46,18 +52,21 @@
             </thead>
             <tbody>
                 <?php $i = 1; foreach($akun as $acc): ?>
-                <?php $direktori = "../databases/profile_picture/" . $acc["foto"];?>
+                    <?php if ($acc["username"] != "admin"):?>
+                <?php $direktori = "../databases/profile/" . $acc["foto"];?>
                 <tr>
                     <td><?php echo $i . ".";?></td>
-                    <td><?php if ($acc["foto"] == "") {echo "<i class='fa-light fa-circle-user' style='font-size: 50px;'></i>";} else {echo "<img src='$direktori' alt='profile-picture' class='profile-user'>";}?></td>
+                    <td><?php if ($acc["foto"] == "") {echo "<img src='../assets/default.jpg' alt='profile-picture' class='nav-profile-picture'>";} else {echo "<img src='$direktori' alt='profile-picture' class='nav-profile-picture'>";}?></td>
                     <td><?php echo $acc["username"]?></td>
                     <td><?php echo $acc["email"]?></td>
                     <td>
                         <div class="action-button">
-                            <button class="edit-icon">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <a href="../databases/query.php?delete=true&session=admin&username=<?php echo $acc['username']?>" onclick="return confirm('Yakin ingin menghapus akun ini?')">
+                            <a href="../profile.php?user=<?= $acc["username"]?>">
+                                <button class="edit-icon">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </a>
+                            <a href="../databases/query.php?delete-akun=true&session=admin&username=<?php echo $acc['username']?>" onclick="return confirm('Yakin ingin menghapus akun ini?')">
                                 <button class="delete-icon">
                                     <i class="fa-light fa-trash-can"></i>
                                 </button>
@@ -65,6 +74,7 @@
                         </div>
                     </td>
                 </tr>
+                <?php endif;?>
                 <?php $i++; endforeach;?>
             </tbody>
         </table>

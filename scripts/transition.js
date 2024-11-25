@@ -237,6 +237,7 @@ function storage(){
         history_chat_page.classList.add("slide")
 
     } else if (chat === "enabled"){
+        console.log("chat slide enabled")
         chat_page.classList.add("slide")
 
     } else if (upload === "enabled"){

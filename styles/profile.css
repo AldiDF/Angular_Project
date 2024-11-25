@@ -1,41 +1,56 @@
 .biography-upper{
     display: flex;
-    margin: 50px 40px;
+    margin: 20px 100px 20px 100px;
+    align-items: center;
 }
 
 .profile-picture{
     margin-right: 40px;
+    display: flex;
+    align-items: center;
+    max-width: 775px;
+    width: 775px;
 }
 
 h2{
-    font-size: 22px;
+    font-size: 26px;
     font-family: Helvetica;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+h2:nth-child(2){
+    font-size: 18px;
+    font-family: Helvetica;
+    margin-bottom: 5px;
 }
 
 h3{
+    margin: 0;
     font-size: 16px;
     font-family: Helvetica;
 }
 
-.button-follow, .button-setting{
+.button-follow{
     color: #303841;
-    padding: 10px 0;
-    width: 150px;
-    max-width: 150px;
-    border: 5px #303841 solid;
-    border-radius: 10px;
+    width: 200px;
+    max-width: 200px;
     font-size: 16px;
     cursor: pointer;
+    border: none;
+    background: none;
+    font-family: Helvetica;
+    text-align: left;
 }
 
-.button-follow:hover, .button-setting:hover{
-    background-color: #303841;
-    color: #f3f3f3;
+.button-follow i {
+    margin-right: 15px;
+    font-size: 24px;
 }
 
 .line{
     width: 100%;
-    height: 5px;
+    height: 1px;
     background-color: #303841;
     margin: 20px 0;
 }
@@ -49,38 +64,112 @@ h3{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 5px;
+    margin: 0;
+    height: 30px;
+    max-height: 30px;
+    margin-right: 125px;
 }
 
 .total-likes i{
-    font-size: 40px;
+    font-size: 20px;
     color: #303841;
     margin-right: 20px;
+    border: none;
+    margin-left: 60px;
 }
 
 .total-content{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 5px;
+    height: 30px;
+    max-height: 30px;
+    border-left: 1px #303841 solid;
+    border-right: 1px #303841 solid;
+    padding-right: 125px;
+    padding-left: 125px;
 }
 
 .total-content i{
-    font-size: 40px;
+    font-size: 20px;
     color: #303841;
-    margin-left: 20px;
+    margin-right: 20px;
+    border: none;
+    margin-top: 10px;
+    padding: 0;
+}
+
+.button-setting{
+    border: none;
+    background: none;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 60px;
+    margin-left: 125px;
+}
+
+.button-setting i{
+    font-size: 30px;
+    color: #303841;
+    margin-right: 20px;
 }
 
 .biography-lower{
     display: flex;
-    margin: 50px 40px 20px 40px;
-    justify-content: space-between;
+    margin: 0 40px;
+    justify-content: center;
     text-align: center;
-    align-items: baseline;
+    border-top: 1px #303841 solid;
+    border-bottom: 1px #303841 solid;
 }
 
-.follow-container p{
-    margin: 10px 0 0 0;
+.biography-lower p{
+    font-size: 16px;
+    font-family: Helvetica;
+    margin: 0;
+}
+
+.follow-container{
+    display: flex;
+    gap: 20px;
 }
 
 .profile-content-container{
-    margin: 50px 40px;
+    margin: 20px 40px;
+}
+
+.picture{
+    width: 140px;
+    height: 140px;
+    border-radius: 100%;
+    border: 5px #303841 solid;
+    margin-right: 40px;
+}
+
+.profile-content{
+    display: flex;
+    gap: 20px;
+    width: auto;
+    flex-wrap: wrap;   
+    justify-content: space-between;
+}
+
+.action-follow-btn{
+    margin: 30px 0 0 0;
+    height: 40px;
+    width: 100%;
+    text-align: center;
+    border: none;
+    background: none;
+    font-family: Helvetica;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 5px 0;
+    background-color: #4a98f7;
+    border: 1px #303841 solid;
 }
