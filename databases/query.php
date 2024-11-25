@@ -338,25 +338,38 @@
             $orang = select_lagu_spesifik($conn, $lagu);
             date_default_timezone_set("Asia/Makassar");
             $waktu = date("Y-m-d H.i.s");
-            mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$orang', '$waktu'); ");
+            $send_notif = mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$orang', '$waktu'); ");
+            if ($action && $send_notif){
+                echo "
+                    <script>
+                        document.location.href = '../detail.php?lagu=$lagu';
+                    </script>
+                ";
+            } else {
+                echo "
+                    <script>
+                        document.location.href = '../detail.php?lagu=$lagu';
+                    </script>
+                ";
+            }
 
         } else {
             $action = mysqli_query($conn, "DELETE FROM like_content WHERE objek = '$lagu' AND subjek = '$username';");
+            if ($action){
+                echo "
+                    <script>
+                        document.location.href = '../detail.php?lagu=$lagu';
+                    </script>
+                ";
+            } else {
+                echo "
+                    <script>
+                        document.location.href = '../detail.php?lagu=$lagu';
+                    </script>
+                ";
+            }
         }
 
-        if ($action){
-            echo "
-                <script>
-                    document.location.href = '../detail.php?lagu=$lagu';
-                </script>
-            ";
-        } else {
-            echo "
-                <script>
-                    document.location.href = '../detail.php?lagu=$lagu';
-                </script>
-            ";
-        }
     }
 
     function insert_komen($conn){
@@ -869,6 +882,42 @@
         }
     }
 
+    function delete_notification($conn, $clear){
+        if ($clear == "true"){
+            $username = $_SESSION["username"];
+            $delete_notif = mysqli_query($conn, "DELETE FROM notification WHERE username = '$username'");
+            if ($delete_notif){
+                echo "
+                    <script>
+                        document.location.href = '../index.php';
+                    </script>
+                ";
+            } else {
+                echo "
+                    <script>
+                        document.location.href = '../index.php';
+                    </script>
+                ";
+            }
+        } else {
+            $id = $_GET["idNotif"];
+            $delete_notif = mysqli_query($conn, "DELETE FROM notification WHERE id = '$id'");
+            if ($delete_notif){
+                echo "
+                    <script>
+                        document.location.href = '../index.php';
+                    </script>
+                ";
+            } else {
+                echo "
+                    <script>
+                        document.location.href = '../index.php';
+                    </script>
+                ";
+            }
+        }
+    }
+
     if (isset($_POST["signup"])){
         insert_akun($_POST["username"], $_POST["full-name"], $_POST["email"], $_POST["password"], $conn);
         
@@ -947,5 +996,12 @@
 
     } else if (isset($_GET["chatID"])){
         delete_chat($conn);
+
+    } else if (isset($_GET["idNotif"])){
+        if ($_GET["idNotif"] == "clear"){
+            delete_notification($conn, "true");
+        } else {
+            delete_notification($conn, "false");
+        }
     }
 ?>

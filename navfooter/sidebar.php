@@ -1,7 +1,7 @@
 <?php if (isset($_SESSION["admin"])): ?>
     <div class="off-screen-menu">
         <?php if (isset($admin)):?>
-        <img src="../assets/logo.png" alt="LOGO" class="logo-sidebar">
+            <img src="assets/logoSidebar.png" alt="" class="logo-sidebar">
         <ul>
                 <a href="../index.php">
                     <li class="list-sidebar">
@@ -33,7 +33,7 @@
                 </a>
         </ul>
             <?php else :?>
-                <img src="assets/logo.png" alt="LOGO" class="logo-sidebar">
+                <img src="assets/logoSidebar.png" alt="" class="logo-sidebar">
         <ul>
                 <a href="index.php">
                     <li class="list-sidebar">
@@ -70,7 +70,7 @@
 
 <?php elseif (isset($_SESSION["user"])): ?>
     <div class="off-screen-menu">
-        <img src="assets/logo.png" alt="LOGO" class="logo-sidebar">
+        <img src="assets/logoSidebar.png" alt="" class="logo-sidebar">
         <ul>
             <a href="index.php">
                 <li class="list-sidebar">
@@ -99,7 +99,7 @@
     
 <?php else : ?>
     <div class="off-screen-menu">
-        <img src="assets/logo.png" alt="LOGO" class="logo-sidebar">
+        <img src="assets/logoSidebar.png" alt="" class="logo-sidebar">
         <ul>
             <a href="index.php"> 
                 <li class="list-sidebar">

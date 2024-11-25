@@ -18,6 +18,10 @@ nav{
     gap: 30px;
 }
 
+.nav-left i {
+    cursor: pointer;
+}
+
 .nav-profile-picture{
     width: 36px;
     height: 36px;
@@ -49,7 +53,7 @@ nav{
     border-bottom-left-radius: 20px;
     background-color: #f3f3f3;
     height: 30px;
-    width: 400px;
+    width: 600px;
     padding-left: 20px;
     padding-right: 0;
     font-size: 15px;
@@ -108,7 +112,7 @@ nav{
     border-radius: 5px;
     top : 100px;
     padding: 0;
-    width: calc(400px + 50px);
+    width: calc(600px + 50px);
     padding: 10px 0;
     z-index: 2;
 }
@@ -139,15 +143,16 @@ nav{
 .link-search p{
     margin: 0;
     margin-left: 15px;
-    font-size: 16px;
+    font-size: 20px;
     font-family: Helvetica !important;
     margin-right: 10px;
     z-index: 2;
 }
 
 .link-search img{
-    
     margin-left: 10px;
+    width: 90px;
+    height: 70px;
 }
 
 .link-search i{
@@ -163,6 +168,8 @@ nav{
 
 .link-search .nav-profile-picture{
     margin-left: 15px;
+    width: 50px;
+    height: 50px;
 }
 
 footer{
@@ -246,6 +253,16 @@ footer h3 {
 /* Hover pada item notifikasi */
 .notification-container .notification-item:hover {
     background-color: #e9ecef;
+}
+
+.head-right{
+    display: flex;
+    gap: 20px;
+}
+
+.head-right span{
+    cursor: pointer;
+    font-size: 16px;
 }
 
 

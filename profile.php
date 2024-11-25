@@ -31,6 +31,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil - <?php echo $akun["username"];?></title>
+    <link rel="icon" href="assets/logo.png">
     <link rel="stylesheet" href="styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/transition.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/sidebar.css?v=<?php echo time(); ?>">
@@ -146,8 +147,10 @@
                                     <figcaption class="owner-name"><?php echo $lagu["user"]?></figcaption>
                                 </figure>
                                 <div class="info-caption">
-                                    <p id="text-overflow"><?php echo $lagu["judul"] ?></p>
-                                    <p id="text-overflow"><?php echo $lagu["deskripsi"]?></p>
+                                    <?php $jdl = overflow($lagu["judul"], 25);?>
+                                    <?php $desk = overflow($lagu["deskripsi"], 36);?>
+                                    <p id="text-overflow"><?php echo $jdl ?></p>
+                                    <p id="text-overflow"><?php echo $desk?></p>
                                 </div>
                                 <p class="time-up"><?= timeAgo($time)?></p>
                             </figcaption>

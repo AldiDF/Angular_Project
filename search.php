@@ -25,6 +25,7 @@
     <?php else:?>
         <title>Beranda</title>
     <?php endif;?>
+    <link rel="icon" href="assets/logo.png">
     <link rel="stylesheet" href="styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/transition.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/sidebar.css?v=<?php echo time(); ?>">
@@ -70,8 +71,10 @@
                                     <figcaption class="owner-name"><?php echo $result["user"]?></figcaption>
                                 </figure>
                                 <div class="info-caption">
-                                    <p id="text-overflow"><?php echo $result["judul"] ?></p>
-                                    <p id="text-overflow"><?php echo $result["deskripsi"]?></p>
+                                    <?php $jdl = overflow($result["judul"], 25);?>
+                                    <?php $desk = overflow($result["deskripsi"], 36);?>
+                                    <p id="text-overflow"><?php echo $jdl ?></p>
+                                    <p id="text-overflow"><?php echo $desk?></p>
                                 </div>
                                 <p class="time-up"><?= timeAgo($time)?></p>
                             </figcaption>

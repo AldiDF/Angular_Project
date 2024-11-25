@@ -54,7 +54,7 @@
 
 .off-screen-menu{
     background-color: #3a4750;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     max-width: 300px;
     position: fixed;
@@ -76,6 +76,11 @@
 .off-screen-menu i{
     color: #f3f3f3;
     font-size: 30px;
+}
+
+.off-screen-menu h1 {
+    color: white;
+    margin: 0 0 50px 0;
 }
 
 .upload-button i{
@@ -125,10 +130,9 @@ a {
 }
 
 .logo-sidebar{
-    width: 120px;
-    height: 120px;
+    width: 190px;
+    height: 80px;
     margin-top: 30px;
-    border-radius: 100%;
 }
 
 .upload-button{

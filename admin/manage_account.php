@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Akun</title>
+    <link rel="icon" href="assets/logo.png">
     <link rel="stylesheet" href="../styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../styles/transition.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../styles/sidebar.css?v=<?php echo time(); ?>">

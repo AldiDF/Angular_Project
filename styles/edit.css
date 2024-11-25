@@ -223,8 +223,8 @@ textarea {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    margin: 20px auto 20px 21.5%;
-    max-width: 70%;
+    margin: 20px 100px 20px 120px;
+    /* max-width: 90%; */
     /* justify-content: center; */
 }
 
@@ -233,7 +233,7 @@ textarea {
 }
 
 .music-card {
-    width: 40%;
+    width: 48%;
     /* padding: 20px 12px;  */
     display: flex;
     align-items: center;

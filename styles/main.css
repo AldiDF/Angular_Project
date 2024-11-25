@@ -706,7 +706,6 @@ a{
 .search-container{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     margin: 10px 40px;
     gap: 20px;
 }
@@ -742,8 +741,9 @@ a{
 .list-follow{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    /* justify-content: center; */
     gap: 20px;
+    margin-left: 19%;
     width: 100%;
 }
 

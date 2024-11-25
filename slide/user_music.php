@@ -24,10 +24,10 @@
         <div class="music-card">
             <img src="<?= $direktori . $lagu["thumbnail"]?>" alt="Thumbnail" class="thumbnail-user">
             <div class="music-info">
-                <?php $jdl = overflow($lagu["judul"], 10);?>
+                <?php $jdl = overflow($lagu["judul"], 40);?>
                 <h2 class="music-title"><?= $jdl?></h2>
 
-                <?php $desk = overflow($lagu["deskripsi"], 18);?>
+                <?php $desk = overflow($lagu["deskripsi"], 65);?>
                 <p class="music-description"><?= $desk?></p>
             </div>
             <div class="action-buttons">

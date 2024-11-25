@@ -70,7 +70,7 @@
 
         <label for="edit-description">
             Deskripsi:
-            <textarea name="edit-description" id="edit-description" cols="30" rows="3" class="text-area"><?= $LaguCurr['deskripsi']?></textarea>
+            <input type="text" name="edit-description" id="edit-description" value="<?= $LaguCurr["deskripsi"]?>" class="form-pw">
         </label>
 
         <input type="submit" id="submit-edit-music" name="edit-music" value="Simpan Perubahan" class="submit-button">

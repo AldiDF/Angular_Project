@@ -43,11 +43,11 @@ if (currentPage.includes("admin")){
     
                     if (result.length > 0){
                         let limitedResults = result.slice(0, 4);
-                        $.each(result, function(index, item){
+                        $.each(limitedResults, function(index, item){
                             if (item["foto"] == ""){
-                                var direktoriFoto = "assets/default.jpg";
+                                var direktoriFoto = "../assets/default.jpg";
                             } else {
-                                var direktoriFoto = `databases/profile/${item["foto"]}`;
+                                var direktoriFoto = `../databases/profile/${item["foto"]}`;
                             }
                             if (item.judul){
                                 html += `

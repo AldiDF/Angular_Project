@@ -11,7 +11,7 @@ if (isset($_SESSION["username"])){
         <nav>
             <div class="nav-left">
                 <img src='../databases/profile/admin.png' alt='profile' class='admin-profile-picture'>
-                <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
+                <i class="fa-solid fa-bell" id="bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
                 <div action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
@@ -39,7 +39,7 @@ if (isset($_SESSION["username"])){
         <nav>
             <div class="nav-left">
                 <img src='databases/profile/admin.png' alt='profile' class='admin-profile-picture'>
-                <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
+                <i class="fa-solid fa-bell" id="bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
                 <div action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
@@ -68,7 +68,7 @@ if (isset($_SESSION["username"])){
         <nav>
             <div class="nav-left">
                 <a href="profile.php?user=<?php echo $_SESSION['username']?>"><?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='nav-profile-picture'>";}?></a>
-                <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
+                <i class="fa-solid fa-bell" id="bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
                 <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
@@ -126,9 +126,16 @@ if (isset($_SESSION["username"])){
 <div class="notification-container" id="notification-container" style="display: none;">
     <div class="header">
         <span>Notifikasi</span>
-        <span class="close-btn" onclick="toggleNotification()">&times;</span>
+        <div class="head-right">
+            <a href="databases/query.php?idNotif=clear" onclick="return confirm('Apakah Anda yakin ingin menghapus semua notifikasi')">
+                <span class="fa-light fa-trash-can"></span>
+            </a>
+            <span class="close-btn" onclick="toggleNotification()">&times;</span>
+        </div>
     </div>
     <?php foreach($select_notif as $notif): ?>
-    <div class="notification-item"><?= $notif["isi_notif"]?></div>
+        <a href="databases/query.php?idNotif=<?= $notif["id"]?>" onclick="return confirm('Apakah Anda yakin ingin menghapus notifikasi ini?')">
+            <div class="notification-item"><?= $notif["isi_notif"]?></div>
+        </a>
     <?php endforeach; ?>
 </div>

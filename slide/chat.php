@@ -146,6 +146,7 @@ if (isset($_GET["lawanChat"])){
   <div class="title-upper">
       <button class="back-page" onclick="closep('chat'); open_slide('history_chat'); clearURL()"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
       <div class="profile-info">
+        <?php $akunChat = select_akun($conn, $Chat)?>
         <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
         <span class="profile-name" id="profile-name"><?= $Chat?></span>
       </div>

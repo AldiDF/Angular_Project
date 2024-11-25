@@ -36,6 +36,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $lagu["user"] . " - " . $lagu["judul"]?></title>
+    <link rel="icon" href="assets/logo.png">
     <link rel="stylesheet" href="styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/transition.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/sidebar.css?v=<?php echo time(); ?>">
@@ -79,8 +80,8 @@
     <?php include("slide/user_music.php")?>
     <?php include("slide/chat.php")?>
     <?php include("slide/upload_content.php")?>
-    <?php include("navfooter/sidebar.php")?>
     <?php include("navfooter/navbar.php")?>
+    <?php include("navfooter/sidebar.php")?>
     <?php else:?>
     <?php include("slide/chat.php")?>
     <?php endif;?>
@@ -301,6 +302,7 @@
                         newComment.classList.add('comment-left');
                         newComment.innerHTML = `
                             <div class="comment-owner">
+                                <?php $akun_komen = select_akun($conn,)?>
                                 <?php if ($akun_komen["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akun_komen["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
                                 <div><p>${newComments.user}</p></div>
                             </div>
