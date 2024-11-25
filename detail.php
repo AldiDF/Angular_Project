@@ -5,6 +5,11 @@
     date_default_timezone_set("Asia/Makassar");
     $waktu = date("Y-m-d H:i");
 
+    if (!isset($_SESSION['username'])) {
+        header('Location: index.php'); 
+        exit;
+    }
+
     if (isset($_GET["lagu"])){
         if (isset($_SESSION["username"])){
             $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
