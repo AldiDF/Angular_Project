@@ -1,6 +1,9 @@
 body {
     margin: 0;
     background-color: #ffffff;
+    /* background: url(../assets/chat.jpeg);
+    background-position: center;
+    background-size: cover; */
     scrollbar-width: none;
     font-family: 'helvetica' !important;
 }
@@ -170,15 +173,15 @@ a{
 
 .content-container{
     display: flex;
-    width: 635px;
+    width: 417px;
     background-color: #f3f3f3;
     border: 1px #303841 solid;
     border-radius: 8px;
     margin: 0;
     color: #303841;
     overflow: hidden;
-    max-width: 635px;
-    max-height: 167px;
+    max-width: 600px;
+    max-height: 150;
     position: relative;
 
 }
@@ -188,13 +191,31 @@ a{
     display: flex;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 300px !important;
 }
 
-.info-caption p:nth-child(1){
-    font-size: 20px;
-    font-weight: bold;
+.info-caption :nth-child(1){
     margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.info-caption :nth-child(2){
+    font-size: 13px;
+}
+
+.time-up{
+    font-size: 12px;
+    text-align: right;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 22px;
+}
+
+.owner-content .nav-profile-picture{
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    border: 2px #303841 solid;
 }
 
 .content-container:hover{
@@ -202,7 +223,7 @@ a{
 }
 
 .thumbnail{
-    width: 296.4px;
+    width: 180px;
     height: 100%;
     margin: 0 20px 0 0;
 }
@@ -211,20 +232,16 @@ a{
     text-align: left;
 }
 
-.time-up{
-    font-size: 16px;
-    text-align: right;
-}
-
 .owner-content{
     display: flex;
     text-align: left;
     margin-left: 0;
     gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 18px;
     font-weight: bold;
+    align-items: center;
 }
 
 .main-content .owner-content{
@@ -233,8 +250,7 @@ a{
 }
 
 .owner-name{
-    font-size: 20px;
-    margin-top: 7px;
+    font-size: 16px;
 }
 
 .about-us{
@@ -275,7 +291,11 @@ a{
     margin: 0 auto;
 }
 
-.pripub-active{
+.private-btn.active{
+    background-color: #303841;
+}
+
+.public-btn.active{
     background-color: #303841;
 }
 
@@ -285,9 +305,11 @@ a{
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     font-size: 14px;
-    border-top: 2px #303841 solid;
-    border-bottom: 2px #303841 solid;
-    border-left: 2px #303841 solid;
+    /* border-top: 2px #303841 solid; */
+    /* border-bottom: 2px #303841 solid; */
+    /* border-left: 2px #303841 solid; */
+    background-color: rgb(241, 241, 241);
+    border: none;
     cursor: pointer;
     color: #303841;
 }
@@ -298,9 +320,11 @@ a{
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     font-size: 14px;
-    border-top: 2px #303841 solid;
-    border-bottom: 2px #303841 solid;
-    border-right: 2px #303841 solid;
+    border: none;
+    background-color: rgb(241, 241, 241);
+    /* border-top: 2px #303841 solid; */
+    /* border-bottom: 2px #303841 solid; */
+    /* border-right: 2px #303841 solid; */
     cursor: pointer;
     color: #303841;
 }
@@ -308,27 +332,29 @@ a{
 .li-btn{
     width: 400px;
     height: 40px;
-    border: 2px #303841 solid;
+    /* border: 2px white solid; */
     border-radius: 10px;
+    border: none;
     font-size: 14px;
     cursor: pointer;
-    color: #303841;
+    color: white;
     max-width: 400px;
+    background-color: #303841;
 }
 
 .li-btn:nth-child(4){
-    background-color: red;
+    background-color: #E72929;
     color: #f3f3f3;
 }
 
 .li-btn:hover:nth-child(4){
-    background-color: red;
+    background-color: #b82222;
     color: #f3f3f3;
 }
 
 .li-btn:hover{
-    background-color: #303841;
-    color: #f3f3f3;
+    background-color: white;
+    color: #303841;
 }
 
 .form-container{
@@ -436,7 +462,9 @@ a{
 }
 
 .descript-container{
-    margin: 20px 40px;
+    margin: 0 40px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .playback-container{
@@ -478,11 +506,11 @@ a{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 80px;
+    gap: 60px;
 }
 
 .information-container i{
-    font-size: 36px;
+    font-size: 26px;
     margin: 0;
 }
 
@@ -492,7 +520,7 @@ a{
 }
 
 .info-center p{
-    font-size: 22px;
+    font-size: 18px;
     margin-left: 15px;
 }
 
@@ -500,6 +528,11 @@ a{
     padding: 0 40px;
     display: flex;
     flex-direction: column;
+}
+
+.comment-column h2{
+    font-size: 24px;
+    margin: 0 0 20px 0;
 }
 
 .comment-container{
@@ -511,21 +544,21 @@ a{
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-left: 20px;
+    margin-left: 3px;
     margin-right: auto;
 }
 
 .comment-left .comment-content{
     display: flex;
     flex-direction: column;
-    margin: 10px;
+    margin: 10px 10px 10px 0;
     padding: 10px;
     border: 1px #303841 solid;
     border-radius: 10px;
     margin-right: auto;
     max-width: 50%;
     height: auto;
-    overflow: inherit;
+    overflow-wrap: anywhere;
 }
 
 .comment-left .comment-content p{
@@ -537,7 +570,7 @@ a{
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-right: 13px;
+    margin-right: 3px;
     text-align: right;
 }
 
@@ -548,12 +581,13 @@ a{
 .comment-content-right{
     display: flex;
     flex-direction: column;
-    margin: 10px;
+    margin: 10px 0 10px 10px;
     padding: 10px;
     border: 1px #303841 solid;
     border-radius: 10px;
     margin-left: auto;
     max-width: 50%;
+    overflow-wrap: anywhere;
 }
 
 .comment-content-right p{
@@ -563,10 +597,12 @@ a{
 
 .comment-left .time-comment{
     font-size: 12px;
+    margin: 0 0 5px auto;
     margin-left: 44%;
 }
 .comment-right .time-comment{
     font-size: 12px;
+    margin: 0 auto 5px 0;
     margin-right: 44%;
     text-align: right;
 }
@@ -580,7 +616,7 @@ a{
     bottom: 0; 
     background: transparent; 
     z-index: 2; 
-    padding: 20px 10px;
+    padding: 20px 0;
 }
 
 .send-comment textarea{
@@ -676,20 +712,24 @@ a{
 
 .search-container{
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin: 10px 40px;
     gap: 20px;
 }
 
+.search-container a{
+    max-height: 100px;
+}
+
 .account-container{
     display: flex;
-    width: 100%;
+    width: 417px;
+    height: 102.71px;
     background-color: #f3f3f3;
-    border: 2px #303841 solid;
-    border-radius: 15px;
-    margin-left: 0;
-    margin-right: 0;
-    gap: 15px;
+    border: 1px #303841 solid;
+    border-radius: 10px;
+    margin: 0;
     color: #303841;
     align-items: center;
 }
@@ -699,18 +739,19 @@ a{
 }
 
 .account-container img{
-    height: 150px;
-    width: 150px;
+    height: 70px;
+    width: 70px;
     margin: 20px;
-    border: 2px #303841 solid;
+    border: 1px #303841 solid;
     border-radius: 100%;
 }
 
 .list-follow{
     display: flex;
-    flex-direction: column;
-    width: 60%;
-    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
 }
 
 .list-follow .account-container{
@@ -731,6 +772,22 @@ a{
     align-items: center;
     gap: 10px;
 }
+
+.search-nav-result{
+    font-size: 20px;
+    margin-left: 40px;
+}
+
+.identifier-container h1{
+    font-size: 24px;
+    margin: 0;
+}
+
+.identifier-container h2 {
+    font-size: 18px;
+    margin: 5px 0 0 0;
+}
+
 
 @media (max-width: 1290px){
     .footer-banner{

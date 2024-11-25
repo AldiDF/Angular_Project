@@ -3,22 +3,6 @@
 ?>
 
 <div class="settingspg">
-    <div class="wrapper">
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-    </div>
     <div class="title-upper">
         <button class="back-page" onclick="closep('setting')"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
         <h1 style="text-align: center">PENGATURAN</h1>
@@ -45,15 +29,15 @@
         public = document.getElementById("public")
 
         if (type === "private"){
-            public.classList.remove("pripub-active")
-            private.classList.add("pripub-active")
+            public.classList.remove("active")
+            private.classList.add("active")
             private.style.color = "#f3f3f3"
             public.style.color = "#303841"
 
 
         } else if (type === "public"){
-            private.classList.remove("pripub-active")
-            public.classList.add("pripub-active")
+            private.classList.remove("active")
+            public.classList.add("active")
             public.style.color = "#f3f3f3"
             private.style.color = "#303841"
         }

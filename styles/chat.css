@@ -55,7 +55,7 @@
     margin-top: 20px;
     display: flex;
     align-items: center;
-    padding: 35px;
+    padding: 20px;
     background-color: white;
 }
 
@@ -64,11 +64,11 @@
 }
 
 .chat-item-profile {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow: hidden;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .chat-item-profile img {
@@ -83,15 +83,19 @@
 
 .chat-item-name {
     font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
 }
 
 .chat-item-message {
-    color: #666;
+    color: black;
+    font-size: 16px;
+    margin-bottom: 5px;
 }
 
 .chat-item-time {
     font-size: 12px;
-    color: #999;
+    color: #303841;
 }
 
 .custom-line {
@@ -138,6 +142,7 @@
     background: url(../assets/chat.jpeg);
     background-position: center;
     background-size: cover;
+    background-attachment: fixed;
     height: auto;
     margin-top: 90px;
     gap: 30px;
@@ -175,9 +180,10 @@
     width: 40%;
     padding: 15px;
     background-color: #ffffff;
-    border-radius: 20px;
+    border-radius: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: relative;
+    overflow-wrap: anywhere;
 }
 
 .message-bubble p {
@@ -188,7 +194,7 @@
 
 .message-time {
     font-size: 12px;
-    color: #888;
+    color: #303841;
     position: absolute;
     bottom: -15px;
     right: 10px;
@@ -196,7 +202,7 @@
 
 .message-time-right{
     font-size: 12px;
-    color: #888;
+    color: #303841;
     position: absolute;
     bottom: -15px;
     left: 10px;

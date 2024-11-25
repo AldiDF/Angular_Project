@@ -221,10 +221,11 @@ textarea {
 
 .music-list {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 16px;
-    margin: 20px auto 0 auto;
-    max-width: 50%;
+    margin: 20px auto 20px 20%;
+    max-width: 70%;
+    /* justify-content: center; */
 }
 
 .music-list p{
@@ -232,8 +233,8 @@ textarea {
 }
 
 .music-card {
-    width: 100%;
-    padding: 20px 12px; 
+    width: 40%;
+    /* padding: 20px 12px;  */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -241,6 +242,7 @@ textarea {
     border-radius: 10px;
     border: 3px solid black;
     transition: box-shadow 0.3s ease;
+    overflow: hidden;
 }
 
 .music-card:hover {
@@ -248,11 +250,11 @@ textarea {
 }
 
 .thumbnail-user {
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
+    width: auto;
+    height: 72px;
+    /* border-radius: 10px; */
     object-fit: cover;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
 }
 
 .music-info {
@@ -277,6 +279,7 @@ textarea {
 .action-buttons {
     display: flex;
     gap: 8px;
+    margin-right: 12px;
 }
 
 .edit-button, .delete-button {

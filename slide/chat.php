@@ -40,6 +40,19 @@
 </div>
 
 <script>
+    function overflow(selector, maxLength) {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach((element) => {
+        const text = element.textContent;
+            if (text.length > maxLength) {
+                element.textContent = text.substring(0, maxLength) + "...";
+            }
+        });
+    }
+    overflow(".chat-item-message", 75);
+</script>
+
+<script>
   document.addEventListener("click", function(event) {
       if (event.target.id.includes("pchat_")){
             var lawanChat = event.target.id.split('_').pop();
@@ -50,7 +63,7 @@
               document.location.href = path;
                     
             } else if (currentPage == "detail.php"){
-              var path = `${currentPage}?lagu=${"<?php if (isset($lagu)){echo $lagu['lagu'];} else {echo"";} ?>"}&lawanChat=${lawanChat}`;
+              var path = `${currentPage}?lagu=${"<?php if (isset($_GET["lagu"])){echo $_GET["lagu"];} else {echo"";} ?>"}&lawanChat=${lawanChat}`;
               document.location.href = path;
             
             } else if (currentPage == "search.php"){
@@ -194,7 +207,7 @@
               newChat.innerHTML = `
                   <div class="message right">
                     <div class="message-bubble">
-                      <p>${commentText}</p>
+                      <p>${commentText.replace(/\n/g, '<br>')}</p>
                       <span class="message-time-right"><?= $waktu?></span>
                     </div>
                     <?php if ($sessioncurr["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $sessioncurr["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>

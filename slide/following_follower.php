@@ -24,6 +24,7 @@
             <?php endif;?>
             <figcaption class="identifier-container">
                 <h1><?= $akun_mengikuti["username"]?></h1>
+                <h2 id="fullname"><?= $akun_mengikuti["nama_lengkap"]?></h2>
             </figcaption>
         </a>
     <?php endforeach;?>
@@ -41,11 +42,25 @@
             <?php endif;?>
             <figcaption class="identifier-container">
                 <h1><?= $akun_pengikut["username"]?></h1>
+                <h2 id="fullname"><?= $akun_pengikut["nama_lengkap"]?></h2>
             </figcaption>
         </a>
     <?php endforeach;?>
     </div>
 </div>
+
+<script>
+    function overflow(selector, maxLength) {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach((element) => {
+        const text = element.textContent;
+            if (text.length > maxLength) {
+                element.textContent = text.substring(0, maxLength) + "...";
+            }
+        });
+    }
+    overflow("#fullname", 20);
+</script>
 
 <script>
     function check_follow() {
@@ -57,7 +72,7 @@
     if (localStorage.getItem("following") === "true") {
         follower.classList.remove("follow-active")
         following.classList.add("follow-active")
-        list_following.style.display = "block"
+        list_following.style.display = "flex"
         list_follower.style.display = "none"
         following.style.color = "#f3f3f3"
         follower.style.color = "#303841"
@@ -67,7 +82,7 @@
     } else if (localStorage.getItem("follower") === "true") {
         following.classList.remove("follow-active")
         follower.classList.add("follow-active")
-        list_follower.style.display = "block"
+        list_follower.style.display = "flex"
         list_following.style.display = "none"
         following.style.color = "#303841"
         follower.style.color = "#f3f3f3"

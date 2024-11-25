@@ -163,9 +163,11 @@
                         <i class="fa-solid fa-user"></i>
                         <div><p><?= $jumlah_follower?></p></div>
                     </div>
-                </div>
-                <div class="report">
-                    <i class="fa-light fa-circle-exclamation"></i>
+                    <?php if ($_SESSION["username"] != $akun["username"]):?>
+                    <div class="report">
+                        <i class="fa-light fa-circle-exclamation"></i>
+                    </div>
+                    <?php endif;?>
                 </div>
             </div>
         </div>

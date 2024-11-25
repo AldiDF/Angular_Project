@@ -4,23 +4,6 @@
 ?>
 
 <div class="manage-musicpg">
-    <div class="wrapper">
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-        <div class="round"></div>
-    </div>
-
     <div class="title-upper">
         <button class="back-page" onclick="closep('music'); open_slide('setting')">
             <i class="fa-solid fa-arrow-left" style="font-size: 30px"></i>
@@ -35,8 +18,8 @@
         </div>
     </search>
         
+    <p style="text-align:center;">Lagu yang diunggah</p>
     <div class="music-list" id="music-list">
-        <p>Lagu yang diunggah</p>
         <?php foreach($lagu as $lagu):?>
         <div class="music-card">
             <img src="<?= $direktori . $lagu["thumbnail"]?>" alt="Thumbnail" class="thumbnail-user">

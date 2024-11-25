@@ -14,9 +14,9 @@ if (isset($_SESSION["username"])){
                 <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
-                <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
+                <div action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
                     <div>
-                        <input type="text" placeholder="Cari konten atau user" name="navbar-search" class="nav-input-search">
+                        <input type="text" placeholder="Cari konten atau user" name="navbar-search" class="nav-input-search" required>
                         <button type="submit" class="nav-search-button">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
@@ -26,7 +26,7 @@ if (isset($_SESSION["username"])){
 
                         </ul>
                     </div>
-                </form>
+                </div>
             </search>
             <div class="sidebar-menu" onclick="sideBar()">
                 <span></span>
@@ -42,7 +42,7 @@ if (isset($_SESSION["username"])){
                 <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
-                <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
+                <div action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
                     <div>
                         <input type="text" placeholder="Cari konten atau user" name="navbar-search" class="nav-input-search">
                         <button type="submit" class="nav-search-button">
@@ -54,7 +54,7 @@ if (isset($_SESSION["username"])){
 
                         </ul>
                     </div>
-                </form>
+                </div>
             </search>
             <div class="sidebar-menu" onclick="sideBar()">
                 <span></span>
@@ -118,6 +118,7 @@ if (isset($_SESSION["username"])){
                 <span></span>
             </div>
         </nav>
+
         <script src="scripts/liveSearching.js?v=<?php echo time(); ?>"></script>
 <?php endif; ?>
 

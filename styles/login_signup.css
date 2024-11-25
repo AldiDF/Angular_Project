@@ -85,7 +85,7 @@ h1 {
     cursor: pointer;
 }
 
-.submit-button-login:hover,.submit-button-signup:hover, button:hover {
+.submit-button-login:hover,.submit-button-signup:hover {
     background-color: #20242b;
 }
 

@@ -180,8 +180,6 @@
 
     <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
     <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
-    <script type="text/javascript" src="scripts/particles.js?v=<?php echo time(); ?>"></script>
-    <script type="text/javascript" src="scripts/app.js?v=<?php echo time(); ?>"></script>
 
     <script>
         let currentSlide = 0; // Awal slide

@@ -297,10 +297,9 @@
 
 <?php if (isset($userAction)):?>
     <?php if ($userAction == "userContent"):?>
-        
-            <p>Lagu yang diunggah</p>
+    
             <?php foreach($lagu as $lagu):?>
-            <div class="music-card" style="min-width: 621px;">
+            <div class="music-card">
                 <img src="<?= "databases/thumbnail/" . $lagu["thumbnail"]?>" alt="Thumbnail" class="thumbnail-user">
                 <div class="music-info">
                     <h2 class="music-title"><?= $lagu["judul"]?></h2>

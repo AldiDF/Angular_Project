@@ -142,7 +142,7 @@
                             <img src="<?php echo $direktori?>" alt="gambar-konten" class="thumbnail">
                             <figcaption class="caption-content">
                                 <figure class="owner-content">
-                                    <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                                    <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
                                     <figcaption class="owner-name"><?php echo $lagu["user"]?></figcaption>
                                 </figure>
                                 <div class="info-caption">
