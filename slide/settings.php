@@ -54,7 +54,7 @@
         if (test == true){
             var conf = prompt("Ketik 'HAPUS AKUN SAYA' untuk menghapus akun anda");
             if (conf == "HAPUS AKUN SAYA"){
-                document.location.href = "databases/query.php?delete-akun=true&session=user&username=<?=$_SESSION["username"]?>";
+                document.location.href = "databases/query.php?delete=true&session=user&username=<?=$_SESSION["username"]?>";
 
             }
             

@@ -16,7 +16,7 @@
             </div>
 
             <label for="edit-full-name">Nama Lengkap: <br>
-                <input type="text" id="edit-full-name" name="full-name" class="form-pw" placeholder="Nama Lengkap" value="<?= $currentSession["nama_lengkap"]?>" required>
+                <input type="text" id="edit-full-name" name="full-name" class="form-pw" placeholder="Nama Lengkap" maxlength="49" value="<?= $currentSession["nama_lengkap"]?>" required>
             </label>
 
             <label for="edit-desc">Deskripsi Akun: <br>
@@ -24,7 +24,7 @@
             </label>
 
             <label for="edit-email">Surel: <br>
-                <input type="email" id="edit-email" name="email" class="form-pw" placeholder="Surel" value="<?= $currentSession["email"]?>" required>
+                <input type="email" id="edit-email" name="email" class="form-pw" placeholder="Surel" maxlength="98" value="<?= $currentSession["email"]?>" required>
             </label>
 
             <label for="edit-password">Sandi Baru: <br>
@@ -60,12 +60,13 @@
 
         <label for="edit-title">
             Judul: <br>
-            <input type="text" id="edit-title" name="edit-title" class="form-pw" value="<?= $LaguCurr['judul']?>" required>
+            <input type="text" id="edit-title" name="edit-title" class="form-pw" maxlength="98" value="<?= $LaguCurr['judul']?>" required>
         </label>
 
         <label for="edit-lyrics">
             Lirik:
-            <textarea name="edit-lyrics" id="edit-lyrics" cols="30" rows="3" class="text-area"><?= $LaguCurr['lirik']?></textarea>
+            <?php $fileLirik = file_get_contents("databases/" . $LaguCurr["lirik"]);?>
+            <textarea name="edit-lyrics" id="edit-lyrics" cols="30" rows="3" class="text-area"><?= $fileLirik?></textarea>
         </label>
 
         <label for="edit-description">

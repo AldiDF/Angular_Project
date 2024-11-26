@@ -151,6 +151,20 @@
         $ekstensi_lagu = explode('.', $lagu);
         $ekstensi_lagu = strtolower(end($ekstensi_lagu));
 
+        if ($lirik != ""){
+            $nama_lirik = "lyrics/" . $akun["username"] . "_" . $judul . "_" . $waktu . ".lrc";
+            $file_lirik = fopen($nama_lirik, "w");
+            if ($file_lirik){
+                fwrite($file_lirik, $lirik);
+    
+                fclose($file_lirik);
+            } else {
+                echo "<script> alert('Gagal mengupload lirik!');
+                document.location.href = '../index.php';
+                </script>";
+            }
+        }
+
         $ekstensi_thumbnail = explode('.', $thumbnail);
         $ekstensi_thumbnail = strtolower(end($ekstensi_thumbnail));
         $tmp_thumbnail = $_FILES["thumbnail"]["tmp_name"];
@@ -166,7 +180,7 @@
             if (move_uploaded_file($tmp_lagu, $direktori_lagu) && move_uploaded_file($tmp_thumbnail, $direktori_thumbnail)) {
                 $query = "
                 INSERT INTO content (lagu, thumbnail, judul, lirik, deskripsi, stats, user) 
-                VALUES ('$namaBaru_lagu', '$namaBaru_thumbnail','$judul', '$lirik', '$deskripsi', '$status' ,'$username')";
+                VALUES ('$namaBaru_lagu', '$namaBaru_thumbnail','$judul', '$nama_lirik', '$deskripsi', '$status' ,'$username')";
                 $result = mysqli_query($conn, $query);
     
                 if ($result) {
@@ -181,7 +195,30 @@
     }
 
     function delete_akun($conn, $username, $session){
-        $delete_lagu = mysqli_query($conn, "DELETE FROM content WHERE user = '$username'");
+        $query = "SELECT * FROM content WHERE user = '$username'";
+        $result = mysqli_query($conn, $query);
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $image_path = 'thumbnail/' . $row['thumbnail'];
+                $song_path = 'music/' . $row['lagu'];
+
+                if (file_exists($image_path)) {
+                    unlink($image_path);
+                }
+
+                if (file_exists($song_path)) {
+                    unlink($song_path);
+                }
+                if (file_exists($row['lirik'])){
+                    unlink($row['lirik']);
+                }
+            }
+        }
+        $akun = select_akun($conn, $username);
+        if($akun["foto"] != "" || $akun["foto"] != null){
+            unlink("profile/" . $akun["foto"]);
+        }
+
         $delete_akun = mysqli_query($conn, "DELETE FROM account WHERE username = '$username'");
         if ($session == "admin") {
             if ($delete_akun){
@@ -202,9 +239,12 @@
             }
         } else {
             if ($delete_akun){
+                session_unset();
+                session_destroy();
                 echo "
                     <script>
                         alert('Akun berhasil dihapus');
+
                         document.location.href = '../index.php';
                     </script>
                 ";
@@ -255,7 +295,6 @@
                 
                 echo "
                 <script>
-                        alert('Berhasil mengubah status');
                         document.location.href = '../admin/manage_permission.php';
                 </script>
                 ";
@@ -263,7 +302,6 @@
                 
                 echo "
                     <script>
-                        alert('Gagal mengubah status');
                         document.location.href = '../admin/manage_permission.php';
                     </script>
                 ";
@@ -272,12 +310,14 @@
             
             $song_result = mysqli_query($conn, "SELECT lagu FROM content WHERE lagu = '$lagu'");
             $image_result = mysqli_query($conn, "SELECT thumbnail FROM content WHERE lagu = '$lagu'");
+            $lyrics_result = mysqli_query($conn, "SELECT thumbnail FROM content WHERE lagu = '$lagu'");
             
             $song_row = mysqli_fetch_assoc($song_result);  
             $image_row = mysqli_fetch_assoc($image_result);  
+            $lyrics_row = mysqli_fetch_assoc($lyrics_result);  
     
             $song_path = "music/" . $song_row['lagu'];   
-            $image_path = "thumbnail/" . $image_row['thumbnail']; 
+            $image_path = "thumbnail/" . $image_row['thumbnail'];
     
             
             if (file_exists($image_path)) {
@@ -286,7 +326,9 @@
             if (file_exists($song_path)) {
                 unlink($song_path);
             }
-    
+            if (file_exists($lyrics_row)){
+                unlink($lyrics_row);
+            }
             
             date_default_timezone_set("Asia/Makassar");
             $waktu = date("Y-m-d H.i.s");
@@ -441,6 +483,7 @@
         $lagu = mysqli_fetch_assoc($result);
         $user = $lagu['user'];
         $juduls = $lagu['judul'];
+        $lirik = $lagu['lirik'];
         date_default_timezone_set("Asia/Makassar");
         $waktu = date('Y-m-d H.i.s');
         
@@ -452,6 +495,9 @@
             }
             if(file_exists($song_path)){
                 unlink($song_path);
+            }
+            if(file_exists($lirik)){
+                unlink($lirik);
             }
         }
 
@@ -760,7 +806,8 @@
         $direktoriLama = $select_lagu["thumbnail"];    
 
         $judul = $_POST["edit-title"];
-        $lirik = $_POST["edit-lyrics"];
+        $lirik_baru = $_POST["edit-lyrics"];
+        $lirik = $select_lagu["lirik"];
         $deskripsi = $_POST["edit-description"];
         $thumbnail = $_FILES["input-Thumbnail"]["name"];
         $temp = $_FILES["input-Thumbnail"]["tmp_name"];
@@ -773,6 +820,7 @@
         if ($thumbnail == ""){
             $query = "UPDATE content SET judul = '$judul', lirik = '$lirik', deskripsi = '$deskripsi' WHERE lagu = '$lagu'";
             $result = mysqli_query($conn, $query);
+            file_put_contents($lirik, $lirik_baru);
             if($result){
                 echo "
                 <script>

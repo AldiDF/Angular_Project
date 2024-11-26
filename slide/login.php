@@ -13,7 +13,7 @@
         <div class="login-container">
             <form action="databases/query.php" class="login-form-container" method="POST" onsubmit="return closep('login')">
                 <label for="username">Nama Pengguna:</label>
-                <input type="text" id="username" name="username" class="form-login" required><br>
+                <input type="text" id="username" name="username" class="form-login" maxlength="20" required><br>
                 <label for="password">Sandi:</label>
                 <input type="password" id="password" name="password" class="form-login" required><br>
                 <div class="submit-button-container">

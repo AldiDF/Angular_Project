@@ -14,7 +14,7 @@
         <label for="music">Unggah Lagu:</label>
         <input type="file" id="music" name="music" class="input-music" required><br>
         <label for="title">Judul:</label>
-        <input type="text" id="title" name="title" class="form-pw" required><br>
+        <input type="text" id="title" name="title" class="form-pw" maxlength="98" required><br>
         <label for="lyrics">Lirik:</label>
         <textarea name="lyrics" id="lyrics" cols="30" rows="1" class="text-area"></textarea><br>
         <label for="description">Deskripsi:</label>

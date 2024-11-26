@@ -2,6 +2,11 @@
     require "databases/connection.php";
     include "databases/liveSearch.php";
 
+    if (!isset($_GET["navbar-search"])) {
+        header('Location: index.php'); 
+        exit;
+    }
+
     if (isset($_GET["navbar-search"])){
         if ($_GET["navbar-search"] == ""){
             header("Location: index.php");

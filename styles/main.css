@@ -660,6 +660,7 @@ a{
     transition: 1s ease;
     overflow-y: scroll;
     scrollbar-width: none;
+    margin-bottom: 60px;
 }
 
 .lyric-container pre{
@@ -670,6 +671,7 @@ a{
     margin: 0;
     white-space: pre-wrap;
     font-family: Helvetica !important;
+    line-height: 1.5;
 }
 
 .lyric-container.lyric{

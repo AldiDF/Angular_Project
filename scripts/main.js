@@ -119,8 +119,8 @@ function toggleNotification() {
     }
 }
 
-window.addEventListener("click", (event) => {
-    if (!notificationContainer.contains(event.target) && !notificationButton.contains(event.target)) {
-        notificationContainer.style.display = "none";
-    }
-});
+// window.addEventListener("click", (event) => {
+//     if (!notificationContainer.contains(event.target) && !notificationButton.contains(event.target)) {
+//         notificationContainer.style.display = "none";
+//     }
+// });

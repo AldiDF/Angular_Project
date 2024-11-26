@@ -23,7 +23,6 @@
     } else {
         echo "
         <script>
-            alert('Lagu tidak ditemukan');
             document.location.href = 'index.php';
         </script>";
     }
@@ -216,24 +215,11 @@
     </main>
 
     <?php include("navfooter/footer.php")?>
+    <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
+    <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
 
     <script>
         let old_id = <?php if ($jumlah_komen == 0) {echo 0;} else {echo $komen["id"];}?>
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const music = document.getElementById('playMusic');
-            const currentEnd = document.getElementById('currentEnd');
-        
-            music.addEventListener('loadedmetadata', () => {
-                let music_dur = music.duration;
-                let min = Math.floor(music_dur / 60);
-                let sec = Math.floor(music_dur % 60);
-                if (sec < 10) {
-                    sec = `0${sec}`;
-                }
-                currentEnd.textContent = `${min}:${sec}`;
-            });
-        });
 
         <?php if (isset($_SESSION["username"])):?>
         document.getElementById('send-comment').addEventListener('click', function() {
@@ -297,13 +283,17 @@
                             }
                             old_id = newComments.id;
                         }
+                        if (item["foto"] == ""){
+                            var direktoriFoto = "assets/default.jpg";
+                        } else {
+                            var direktoriFoto = `databases/profile/${item["foto"]}`;
+                        }
 
                         const newComment = document.createElement('div');
                         newComment.classList.add('comment-left');
                         newComment.innerHTML = `
                             <div class="comment-owner">
-                                <?php $akun_komen = select_akun($conn,)?>
-                                <?php if ($akun_komen["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akun_komen["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                                <img src='${direktoriFoto}' alt='profile' class='nav-profile-picture'>
                                 <div><p>${newComments.user}</p></div>
                             </div>
                             <div class="comment-content">
@@ -372,22 +362,8 @@
             xhr.send(`lagu=${lagu}&username=${username}`);
         }
         <?php endif;?>
-
-        function show_lyric(){
-            const mainContentContainer = document.getElementById('main-content');
-            const lyric = document.querySelector('.lyric-container');
-            lyric.classList.toggle('lyric');
-            mainContentContainer.classList.toggle('lyric');
-
-            const lyricsContent = document.getElementById('lyric-content');
-            lyricsContent.innerHTML = `<?php 
-                if ($lagu["lirik"] == "") {
-                    echo "Lirik tidak tersedia";
-                } else {
-                    echo nl2br($lagu['lirik']);
-                }
-            ?>`;
-        }
+        
+        let lirik = `<?php echo "databases/" . $lagu['lirik']?>`;            
 
         document.addEventListener("click", function(event) {
             if (event.target.id.includes("komen_")) {
@@ -401,8 +377,6 @@
             }
         });
     </script>
-    <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
-    <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
     <script src="scripts/playback.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

@@ -1,6 +1,12 @@
 <?php
     require "../databases/connection.php";
     include "../databases/query.php";
+
+    if (!isset($_SESSION["admin"])){
+        header('Location: ../index.php');
+        exit;
+    }
+
     
     $admin = true;
     $akun = select_akun($conn, "");

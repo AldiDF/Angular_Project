@@ -1,6 +1,16 @@
 <?php
     require "databases/connection.php";
     include "databases/query.php";
+
+    if (!isset($_GET['user']) || empty($_GET['user'])) {
+        header('Location: index.php'); 
+        exit;
+    }
+    
+    if (!isset($_SESSION['username'])) {
+        header('Location: index.php'); 
+        exit;
+    }
     
     $profile = $_GET["user"];
     if (isset($_GET["user"])){

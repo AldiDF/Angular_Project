@@ -2,6 +2,12 @@
     require "../databases/connection.php";
     include "../databases/query.php";
 
+    if (!isset($_SESSION["admin"])){
+        header('Location: ../index.php');
+        exit;
+    }
+
+
     $admin = true;
     $lagu = select_lagu($conn, "PENDING", "");
     
@@ -62,36 +68,35 @@
                     <td><?php echo $lagu["user"]?></td>
                     <td>
                         <div class="action-button">
-                            <button class="edit-icon" onclick="open_confirm()">
-                                <i class="fa-solid fa-pen-to-square"></i>
+                            <button class="edit-icon" onclick="open_confirm()" id="<?= "dir+" . $direktori_lagu . "+" . $lagu["judul"]?>">
+                                <i class="fa-solid fa-pen-to-square" id="<?= "dir+" . $direktori_lagu . "+" . $lagu["judul"]?>"></i>
                             </button>
                         </div>
                     </td>
-                </tr>
-                <div class="confirm-container" id="confirm">
-                    <div class="confirm-inner" id="inner">
-                        <div class="upper">
-                            <h2>Konfirmasi</h2>
-                            <button class="close-confirm" onclick="close_confirm()">X</button>
-                        </div>
-                        <div class="lines"></div>
-                        <div class="lower">
-                            <h2>Judul</h2>
-                            <audio class="audio-container" id="songAudio" controls>
-                                <source src="<?php echo $direktori_lagu?>" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
-                            <div class="permission-button">
-                                <a href="../databases/query.php?acc=false&lagu=<?php echo $lagu['lagu']?>">
-                                    <button class="rjc-btn">Tolak</button>
-                                </a>
-                                <a href="../databases/query.php?acc=true&lagu=<?php echo $lagu['lagu']?>">
-                                    <button class="acc-btn">Terima</button>
-                                </a>
+                </tr>                    
+                    <div class="confirm-container" id="confirm">
+                        <div class="confirm-inner" id="inner">
+                            <div class="upper">
+                                <h2>Konfirmasi</h2>
+                                <button class="close-confirm" onclick="close_confirm()">X</button>
+                            </div>
+                            <div class="lines"></div>
+                            <div class="lower">
+                                <h2 id="judul"></h2>
+                                <audio class="audio-container" id="songAudio" type="audio/mpeg" controls>
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div class="permission-button">
+                                    <a href="../databases/query.php?acc=false&lagu=<?php echo $lagu['lagu']?>">
+                                        <button class="rjc-btn">Tolak</button>
+                                    </a>
+                                    <a href="../databases/query.php?acc=true&lagu=<?php echo $lagu['lagu']?>">
+                                        <button class="acc-btn">Terima</button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <?php $i++; endforeach;?>
             </tbody>
         </table>
@@ -125,6 +130,21 @@
                 searchData('../databases/liveSearch.php', 'A-keywordPermission');
             } else if (currentPage.includes('manage_music')) {
                 searchData('../databases/liveSearch.php', 'A-keywordContent');
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("click", function(event) {
+            if (event.target.id.includes("dir+")) {
+                let direk = event.target.id.split("+")[1];
+                let judul = event.target.id.split("+")[2];
+                console.log(direk);
+                console.log(judul);
+                let audio = document.getElementById("songAudio");
+                audio.src = direk;
+                document.getElementById("judul").innerHTML = judul; 
+
             }
         });
     </script>
