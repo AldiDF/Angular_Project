@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: #ffffff;
+    background: linear-gradient(135deg, #a3d2ed, #e2c6f3);
     /* background: url(../assets/chat.jpeg);
     background-position: center;
     background-size: cover; */

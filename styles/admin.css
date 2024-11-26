@@ -1,6 +1,11 @@
+body{
+    background: linear-gradient(135deg, #a3d2ed, #e2c6f3);
+}
+
 .heading-admin-acc{
     font-size: 30;
     font-family: Helvetica;
+    background-color: #f3f3f3;
     color: #303841;
     border: 3px #303841 solid;
     border-radius: 13px;
@@ -14,6 +19,7 @@
 .heading-admin-music{
     font-size: 30;
     font-family: Helvetica;
+    background-color: #f3f3f3;
     color: #303841;
     border: 3px #303841 solid;
     border-radius: 13px;
@@ -27,6 +33,7 @@
 .heading-admin-permiss{
     font-size: 30;
     font-family: Helvetica;
+    background-color: #f3f3f3;
     color: #303841;
     border: 3px #303841 solid;
     border-radius: 13px;
