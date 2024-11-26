@@ -73,45 +73,51 @@
     outline: none;
 }
 
-table{
+table {
     border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
     margin: 25px auto;
-    border: 2px #303841 solid;
+    width: 90%; 
+    border: 2px solid #cdd4db; 
+    border-radius: 8px; 
+    overflow: hidden; 
 }
 
-th{
-    background-color: #2185D5;
+th {
+    background-color: #202122; 
     color: #f3f3f3;
-    font-size: 16px;
-    padding: 10px;
-    border: 2px #303841 solid;
-    white-space: nowrap;
+    font-size: 16px; 
+    padding: 12px; 
+    text-align: center; 
+    border-bottom: 3px solid #cdd4db; 
 }
 
-td:nth-child(1), td:nth-child(2){
-    text-align: center;
+td {
+    background-color: #dedede; 
+    color: #303841; 
+    font-size: 14px; 
+    text-align: center; 
+    padding: 12px; 
+    border-bottom: 2px solid #303841; 
+    transition: background-color 0.3s ease; 
 }
 
-td{
-    background-color: #f3f3f3;
-    color: #303841;
-    font-size: 14px;
-    padding: 10px;
-    border: 2px #303841 solid;
-    white-space: nowrap;
+td:nth-child(1), td:nth-child(2) {
+    text-align: center; 
 }
 
-td:nth-child(5) i{
-    font-size: 30px;
-    color: #303841;
+tr:hover {
+    background-color: #dfe6e9; /
+}
+
+td:nth-child(5) i {
+    font-size: 30px; 
+    color: #303841; 
 }
 
 .action-button{
     display: flex;
     gap: 10px;
+    justify-content: center;
 }
 
 .delete-icon{
@@ -140,9 +146,13 @@ td:nth-child(5) i{
     background-color: #303841;
 }
 
-.thumbnail-user{
-    width: 100px;
-    height: 80px;
+/* Thumbnail Styles */
+.thumbnail-user {
+    width: 100%; /* Make the thumbnail take the full width of the cell */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 100px; /* Set a maximum width */
+    max-height: 80px; /* Set a maximum height */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
 }
 
 .confirm-container{
