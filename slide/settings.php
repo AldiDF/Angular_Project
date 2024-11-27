@@ -8,7 +8,7 @@
         <h1 style="text-align: center">PENGATURAN</h1>
     </div>
     <div class="setting-page">
-        <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='setting-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='setting-profile-picture'>";}?>
+        <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='setting-profile-picture'>";} else {echo"<img src='databases/profile/" . htmlspecialchars($currentSession["foto"]) . "' alt='profile' class='setting-profile-picture'>";}?>
         <div class="setting-container">
             <div action="databases/query.php?akun=<?= $_SESSION["username"]?>" method="POST" class="pripub-btn">
                 <button type="submit" name="private" class="private-btn" id="private" onclick="pripub('private')">PRIVAT</button>
@@ -54,7 +54,7 @@
         if (test == true){
             var conf = prompt("Ketik 'HAPUS AKUN SAYA' untuk menghapus akun anda");
             if (conf == "HAPUS AKUN SAYA"){
-                document.location.href = "databases/query.php?delete-akun=true&session=user&username=<?=$_SESSION["username"]?>";
+                document.location.href = "databases/query.php?delete=true&session=user&username=<?=$_SESSION["username"]?>";
 
             }
             

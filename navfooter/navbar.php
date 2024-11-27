@@ -11,10 +11,10 @@ if (isset($_SESSION["username"])){
         <nav>
             <div class="nav-left">
                 <img src='../databases/profile/admin.png' alt='profile' class='admin-profile-picture'>
-                <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
+                <i class="fa-solid fa-bell" id="bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
-                <div action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
+                <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
                     <div>
                         <input type="text" placeholder="Cari konten atau user" name="navbar-search" class="nav-input-search" required>
                         <button type="submit" class="nav-search-button">
@@ -26,7 +26,7 @@ if (isset($_SESSION["username"])){
 
                         </ul>
                     </div>
-                </div>
+                </form>
             </search>
             <div class="sidebar-menu" onclick="sideBar()">
                 <span></span>
@@ -39,10 +39,10 @@ if (isset($_SESSION["username"])){
         <nav>
             <div class="nav-left">
                 <img src='databases/profile/admin.png' alt='profile' class='admin-profile-picture'>
-                <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
+                <i class="fa-solid fa-bell" id="bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
-                <div action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
+                <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
                     <div>
                         <input type="text" placeholder="Cari konten atau user" name="navbar-search" class="nav-input-search">
                         <button type="submit" class="nav-search-button">
@@ -54,7 +54,7 @@ if (isset($_SESSION["username"])){
 
                         </ul>
                     </div>
-                </div>
+                </form>
             </search>
             <div class="sidebar-menu" onclick="sideBar()">
                 <span></span>
@@ -67,8 +67,8 @@ if (isset($_SESSION["username"])){
 <?php elseif (isset($_SESSION["user"])): ?>
         <nav>
             <div class="nav-left">
-                <a href="profile.php?user=<?php echo $_SESSION['username']?>"><?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='nav-profile-picture'>";}?></a>
-                <i class="fa-solid fa-bell" style="font-size: 36px" onclick="toggleNotification()"></i>
+                <a href="profile.php?user=<?php echo $_SESSION['username']; ?>"><?php if (empty($currentSession["foto"])) { echo "<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo "<img src='databases/profile/" . htmlspecialchars($currentSession["foto"]) . "' alt='profile' class='nav-profile-picture'>";}?></a>
+                <i class="fa-solid fa-bell" id="bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
                 <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
@@ -94,9 +94,9 @@ if (isset($_SESSION["username"])){
         <script src="scripts/liveSearching.js?v=<?php echo time(); ?>"></script>
 <?php else : ?>
         <nav>
-            <div class="nav-left">
-                <button class="login-button" onclick="open_slide('login')">Masuk</button>
-            </div>
+            <a href="index.php" class="nav-left">
+                <img src="assets/logosidebar.png" alt="" class="logo-sidebar">
+            </a>
             <search>
                 <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
                     <div>
@@ -126,9 +126,17 @@ if (isset($_SESSION["username"])){
 <div class="notification-container" id="notification-container" style="display: none;">
     <div class="header">
         <span>Notifikasi</span>
-        <span class="close-btn" onclick="toggleNotification()">&times;</span>
+        <div class="head-right">
+            <a href="databases/query.php?idNotif=clear" onclick="return confirm('Apakah Anda yakin ingin menghapus semua notifikasi')">
+                <span class="fa-light fa-trash-can"></span>
+            </a>
+            <span class="close-btn" onclick="toggleNotification()">&times;</span>
+        </div>
     </div>
+    <div class="liness"></div>
     <?php foreach($select_notif as $notif): ?>
-    <div class="notification-item"><?= $notif["isi_notif"]?></div>
+        <a href="databases/query.php?idNotif=<?= $notif["id"]?>" onclick="return confirm('Apakah Anda yakin ingin menghapus notifikasi ini?')">
+            <div class="notification-item"><?= $notif["isi_notif"]?></div>
+        </a>
     <?php endforeach; ?>
 </div>

@@ -21,6 +21,7 @@
     <?php else:?>
         <title>Beranda</title>
     <?php endif;?>
+    <link rel="icon" href="assets/logo.png">
     <link rel="stylesheet" href="styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/transition.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/navfooter.css?v=<?php echo time(); ?>">
@@ -28,6 +29,7 @@
     <link rel="stylesheet" href="styles/sidebar.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/edit.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/chat.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/responsive.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <style>
@@ -123,7 +125,7 @@
             </div>
         </section>
         
-        <p class="recomend">Rekomendasi Lagu</p>
+        <p class="recomend">Dengarkan apa yang sedang tren secara gratis di komunitas HexaSync</p>
         <section class="list-content-container">        
             <?php $i = 0; foreach ($Recomendation as $rec):?>
                 <?php
@@ -135,15 +137,17 @@
                 <?php $foto_akun = select_akun($conn, $rec['user'])?>
                     <a href="detail.php?lagu=<?php echo $rec['lagu'];?>">
                         <div class="content-container">
-                            <img src="<?= "databases/thumbnail/" . $rec["thumbnail"];?>" alt="gambar-konten" class="thumbnail">
+                            <img src="<?= "databases/thumbnail/" . htmlspecialchars($rec["thumbnail"]);?>" alt="gambar-konten" class="thumbnail">
                             <figcaption class="caption-content">
                                 <figure class="owner-content">
-                                <?php if ($foto_akun["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $foto_akun["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                                <?php if ($foto_akun["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . htmlspecialchars($foto_akun["foto"]) . "' alt='profile' class='nav-profile-picture'>";}?>
                                     <figcaption class="owner-name"><?php echo $rec["user"]?></figcaption>
                                 </figure>
                                 <div class="info-caption">
-                                    <p id="text-overflow"><?php echo $rec["judul"] ?></p>
-                                    <p id="text-overflow"><?php echo $rec["deskripsi"]?></p>
+                                    <?php $jdl = overflow($rec["judul"], 25);?>
+                                    <?php $desk = overflow($rec["deskripsi"], 36);?>
+                                    <p id="text-overflow"><?php echo $jdl ?></p>
+                                    <p id="text-overflow"><?php echo $desk?></p>
                                 </div>
                                 <p class="time-up"><?= timeAgo($time)?></p>
                             </figcaption>
@@ -153,14 +157,14 @@
         </section>
         <section class="footer-banner">
             <div class="footer-banner-slide" style="background-image: url('assets/p.jpg');">
-                <?php if(isset($_SESSION["username"])):?>
+                <?php if (isset($_SESSION["user"])) :?>
                     <button class="button-banner" onclick="open_slide('upload')">Upload Lagu</button>
-                <?php endif; ?>
-                </div>
-                <div class="footer-banner-slide" style="background-image: url('assets/p1.jpg');">
-                <?php if(isset($_SESSION["username"])):?>
+                <?php endif;?>
+            </div>
+            <div class="footer-banner-slide" style="background-image: url('assets/p1.jpg');">
+                <?php if (isset($_SESSION["user"])) :?>
                     <button class="button-banner" onclick="open_slide('upload')">Upload Lagu</button>
-                <?php endif; ?>
+                <?php endif;?>
             </div>
         </section>
     </main>

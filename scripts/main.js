@@ -9,6 +9,7 @@ window.addEventListener("click", (event) => {
     if (!sidebar.contains(event.target) && !offScreenMenu.contains(event.target)) {
         sidebar.classList.remove("active");
         offScreenMenu.classList.remove("active");
+        
     }
 });
 
@@ -107,11 +108,19 @@ function scrollToBottom() {
 document.addEventListener('DOMContentLoaded', scrollToBottom);
 
 // Fungsi untuk toggle (menampilkan/menghilangkan) notifikasi
+const notificationContainer = document.getElementById("notification-container");
+const notificationButton = document.getElementById("bell");
 function toggleNotification() {
-    const notificationContainer = document.getElementById("notification-container");
+    
     if (notificationContainer.style.display === "none" || notificationContainer.style.display === "") {
         notificationContainer.style.display = "block"; // Tampilkan notifikasi
     } else {
         notificationContainer.style.display = "none"; // Sembunyikan notifikasi
     }
 }
+
+// window.addEventListener("click", (event) => {
+//     if (!notificationContainer.contains(event.target) && !notificationButton.contains(event.target)) {
+//         notificationContainer.style.display = "none";
+//     }
+// });

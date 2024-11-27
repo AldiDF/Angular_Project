@@ -7,7 +7,13 @@
         exit;
     }
 
-    $searchResult = searchResult($_GET["navbar-search"]);
+    if (isset($_GET["navbar-search"])){
+        if ($_GET["navbar-search"] == ""){
+            header("Location: index.php");
+        } else {
+            $searchResult = searchResult($_GET["navbar-search"]);
+        }
+    }
 
 ?>
 
@@ -24,12 +30,14 @@
     <?php else:?>
         <title>Beranda</title>
     <?php endif;?>
+    <link rel="icon" href="assets/logo.png">
     <link rel="stylesheet" href="styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/transition.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/sidebar.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/navfooter.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/edit.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/chat.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/responsive.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -60,25 +68,27 @@
                         // Format ulang menjadi hh:mm:ss
                     $time = str_replace('.', ':', $matches[0]);
                 ?>
-                <a href="detail.php?lagu=<?php echo $result['lagu'];?>">
-                        <div class="content-container">
-                            <img src="<?= "databases/thumbnail/" . $result["thumbnail"];?>" alt="gambar-konten" class="thumbnail">
-                            <figcaption class="caption-content">
-                                <figure class="owner-content">
-                                <?php if ($akun_search["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akun_search["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
-                                    <figcaption class="owner-name"><?php echo $result["user"]?></figcaption>
-                                </figure>
-                                <div class="info-caption">
-                                    <p id="text-overflow"><?php echo $result["judul"] ?></p>
-                                    <p id="text-overflow"><?php echo $result["deskripsi"]?></p>
-                                </div>
-                                <p class="time-up"><?= timeAgo($time)?></p>
-                            </figcaption>
-                        </div>
-                    </a>
+                <a href="detail.php?lagu=<?php echo $result['lagu'];?>" class="link-content">
+                    <div class="content-container">
+                        <img src="<?= "databases/thumbnail/" . htmlspecialchars($result["thumbnail"]);?>" alt="gambar-konten" class="thumbnail">
+                        <figcaption class="caption-content">
+                            <figure class="owner-content">
+                            <?php if ($akun_search["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akun_search["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                                <figcaption class="owner-name"><?php echo htmlspecialchars($result["user"])?></figcaption>
+                            </figure>
+                            <div class="info-caption">
+                                <?php $jdl = overflow($result["judul"], 25);?>
+                                <?php $desk = overflow($result["deskripsi"], 36);?>
+                                <p id="text-overflow"><?php echo $jdl ?></p>
+                                <p id="text-overflow"><?php echo $desk?></p>
+                            </div>
+                            <p class="time-up"><?= timeAgo($time)?></p>
+                        </figcaption>
+                    </div>
+                </a>
             <?php else:?>
                 <a href="profile.php?user=<?= $result['username']?>" class="account-container">
-                <?php if ($result["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $result["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                <?php if ($result["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . htmlspecialchars($result["foto"]) . "' alt='profile' class='nav-profile-picture'>";}?>
                     <figcaption class="identifier-container">
                         <h1><?= $result["username"]?></h1>
                         <h2 id="fullname"><?= $result["nama_lengkap"]?></h2>

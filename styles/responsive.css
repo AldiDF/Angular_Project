@@ -1,0 +1,852 @@
+/* navbar */
+/* about us */
+@media (max-width: 768px) {
+    .about-us h1 {
+        font-size: 2.5rem;
+    }
+
+    .description p {
+        font-size: 1rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    .team-member {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+/* admin */
+@media (max-width: 768px) {
+    .heading-admin-acc,
+    .heading-admin-music,
+    .heading-admin-permiss {
+        width: 65%;
+        font-size: 1.5em;
+    }
+
+    .input-search-admin {
+        width: 80%;
+    }
+
+    .search-button-admin {
+        width: 50px;
+    }
+
+    .admin-container{
+        overflow: scroll;
+        scrollbar-width: none;
+        margin: 0 10px;
+    }
+
+    .action-button{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .confirm-inner{
+        width: 95%;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .descript-td{
+        overflow: scroll;
+        scrollbar-width: none;
+        white-space: nowrap;
+        max-width: 140px;
+    }
+
+    th, td {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heading-admin-acc,
+    .heading-admin-music,
+    .heading-admin-permiss {
+        font-size: 1.2em;
+    }
+
+    .input-search-admin {
+        width: 100%;
+    }
+}
+
+/* chat */
+/* Contoh media query untuk layar kecil */
+@media (max-width: 768px) {
+    .chat-input-search {
+        width: 90%; 
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .chat-item {
+        width: 80% !important;
+        margin: 10px auto;
+    }
+
+    .chat-item-name {
+        font-size: 18px;
+    }
+
+    .chat-item-message {
+        font-size: 14px;
+    }
+
+    .message-bubble {
+        width: 80%;
+    }
+
+    .send-chat textarea {
+        height: 40px;
+    }
+
+    .profile-info {
+        margin: 10px;
+    }
+
+    .send-chat {
+        padding: 0;
+    }
+
+    .message.right{
+        margin-right: 0;
+    }
+
+    .message.left{
+        margin-left: 0;
+    }
+
+    .profile-info{
+        margin-left: 60px;
+    }
+
+    .chatpg .back-page{
+        margin: 15px 0 0 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-input-search {
+        width: 100% ; 
+        height: 35px; 
+        font-size: 12px; 
+    }
+
+    .chat-item {
+        width: 100%; 
+    }
+
+    .chat-item-name {
+        font-size: 16px; 
+    }
+
+    .chat-item-message {
+        font-size: 12px; 
+    }
+
+    .message-bubble {
+        width: 90%;
+    }
+
+    .send-chat textarea {
+        height: 30px; 
+    }
+
+    .send-chat i {
+        font-size: 25px;
+    }
+}
+
+/* edit */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px;
+        width: 90%;
+        max-width: 100%;
+    }
+
+    .edit-user-container {
+        max-width: 90%;
+    }
+
+    .form-pw, .form-edi {
+        width: 100%;
+    }
+
+    .submit-button {
+        width: 100%;
+    }
+
+    .music-list {
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+        max-width: 90%;
+    }
+
+    .music-card {
+        width: 90%;
+    }
+
+    .input-search-user {
+        width: 80%;
+    }
+
+    .music-uploaded-title {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .profile-pic-container {
+        width: 100%;
+    }
+
+    .profile-pic-label {
+        width: 100%;
+        height: auto;
+    }
+
+    .music-info {
+        margin-left: 8px;
+    }
+
+    .action-buttons {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 15px;
+    }
+
+    .form-container label,
+    .form-container textarea,
+    .form-pw,
+    .form-edi {
+        font-size: 14px;
+        width: 290px;
+    }
+
+    .submit-button {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .music-title {
+        font-size: 16px;
+    }
+
+    .music-description {
+        font-size: 12px;
+    }
+
+    .edit-button, .delete-button {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+    }
+}
+
+/* login_signup */
+@media (max-width: 768px) {
+    .logo {
+        width: 150px; 
+        height: 150px;
+    }
+
+    h1 {
+        font-size: 20px; 
+    }
+
+    .login-page, .signup-page {
+        width: 80%; 
+        margin-top: 40px; 
+    }
+
+    .form-login {
+        font-size: 12px;
+    }
+
+    .submit-button-login, .submit-button-signup {
+        padding: 8px; 
+        font-size: 12px; 
+    }
+
+    .login-line, .signup-line {
+        display: none; 
+    }
+}
+
+@media (max-width: 480px) {
+    .login-line, .signup-line {
+        display: none; 
+    }
+
+
+    .login-page, .signup-page {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .login-container, .signup-container {
+        width: 100%;
+    }
+
+    .submit-button-signup {
+        padding: 5px 50px;
+    }
+}
+
+/* navfooter */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: row;
+        height: auto;
+        padding: 10px;
+    }
+
+    .nav-left {
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .nav-input-search {
+        width: 135px !important;
+        margin: 0 !important;
+        margin-bottom: 5px;
+    }
+
+    .search-result{
+        max-width: calc(135px + 50px);
+    }
+
+    .link-search .nav-profile-picture{
+        width: 36px;
+        height: 36px;
+        margin-left: 10px;
+    }
+
+    .link-search p{
+        font-size: 14px;
+    }
+
+    .link-search{
+        scrollbar-width: none;
+
+    }
+
+    .link-search img{
+        width: 40px ;
+        height: 30px;
+    }
+
+    .nav-search-button {
+        width: 40px;
+        margin-left: -5px;
+    }
+
+    .login-button {
+        width: auto;
+    }
+
+    .search-result {
+        width: auto;
+    }
+
+    .notification-container {
+        width: 90%;
+    }
+
+    .div {
+        display: none;
+    }
+
+    .sidebar-menu{
+        width: 30px;
+        height: 30px;
+    }
+
+    .logo-sidebar{
+        width: 100px !important;
+        height: 40px !important;
+    }
+}
+
+
+
+@media (max-width: 480px) {
+    .nav-input-search {
+        width: 100%; 
+        font-size: 14px;
+    }
+
+    .nav-search-button {
+        padding: 5px; 
+    }
+
+    .login-button {
+        padding: 0.5em; 
+        font-size: 14px; 
+    }
+}
+
+/* profile */
+@media (max-width: 768px) {
+    .biography-upper {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 20px;
+        align-items: center;
+        border-radius: 15px;
+        padding: 10px;
+    }
+
+    .picture{
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
+    .profile-picture {
+        margin-right: 0;
+        margin-bottom: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .biography{
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    h2:nth-child(2) {
+        font-size: 16px;
+    }
+    
+    .follow-container{
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .button-follow i{
+        font-size: 18px;
+    }
+
+    .button-follow {
+        width: 120px;
+        text-align: center;
+    }
+
+    .total-likes, .button-setting{
+        margin-right: 0;
+        padding: 0;
+        align-items: center;
+    }
+
+    .biography-lower{
+        margin: 0 20px;
+        justify-content: space-between;
+    }
+
+    .total-likes i{
+        margin-right: 10px !important;
+        font-size: 20px !important;
+        margin-left: 10px !important;
+    }
+
+    .total-likes{
+        padding: 0;
+        margin-left: 10px;
+        margin-right: 30px;
+    }
+
+    .total-content i{
+        margin-top: 8px;
+        margin-left: 10px;
+        margin-right: 10px !important;
+        padding: 0 !important;
+    }
+    
+    .total-content{
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+        align-items: center;
+        padding: 0;
+
+    }
+
+    .button-setting{
+        padding: 0;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-content-container{
+        padding: 0;
+        margin: 20px 0 20px 20px;
+    }
+
+    .mid-action{
+        margin-right: 10px;
+        text-align: right;
+        margin-left: 50px;
+    }
+    .button-setting{
+        margin-left: 0;
+        text-align: right;
+    }
+    .button-setting i{
+        margin-top: 3px;
+        margin-right: 0;
+        font-size: 20px;
+        
+    }
+}
+
+/* @media (max-width: 480px) {
+    .biography-upper {
+        margin: 10px 10px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h2:nth-child(2) {
+        font-size: 14px;
+    }
+
+    .button-follow {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .total-likes, .total-content {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-right: 0;
+        padding: 0;
+    }
+
+    .total-likes i, .total-content i {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    .picture {
+        width: 100px;
+        height: 100px;
+    }
+
+    .action-follow-btn {
+        font-size: 16px;
+    }
+} */
+
+/* sidebar */
+@media (max-width: 768px) {
+    .sidebar-menu {
+        height: 30px;
+        width: 30px; 
+    }
+
+    .off-screen-menu {
+        max-width: 200px; 
+    }
+
+    .list-sidebar {
+        font-size: 14px; 
+    }
+
+    .logo-sidebar {
+        width: 80px; 
+        height: 80px; 
+    }
+
+    .upload-button {
+        width: 80px; 
+        height: 80px; 
+        font-size: 70px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-menu {
+        height: 40px; 
+        width: 40px; 
+    }
+
+    .off-screen-menu {
+        max-width: 150px; 
+    }
+
+    .list-sidebar {
+        font-size: 12px; 
+    }
+
+    .logo-sidebar {
+        width: 60px; 
+        height: 60px; 
+    }
+
+    .upload-button {
+        width: 60px; 
+        height: 60px; 
+        font-size: 50px;
+    }
+}
+
+/* main */
+@media (max-width: 768px) {
+    .content-container {
+        width: 94% !important;
+        display: flex;
+        flex-direction: column; 
+    }
+
+    .search-container .content-container{
+        width: 100% !important;
+    }
+
+    .search-container a{
+        max-height: 1000px;
+        width: 100% !important;
+    }
+    
+
+    .thumbnail{
+        width: 100%;
+        margin-right: 0;
+        max-height: 229px;
+    } 
+
+    a{
+        margin-bottom: 20px;
+    }
+
+    .account-container {
+        overflow-x: scroll;
+        scrollbar-width: none;
+        position: relative;
+    }
+
+    .owner-content{
+        margin: 10px;
+    }
+
+    .caption-content p{
+        margin: 0 10px 5px 10px;
+    }
+
+    .button-banner {
+        padding: 10px 20px; 
+        font-size: 14px; 
+    }
+
+    .search-container {
+        display: flex;
+        flex-direction: column; 
+        flex-wrap: nowrap;
+    }
+
+    .account-container {
+        width: 100%; 
+        height: auto; 
+    }
+
+    .bar input[type="range"]{
+        width: 100% !important;
+    }
+
+    .header-banner, .footer-banner {
+        height: 50vh; /* Atur tinggi untuk layar kecil */
+    }
+
+    .recomend {
+        font-size: 20px;
+    }
+
+    .banner-slide, .footer-banner-slide, .header-banner, .footer-banner {
+        height: 30vh !important;
+    }
+
+    .button-banner{
+        margin: calc(30vh - 70px) auto auto auto;
+    }
+
+    .descript-container{
+        display: flex;
+        flex-direction: column;
+        margin: 0 10px !important;
+    }
+
+    .info-specify{
+        gap: 40px;
+    }
+
+    .info-specify p{
+        font-size: 14px;
+    }
+
+    .info-specify i{
+        font-size: 20px;
+    }
+
+    .comment-column{
+        padding: 10px;
+    }
+
+    .send-comment{
+        padding: 0;
+    }
+
+    .comment-left .time-comment{
+        font-size: 12px;
+        margin: 0 0 5px auto;
+        margin-left: 34%;
+    }
+
+    .comment-right .time-comment{
+        font-size: 12px;
+        margin: 0 auto 5px 0;
+        margin-right: 34%;
+        text-align: right;
+    }
+
+    .comment-content-left, .comment-content-right{
+        background-color: white;
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .click-lyric {
+        height: 10%;
+        width: 70%;
+        background: transparent;
+        display: flex;
+        margin: auto auto 60px auto;
+        position: absolute;
+    }
+
+    .lyric-container{
+        display: none;
+        flex-direction: column;
+        margin: auto auto;
+        background: transparent;
+        position: absolute;
+        padding: 20px;
+        width: auto;
+        margin-top: 20px;
+        height: 20%;
+        max-width: 70%;
+        transition: 1s ease;
+        overflow-y: scroll;
+        scrollbar-width: none;
+        margin-bottom: 60px;
+    }
+
+    .lyric-container p{
+        font-size: 14px;
+    }
+
+    .playback-container span{
+        font-size: 12px;
+    }
+
+    .playback-container button i{
+        font-size: 16px;
+    }
+
+    .playback-container{
+        margin-left: 0;
+        margin-right: 0;
+        gap: 5px;
+        width: 100%;
+    }
+
+    #lyric-content-live{
+        font-size: 20px;
+        display: flex;
+        font-weight: 500;
+        color: #f3f3f3;
+        margin: 70px 0 0 0;
+        white-space: pre-wrap;
+        text-align: center;
+        font-family: Helvetica !important;
+    }
+
+    .action-follow-btn{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px; 
+    }
+
+    .button-banner {
+        padding: 8px 16px; 
+        font-size: 12px; 
+    }
+
+    .list-content-container {
+        margin: 20px 0 20px 18px;
+        flex-direction: column; 
+        gap: 10px; 
+    }
+
+    
+    
+    .setting-container {
+        width: 90%;
+    }
+
+    .li-btn{
+        width: 100%;
+    }
+
+    .pripub-btn{
+        width: 100%;
+    }
+    
+
+    .send-comment textarea {
+        height: 40px;
+    }
+
+    .header-banner, .footer-banner {
+        height: 30vh; /* Atur tinggi untuk layar lebih kecil */
+        
+    }
+}
+
+/* detail */
+@media (max-width: 768px) {
+    .main-content{
+        height: 30vh !important;
+    }
+    .bar {
+        width: 50% !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content{
+        height: 30vh;
+    }
+}

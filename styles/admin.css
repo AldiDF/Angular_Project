@@ -1,6 +1,11 @@
+body{
+    background: linear-gradient(135deg, #a3d2ed, #e2c6f3);
+}
+
 .heading-admin-acc{
     font-size: 30;
     font-family: Helvetica;
+    background-color: #f3f3f3;
     color: #303841;
     border: 3px #303841 solid;
     border-radius: 13px;
@@ -14,6 +19,7 @@
 .heading-admin-music{
     font-size: 30;
     font-family: Helvetica;
+    background-color: #f3f3f3;
     color: #303841;
     border: 3px #303841 solid;
     border-radius: 13px;
@@ -27,6 +33,7 @@
 .heading-admin-permiss{
     font-size: 30;
     font-family: Helvetica;
+    background-color: #f3f3f3;
     color: #303841;
     border: 3px #303841 solid;
     border-radius: 13px;
@@ -73,45 +80,51 @@
     outline: none;
 }
 
-table{
+table {
     border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
     margin: 25px auto;
-    border: 2px #303841 solid;
+    width: 90%; 
+    border: 2px solid #cdd4db; 
+    border-radius: 8px; 
+    overflow: hidden; 
 }
 
-th{
-    background-color: #2185D5;
+th {
+    background-color: #202122; 
     color: #f3f3f3;
-    font-size: 16px;
-    padding: 10px;
-    border: 2px #303841 solid;
-    white-space: nowrap;
+    font-size: 16px; 
+    padding: 12px; 
+    text-align: center; 
+    border-bottom: 3px solid #cdd4db; 
 }
 
-td:nth-child(1), td:nth-child(2){
-    text-align: center;
+td {
+    background-color: #dedede; 
+    color: #303841; 
+    font-size: 14px; 
+    text-align: center; 
+    padding: 12px; 
+    border-bottom: 2px solid #303841; 
+    transition: background-color 0.3s ease; 
 }
 
-td{
-    background-color: #f3f3f3;
-    color: #303841;
-    font-size: 14px;
-    padding: 10px;
-    border: 2px #303841 solid;
-    white-space: nowrap;
+td:nth-child(1), td:nth-child(2) {
+    text-align: center; 
 }
 
-td:nth-child(5) i{
-    font-size: 30px;
-    color: #303841;
+tr:hover {
+    background-color: #dfe6e9; /
+}
+
+td:nth-child(5) i {
+    font-size: 30px; 
+    color: #303841; 
 }
 
 .action-button{
     display: flex;
     gap: 10px;
+    justify-content: center;
 }
 
 .delete-icon{
@@ -140,9 +153,13 @@ td:nth-child(5) i{
     background-color: #303841;
 }
 
-.thumbnail-user{
-    width: 100px;
-    height: 80px;
+/* Thumbnail Styles */
+.thumbnail-user {
+    width: 100%; /* Make the thumbnail take the full width of the cell */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 100px; /* Set a maximum width */
+    max-height: 80px; /* Set a maximum height */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
 }
 
 .confirm-container{
@@ -166,12 +183,10 @@ td:nth-child(5) i{
 }
 
 .confirm-inner{
-    background-color: #303841;
+    background-color: #202122;
     border-radius: 10px;
     box-shadow: 0 1px 4px #303841;
-    padding: 15px 25px;
     text-align: center;
-    border: 3px #2185D5 solid;
     display: flex;
     flex-direction: column;
     width: 400px;
@@ -188,23 +203,32 @@ td:nth-child(5) i{
 }
 
 .upper{
-    margin: 10px;
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .upper h2{
-    text-align: center;
+    text-align: center !important;
+    margin: 0 0 0 auto;
     color: #f3f3f3;
+}
+
+.upper p{
+    margin: 0;
+    margin-left: auto;
 }
 
 
 .close-confirm{
     cursor: pointer;
-    position: absolute;
+    position: relative;
     font-size: 20px;
-    padding: 5px;
+    padding: 0;
     color: #f3f3f3;
-    right: 480px;
-    top: 180px;
+    text-align: right;
+    border: none;
+    margin: 0;
 }
 
 .close-confirm:hover{
@@ -215,7 +239,7 @@ td:nth-child(5) i{
 .lines{
     width: 100%;
     height: 5px;
-    background-color: #2185D5;
+    background-color: white;
 }
 
 .permission-button{
@@ -224,31 +248,40 @@ td:nth-child(5) i{
     margin-top: 50px;
 }
 
+.descript-td{
+    overflow: scroll;
+    scrollbar-width: none;
+    white-space: nowrap;
+    max-width: 140px;
+}
+
 .acc-btn{
-    background-color: #f3f3f3;
+    background-color: rgb(30, 189, 30);
     width: 140px;
     height: 28px;
     font-size: 16px;
-    border: 2px #2185D5 solid;
     border-radius: 8px;
     cursor: pointer;
-    color: #303841;
+    color: white;
 }
 
 
 .rjc-btn{
-    background-color: #303841;
+    background-color: red;
     width: 140px;
     height: 28px;
     font-size: 16px;
-    border: 2px #2185D5 solid;
     border-radius: 8px;
     cursor: pointer;
-    color: #f3f3f3;
+    color: white;
 }
 
 .audio-container{
     margin-top: 20px;
+}
+
+.lower{
+    margin: 15px;
 }
 
 .lower h2{

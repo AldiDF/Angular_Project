@@ -5,11 +5,6 @@
     date_default_timezone_set("Asia/Makassar");
     $waktu = date("Y-m-d H:i");
 
-    if (!isset($_SESSION['username'])) {
-        header('Location: index.php'); 
-        exit;
-    }
-
     if (isset($_GET["lagu"])){
         if (isset($_SESSION["username"])){
             $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
@@ -17,18 +12,17 @@
             $jumlah_komen = num_row($conn, "comment", "lagu", $_GET["lagu"]);
             $komen = select_komen($conn, $_GET["lagu"], false);
             $like = select_like($conn, $_GET["lagu"], $_SESSION["username"]);
+            
         } else {
             $komen = select_komen($conn, $_GET["lagu"], false);
             $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
             $jumlah_like = num_row($conn, "like_content", "objek", $_GET["lagu"]);
-            $jumlah_komen = num_row($conn, "comment", "lagu", $_GET["lagu"]);
-            $_SESSION["username"] = "";
+            $jumlah_komen = num_row($conn, "comment", "lagu", $_GET["lagu"]);            
         }
 
     } else {
         echo "
         <script>
-            alert('Lagu tidak ditemukan');
             document.location.href = 'index.php';
         </script>";
     }
@@ -41,6 +35,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $lagu["user"] . " - " . $lagu["judul"]?></title>
+    <link rel="icon" href="assets/logo.png">
     <link rel="stylesheet" href="styles/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/transition.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/sidebar.css?v=<?php echo time(); ?>">
@@ -48,6 +43,7 @@
     <link rel="stylesheet" href="styles/profile.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/edit.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/chat.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/responsive.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -78,18 +74,20 @@
     </style>
 </head>
 <body>
-    <?php if (isset($_SESSION["username"])):?>
-    <?php include("slide/settings.php")?>
-    <?php include("slide/edit.php")?>
-    <?php include("slide/user_music.php")?>
-    <?php include("slide/chat.php")?>
-    <?php include("slide/upload_content.php")?>
-    <?php include("navfooter/sidebar.php")?>
-    <?php include("navfooter/navbar.php")?>
-    <?php else:?>
-    <?php include("slide/chat.php")?>
-    <?php endif;?>
+    <?php include("slide/login.php")?>
+    <?php include("slide/signup.php")?>
 
+    <?php if (isset($_SESSION["username"])):?>
+        <?php include("slide/settings.php")?>
+        <?php include("slide/edit.php")?>
+        <?php include("slide/user_music.php")?>
+        <?php include("slide/chat.php")?>
+        <?php include("slide/upload_content.php")?>
+    <?php endif;?>
+        
+
+        <?php include("navfooter/navbar.php")?>
+        <?php include("navfooter/sidebar.php")?>
 
     <?php 
     $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
@@ -101,6 +99,7 @@
         <div class="click-lyric" onclick="show_lyric()"></div>
         <div class="lyric-container" onclick="show_lyric()">
             <pre id="lyric-content"></pre>
+            <pre id="lyric-content-live"></pre>
         </div>
         <audio id="playMusic" controls>
             <source  src="<?php echo "databases/music/". $lagu['lagu']?>" type="audio/mpeg">
@@ -135,7 +134,7 @@
                 <div class="info-specify">
                     <div class="info-center">
                         <div>
-                            <?php if ($_SESSION["username"] != ""):?>
+                            <?php if (isset($_SESSION["user"])):?>
                             <?php if ($like == 1):?>
                                 <button type="submit" name="unsend-like" onclick="cancel_like()" id="liked">
                                     <i class="fa-solid fa-heart"></i>
@@ -168,12 +167,12 @@
                         <i class="fa-solid fa-user"></i>
                         <div><p><?= $jumlah_follower?></p></div>
                     </div>
-                    <?php if(isset($_SESSION['user']) || isset($_SESSION["admin"])):?>
-                    <?php if ($_SESSION["username"] != $akun["username"] && $_SESSION["username"] != "admin"):?>
-                    <div class="report" onclick="open_slide('chat')">
-                        <i class="fa-light fa-circle-exclamation"></i>
-                    </div>
-                    <?php endif;?>
+                    <?php if (isset($_SESSION["user"])):?>
+                        <?php if ($_SESSION["username"] != $akun["username"]):?>
+                        <div class="report">
+                            <i class="fa-light fa-circle-exclamation"></i>
+                        </div>
+                        <?php endif;?>
                     <?php endif;?>
                 </div>
             </div>
@@ -183,11 +182,12 @@
             <h2>Berikan Komentar Anda</h2>
             <div class="comment-container" id="comment-container">
                 <?php foreach($komen as $komen) :?>
+                <?php if (isset($_SESSION["user"])):?>
                 <?php if ($komen["user"] == $_SESSION["username"]):?>
                     <div class="comment-right" id="comment-right">
                         <div class="comment-owner">
                             <div><?= $komen["user"]?></div>
-                            <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                            <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . htmlspecialchars($currentSession["foto"]) . "' alt='profile' class='nav-profile-picture'>";}?>
                             
                         </div>
                         <div class="comment-content-right" id="<?= "komen_" . $komen["id"]?>">
@@ -199,7 +199,7 @@
                     <div class="comment-left">
                         <div class="comment-owner">
                             <?php $akun_komen = select_akun($conn, $komen['user'])?>
-                            <?php if ($akun_komen["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akun_komen["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                            <?php if ($akun_komen["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . htmlspecialchars($akun_komen["foto"]) . "' alt='profile' class='nav-profile-picture'>";}?>
                             <div><?= $komen["user"]?></div>
 
                         </div>
@@ -209,12 +209,15 @@
                         <p class="time-comment"><?= $komen["waktu"]?></p>
                     </div>
                 <?php endif;?>
+                <?php endif;?>
                 <?php endforeach;?>
-
-                <div class="send-comment" id="input-comment">
-                    <textarea name="comment" id="comment" cols="30" rows="1" placeholder="Komentar Anda"></textarea>
-                    <button type="submit" name="send-comment" id="send-comment"><i class="fa-regular fa-paper-plane-top"></i></button>
-                </div>
+                
+                <?php if (isset($_SESSION["user"])):?>
+                    <div class="send-comment" id="input-comment">
+                        <textarea name="comment" id="comment" cols="30" rows="1" placeholder="Komentar Anda"></textarea>
+                        <button type="submit" name="send-comment" id="send-comment"><i class="fa-regular fa-paper-plane-top"></i></button>
+                    </div>
+                <?php endif;?>
                 
             </div>
         </div>
@@ -222,24 +225,11 @@
     </main>
 
     <?php include("navfooter/footer.php")?>
+    <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
+    <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
 
     <script>
         let old_id = <?php if ($jumlah_komen == 0) {echo 0;} else {echo $komen["id"];}?>
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const music = document.getElementById('playMusic');
-            const currentEnd = document.getElementById('currentEnd');
-        
-            music.addEventListener('loadedmetadata', () => {
-                let music_dur = music.duration;
-                let min = Math.floor(music_dur / 60);
-                let sec = Math.floor(music_dur % 60);
-                if (sec < 10) {
-                    sec = `0${sec}`;
-                }
-                currentEnd.textContent = `${min}:${sec}`;
-            });
-        });
 
         <?php if (isset($_SESSION["username"])):?>
         document.getElementById('send-comment').addEventListener('click', function() {
@@ -259,7 +249,7 @@
                         newComment.innerHTML = `
                             <div class="comment-owner">
                                 <div><p><?= $_SESSION["username"]?></p></div>
-                                <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                                <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . htmlspecialchars($currentSession["foto"]) . "' alt='profile' class='nav-profile-picture'>";}?>
 
                             </div>
                             <div class="comment-content-right">
@@ -288,6 +278,15 @@
         });
 
         document.addEventListener('DOMContentLoaded', (event) => {
+            function escapeHtml(text) {
+            if (typeof text !== "string") return text;
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
             function fetchNewComments() {
                 const xhr = new XMLHttpRequest();
                 xhr.open('GET', `databases/query.php?lagu=<?= $_GET['lagu'] ?>&last=true`, true);
@@ -303,12 +302,17 @@
                             }
                             old_id = newComments.id;
                         }
+                        if (item["foto"] == ""){
+                            var direktoriFoto = "assets/default.jpg";
+                        } else {
+                            var direktoriFoto = `databases/profile/${escapeHtml(item["foto"])}`;
+                        }
 
                         const newComment = document.createElement('div');
                         newComment.classList.add('comment-left');
                         newComment.innerHTML = `
                             <div class="comment-owner">
-                                <?php if ($akun_komen["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akun_komen["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                                <img src='${direktoriFoto}' alt='profile' class='nav-profile-picture'>
                                 <div><p>${newComments.user}</p></div>
                             </div>
                             <div class="comment-content">
@@ -342,6 +346,7 @@
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
                     like.style.display = "none";
                     liked.style.display = "block";
                     let count = parseInt(likeCount.textContent);
@@ -365,6 +370,7 @@
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
                     like.style.display = "block";
                     liked.style.display = "none";
                     let count = parseInt(likeCount.textContent);
@@ -377,22 +383,8 @@
             xhr.send(`lagu=${lagu}&username=${username}`);
         }
         <?php endif;?>
-
-        function show_lyric(){
-            const mainContentContainer = document.getElementById('main-content');
-            const lyric = document.querySelector('.lyric-container');
-            lyric.classList.toggle('lyric');
-            mainContentContainer.classList.toggle('lyric');
-
-            const lyricsContent = document.getElementById('lyric-content');
-            lyricsContent.innerHTML = `<?php 
-                if ($lagu["lirik"] == "") {
-                    echo "Lirik tidak tersedia";
-                } else {
-                    echo nl2br($lagu['lirik']);
-                }
-            ?>`;
-        }
+        
+        let lirik = `<?php echo "databases/" . $lagu['lirik']?>`;            
 
         document.addEventListener("click", function(event) {
             if (event.target.id.includes("komen_")) {
@@ -406,8 +398,6 @@
             }
         });
     </script>
-    <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
-    <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>
     <script src="scripts/playback.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

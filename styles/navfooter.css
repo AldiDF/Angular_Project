@@ -4,7 +4,7 @@ nav{
     margin: 0;
     font-size: 20px;
     /* background-color: #4a98f7; */
-    background: linear-gradient(to bottom right, #A6A2FC, #81B1FA, #5CBFF7, #36CEF5, #11DCF2);
+    background: linear-gradient(to bottom right, #11DCF2, #36CEF5, #5CBFF7, #81B1FA, #A6A2FC);
     height: 70px;
     color: #f3f3f3;
     align-items: center;
@@ -16,6 +16,10 @@ nav{
     display: flex;
     justify-content: space-between;
     gap: 30px;
+}
+
+.nav-left i {
+    cursor: pointer;
 }
 
 .nav-profile-picture{
@@ -49,7 +53,7 @@ nav{
     border-bottom-left-radius: 20px;
     background-color: #f3f3f3;
     height: 30px;
-    width: 400px;
+    width: 600px;
     padding-left: 20px;
     padding-right: 0;
     font-size: 15px;
@@ -108,7 +112,7 @@ nav{
     border-radius: 5px;
     top : 100px;
     padding: 0;
-    width: calc(400px + 50px);
+    width: calc(600px + 50px);
     padding: 10px 0;
     z-index: 2;
 }
@@ -132,22 +136,23 @@ nav{
     display: flex;
     width: 100%;
     align-items: center;
-    overflow: hidden;
+    overflow-y: hidden;
     z-index: 2;
 }
 
 .link-search p{
     margin: 0;
     margin-left: 15px;
-    font-size: 16px;
+    font-size: 20px;
     font-family: Helvetica !important;
     margin-right: 10px;
     z-index: 2;
 }
 
 .link-search img{
-    
     margin-left: 10px;
+    width: 90px;
+    height: 70px;
 }
 
 .link-search i{
@@ -163,6 +168,8 @@ nav{
 
 .link-search .nav-profile-picture{
     margin-left: 15px;
+    width: 50px;
+    height: 50px;
 }
 
 footer{
@@ -190,12 +197,11 @@ footer h3 {
 
 /* Style untuk kontainer notifikasi */
 .notification-container {
-    width: 300px;
-    max-width: 300px;
+    width: 350px;
+    max-width: 350px;
     max-height: 350px;
-    background-color: #333;
+    background-color: #202122;
     border-radius: 8px;
-    padding: 10px 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: white;
     font-family: Arial, sans-serif;
@@ -204,20 +210,27 @@ footer h3 {
     left: 50%; 
     transform: translate(-50%, -50%); 
     z-index: 1000;
-    overflow: scroll;
+    overflow-y: scroll;
     scrollbar-width: none;
 }
 
 /* Header notifikasi */
-.notification-container .header {
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #007BFF;
     padding-bottom: 5px;
-    margin-bottom: 10px;
     font-size: 18px;
     font-weight: bold;
+    position: sticky;
+    width: 100%;
+}
+
+.liness{
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    margin: 15px 0 0 0;
 }
 
 /* Tombol close */
@@ -230,8 +243,8 @@ footer h3 {
 
 /* Item notifikasi */
 .notification-container .notification-item {
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: white;
+    color: black;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 8px;
@@ -241,11 +254,31 @@ footer h3 {
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-align: justify;
+    margin: 15px 15px 0 15px;
 }
 
 /* Hover pada item notifikasi */
 .notification-container .notification-item:hover {
     background-color: #e9ecef;
+}
+
+.notification-container span{
+    text-align: center;
+    margin-top: 15px;
+    margin-left: auto;
+}
+
+.head-right{
+    display: flex;
+    margin-left: 26%;
+    gap: 15px;
+    justify-content: center;
+}
+
+.head-right span{
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 15px;
 }
 
 
@@ -257,4 +290,10 @@ footer h3 {
     border-radius: 100%;
     border: 2px #303841 solid;
     background-color: white;
+}
+
+nav .logo-sidebar{
+    width: 150px;
+    height: 90%;
+    margin: 0;
 }

@@ -5,8 +5,8 @@
     $user = $_SESSION["username"];
     $history_chat = select_chat($conn, "", $_SESSION["username"], "");
   } else if (isset($_SESSION["admin"])){
-    $user = "admin";
-    $history_chat = select_chat($conn, "", "admin", "");
+    $user = "HexaAdmin";
+    $history_chat = select_chat($conn, "", "HexaAdmin", "");
   }
   
 ?>
@@ -29,7 +29,7 @@
     <div class="chat-item" onclick="open_slide('chat'); closep('history_chat')" id="pchat_<?= $hist['lawan_chat']?>">
       <div class="chat-item-profile" id="pchat_<?= $hist['lawan_chat']?>">
         <?php $akunChat = select_akun($conn, $hist["lawan_chat"]);?>
-        <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' >";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile'>";}?>
+        <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' >";} else {echo"<img src='databases/profile/" . htmlspecialchars($akunChat["foto"]) . "' alt='profile'>";}?>
       </div>
       <div class="chat-item-content" id="pchat_<?= $hist['lawan_chat']?>">
         <div class="chat-item-name" id="pchat_<?= $hist['lawan_chat']?>"><?= $hist["lawan_chat"]?></div>
@@ -112,17 +112,17 @@ if (isset($_GET["lawanChat"])){
     $jumlah_chat = count($loadChat);
     $sessioncurr = select_akun($conn, $_SESSION["username"]);
 
-  } else if ($_GET["lawanChat"] == "admin"){
-    $Chat = "admin";
+  } else if ($_GET["lawanChat"] == "HexaAdmin"){
+    $Chat = "HexaAdmin";
     $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
     $jumlah_chat = count($loadChat);
     $sessioncurr = select_akun($conn, $_SESSION["username"]);
 
   } else {
     $Chat = $_GET["lawanChat"];
-    $loadChat = select_chat($conn, "false", "admin", $Chat);
+    $loadChat = select_chat($conn, "false", "HexaAdmin", $Chat);
     $jumlah_chat = count($loadChat);
-    $sessioncurr = select_akun($conn, "admin");
+    $sessioncurr = select_akun($conn, "HexaAdmin");
   }
 } else if (isset($profile)){
     $Chat = $profile;
@@ -131,7 +131,7 @@ if (isset($_GET["lawanChat"])){
     $sessioncurr = select_akun($conn, $_SESSION["username"]);
 } else {
     if(!isset($_SESSION["admin"])){
-      $Chat = "admin";
+      $Chat = "HexaAdmin";
       $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
       $jumlah_chat = count($loadChat);
       $sessioncurr = select_akun($conn, $_SESSION["username"]);
@@ -146,8 +146,8 @@ if (isset($_GET["lawanChat"])){
   <div class="title-upper">
       <button class="back-page" onclick="closep('chat'); open_slide('history_chat'); clearURL()"><i class="fa-solid fa-arrow-left" style="font-size: 30px"></i></button>
       <div class="profile-info">
-        <?php $akunChat = select_akun($conn, $Chat);?>
-        <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+        <?php $akunChat = select_akun($conn, $Chat)?>
+        <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . htmlspecialchars($akunChat["foto"]) . "' alt='profile' class='nav-profile-picture'>";}?>
         <span class="profile-name" id="profile-name"><?= $Chat?></span>
       </div>
   </div>
@@ -161,11 +161,11 @@ if (isset($_GET["lawanChat"])){
             <p><?= $chat["isi"]?></p>
             <span class="message-time-right"><?= $chat["waktu"]?></span>
           </div>
-          <?php if ($sessioncurr["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $sessioncurr["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+          <?php if ($sessioncurr["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . htmlspecialchars($sessioncurr["foto"]) . "' alt='profile' class='nav-profile-picture'>";}?>
         </div>
       <?php else :?>
         <div class="message left">
-        <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+        <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . htmlspecialchars($akunChat["foto"]) . "' alt='profile' class='nav-profile-picture'>";}?>
           <div class="message-bubble">
             <p><?= $chat["isi"]?></p>
             <span class="message-time"><?= $chat["waktu"]?></span>
@@ -241,7 +241,7 @@ if (isset($_GET["lawanChat"])){
                       <p>${commentText.replace(/\n/g, '<br>')}</p>
                       <span class="message-time-right"><?= $waktu?></span>
                     </div>
-                    <?php if ($sessioncurr["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $sessioncurr["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                    <?php if ($sessioncurr["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . htmlspecialchars($sessioncurr["foto"]) . "' alt='profile' class='nav-profile-picture'>";}?>
                   </div>
               `;
               // Append the new comment to the comments container
@@ -285,7 +285,7 @@ if (isset($_GET["lawanChat"])){
                       newChat.classList.add('message-left');
                       newChat.innerHTML = `
                           <div class="message left">
-                          <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                          <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . htmlspecialchars($akunChat["foto"]) . "' alt='profile' class='nav-profile-picture'>";}?>
                             <div class="message-bubble">
                               <p>${loadChat.isi}</p>
                               <span class="message-time"><?= $waktu?></span>

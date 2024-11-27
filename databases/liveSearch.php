@@ -6,33 +6,33 @@
         $action = $_GET["action"];
 
         if ($action == "navbar-search"){
-            $keyword = $_GET["keyword"];
+            $keyword = mysqli_real_escape_string($conn, $_GET["keyword"]);
             liveSearch($keyword);
             return; 
             
         }
     } else if (isset($_GET["A-keywordAccount"])){
-        $keyword = $_GET["A-keywordAccount"];
+        $keyword = mysqli_real_escape_string($conn, $_GET["A-keywordAccount"]);
         $akun = adminSearchAccount($keyword);
         $type = "SearchAccount";
-
+        
     } else if (isset($_GET["A-keywordPermission"])){
-        $keyword = $_GET["A-keywordPermission"];
+        $keyword = mysqli_real_escape_string($conn, $_GET["A-keywordPermission"]);
         $lagu = adminSearchPermission($keyword);
         $type = "SearchPermission";
-
+        
     } else if (isset($_GET["A-keywordContent"])){
-        $keyword = $_GET["A-keywordContent"];
+        $keyword = mysqli_real_escape_string($conn, $_GET["A-keywordContent"]);
         $lagu = adminSearchContent($keyword);
         $type = "SearchContent";
-
+        
     } else if (isset($_GET["userContent"])){
-        $keyword = $_GET["userContent"];
+        $keyword = mysqli_real_escape_string($conn, $_GET["userContent"]);
         $lagu = userSearchConntent($keyword);
         $userAction = "userContent";
-
+        
     } else if (isset($_GET["userChat"])){
-        $keyword = $_GET["userChat"];
+        $keyword = mysqli_real_escape_string($conn, $_GET["userChat"]);
         $history_chat = userSearchChat($keyword);
         $userAction = "userChat";
     }
@@ -51,7 +51,7 @@
         }
 
         while ($row = mysqli_fetch_assoc($result_account)) {
-            if ($row["username"] != "admin"){
+            if ($row["username"] != "HexaAdmin"){
                 $data[] = $row;
             }
         }
@@ -73,7 +73,7 @@
         }
 
         while ($row = mysqli_fetch_assoc($result_account)) {
-            if ($row["username"] != "admin"){
+            if ($row["username"] != "HexaAdmin"){
                 $data[] = $row;
             }
         }
@@ -97,7 +97,7 @@
 
     function adminSearchPermission($keyword){
         global $conn;
-        $search_permission = "SELECT * FROM content WHERE stats = 'PENDING' AND LIKE '%$keyword%';";
+        $search_permission = "SELECT * FROM content WHERE stats = 'PENDING' AND judul LIKE '%$keyword%';";
 
         $result_permission = mysqli_query($conn, $search_permission);
 
@@ -140,7 +140,7 @@
 
     function userSearchChat($keyword){
         global $conn;
-        $sesi = $_SESSION["username"];
+        $sesi = mysqli_real_escape_string($conn, $_SESSION["username"]);
         $chat = [];
         $select_history = mysqli_query($conn, "SELECT DISTINCT 
                                                     CASE 
@@ -174,27 +174,29 @@
             </thead>
             <tbody>
                 <?php $i = 1; foreach($akun as $acc): ?>
-                <?php $direktori = "../databases/profile/" . $acc["foto"];?>
-                <tr>
-                    <td><?php echo $i . ".";?></td>
-                    <td><?php if ($acc["foto"] == "") {echo"<img src='../assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='$direktori' alt='profile' class='nav-profile-picture'>";}?></td>
-                    <td><?php echo $acc["username"]?></td>
-                    <td><?php echo $acc["email"]?></td>
-                    <td>
-                        <div class="action-button">
-                            <a href="../profile.php?user=<?= $acc["username"]?>">
-                                <button class="edit-icon">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                            </a>
-                            <a href="../databases/query.php?delete=true&session=admin&username=<?php echo $acc['username']?>" onclick="return confirm('Yakin ingin menghapus akun ini?')">
-                                <button class="delete-icon">
-                                    <i class="fa-light fa-trash-can"></i>
-                                </button>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+                <?php if ($acc["username"] != "HexaAdmin"):?>
+                    <?php $direktori = "../databases/profile/" . htmlspecialchars($acc["foto"]);?>
+                    <tr>
+                        <td><?php echo $i . ".";?></td>
+                        <td><?php if ($acc["foto"] == "") {echo"<img src='../assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='$direktori' alt='profile' class='nav-profile-picture'>";}?></td>
+                        <td><?php echo $acc["username"]?></td>
+                        <td><?php echo $acc["email"]?></td>
+                        <td>
+                            <div class="action-button">
+                                <a href="../profile.php?user=<?= $acc["username"]?>">
+                                    <button class="edit-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </a>
+                                <a href="../databases/query.php?delete=true&session=admin&username=<?php echo $acc['username']?>" onclick="return confirm('Yakin ingin menghapus akun ini?')">
+                                    <button class="delete-icon">
+                                        <i class="fa-light fa-trash-can"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endif;?>
                 <?php $i++; endforeach;?>
             </tbody>
         </table>
@@ -332,7 +334,7 @@
             <div class="chat-item" onclick="open_slide('chat'); closep('history_chat')" id="pchat_<?= $hist['lawan_chat']?>">
               <div class="chat-item-profile" id="pchat_<?= $hist['lawan_chat']?>">
                 <?php $akunChat = select_akun($conn, $hist["lawan_chat"]);?>
-                <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' >";} else {echo"<img src='databases/profile/" . $akunChat["foto"] . "' alt='profile'>";}?>
+                <?php if ($akunChat["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' >";} else {echo"<img src='databases/profile/" . htmlspecialchars($akunChat["foto"]) . "' alt='profile'>";}?>
               </div>
               <div class="chat-item-content" id="pchat_<?= $hist['lawan_chat']?>">
                 <div class="chat-item-name" id="pchat_<?= $hist['lawan_chat']?>"><?= $hist["lawan_chat"]?></div>
