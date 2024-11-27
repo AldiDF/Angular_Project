@@ -5,8 +5,8 @@
     $user = $_SESSION["username"];
     $history_chat = select_chat($conn, "", $_SESSION["username"], "");
   } else if (isset($_SESSION["admin"])){
-    $user = "admin";
-    $history_chat = select_chat($conn, "", "admin", "");
+    $user = "HexaAdmin";
+    $history_chat = select_chat($conn, "", "HexaAdmin", "");
   }
   
 ?>
@@ -112,17 +112,17 @@ if (isset($_GET["lawanChat"])){
     $jumlah_chat = count($loadChat);
     $sessioncurr = select_akun($conn, $_SESSION["username"]);
 
-  } else if ($_GET["lawanChat"] == "admin"){
-    $Chat = "admin";
+  } else if ($_GET["lawanChat"] == "HexaAdmin"){
+    $Chat = "HexaAdmin";
     $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
     $jumlah_chat = count($loadChat);
     $sessioncurr = select_akun($conn, $_SESSION["username"]);
 
   } else {
     $Chat = $_GET["lawanChat"];
-    $loadChat = select_chat($conn, "false", "admin", $Chat);
+    $loadChat = select_chat($conn, "false", "HexaAdmin", $Chat);
     $jumlah_chat = count($loadChat);
-    $sessioncurr = select_akun($conn, "admin");
+    $sessioncurr = select_akun($conn, "HexaAdmin");
   }
 } else if (isset($profile)){
     $Chat = $profile;
@@ -131,7 +131,7 @@ if (isset($_GET["lawanChat"])){
     $sessioncurr = select_akun($conn, $_SESSION["username"]);
 } else {
     if(!isset($_SESSION["admin"])){
-      $Chat = "admin";
+      $Chat = "HexaAdmin";
       $loadChat = select_chat($conn, "false", $_SESSION["username"], $Chat);
       $jumlah_chat = count($loadChat);
       $sessioncurr = select_akun($conn, $_SESSION["username"]);

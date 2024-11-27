@@ -6,33 +6,33 @@
         $action = $_GET["action"];
 
         if ($action == "navbar-search"){
-            $keyword = $_GET["keyword"];
+            $keyword = mysqli_real_escape_string($conn, $_GET["keyword"]);
             liveSearch($keyword);
             return; 
             
         }
     } else if (isset($_GET["A-keywordAccount"])){
-        $keyword = $_GET["A-keywordAccount"];
+        $keyword = mysqli_real_escape_string($conn, $_GET["A-keywordAccount"]);
         $akun = adminSearchAccount($keyword);
         $type = "SearchAccount";
-
+        
     } else if (isset($_GET["A-keywordPermission"])){
-        $keyword = $_GET["A-keywordPermission"];
+        $keyword = mysqli_real_escape_string($conn, $_GET["A-keywordPermission"]);
         $lagu = adminSearchPermission($keyword);
         $type = "SearchPermission";
-
+        
     } else if (isset($_GET["A-keywordContent"])){
-        $keyword = $_GET["A-keywordContent"];
+        $keyword = mysqli_real_escape_string($conn, $_GET["A-keywordContent"]);
         $lagu = adminSearchContent($keyword);
         $type = "SearchContent";
-
+        
     } else if (isset($_GET["userContent"])){
-        $keyword = $_GET["userContent"];
+        $keyword = mysqli_real_escape_string($conn, $_GET["userContent"]);
         $lagu = userSearchConntent($keyword);
         $userAction = "userContent";
-
+        
     } else if (isset($_GET["userChat"])){
-        $keyword = $_GET["userChat"];
+        $keyword = mysqli_real_escape_string($conn, $_GET["userChat"]);
         $history_chat = userSearchChat($keyword);
         $userAction = "userChat";
     }
@@ -140,7 +140,7 @@
 
     function userSearchChat($keyword){
         global $conn;
-        $sesi = $_SESSION["username"];
+        $sesi = mysqli_real_escape_string($conn, $_SESSION["username"]);
         $chat = [];
         $select_history = mysqli_query($conn, "SELECT DISTINCT 
                                                     CASE 

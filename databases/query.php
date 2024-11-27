@@ -24,6 +24,10 @@
     }
 
     function insert_akun($username, $nama_lengkap, $email, $password, $conn){
+        $username = mysqli_real_escape_string($conn, $username);
+        $nama_lengkap = mysqli_real_escape_string($conn, $nama_lengkap);
+        $email = mysqli_real_escape_string($conn, $email);
+        $password = mysqli_real_escape_string($conn, $password);
         check_duplikat_akun($conn, $username);
         $password = password_hash($password, PASSWORD_DEFAULT);
         $sql_insert_akun = mysqli_query($conn, "INSERT INTO account VALUES ('$username', '$nama_lengkap', '$email', '$password', '', '', 'PUBLIK');");
@@ -94,6 +98,7 @@
             return $akun;
             
         } else {
+            $where = mysqli_real_escape_string($conn, $where);
             $akun;
             $select_akun = mysqli_query($conn, "SELECT * FROM account WHERE username = '$where'");
             $akun = mysqli_fetch_assoc($select_akun);
@@ -118,6 +123,7 @@
                 }
                 return $lagu;
             } else {
+                $username = mysqli_real_escape_string($conn, $username);
                 $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stats = '$where' AND user = '$username' ORDER BY lagu DESC");
                 while ($row = mysqli_fetch_assoc($select_lagu)){
                     $lagu[] = $row; 
@@ -128,7 +134,7 @@
     }
 
     function select_lagu_spesifik($conn, $lagu){
-        $lagu;
+        $lagu = mysqli_real_escape_string($conn, $lagu);
         $select_lagu = mysqli_query($conn, "SELECT * FROM content WHERE stats ='ACCEPT' AND lagu = '$lagu'");
         $lagu = mysqli_fetch_assoc($select_lagu);
         return $lagu;
@@ -139,9 +145,10 @@
         date_default_timezone_set("Asia/Makassar");
         $waktu = date("Y-m-d H.i.s");
 
-        $judul = $_POST["title"];
-        $lirik = $_POST["lyrics"];
-        $deskripsi = $_POST["description"];
+        $judul = mysqli_real_escape_string($conn,  $_POST["title"]);
+        $lirik = mysqli_real_escape_string($conn, $_POST["lyrics"]);
+        $deskripsi = mysqli_real_escape_string($conn, $_POST["description"]);
+        
         $lagu = $_FILES["music"]["name"];
         $thumbnail = $_FILES["thumbnail"]["name"];
         $tmp_lagu = $_FILES["music"]["tmp_name"];
@@ -193,6 +200,8 @@
     }
 
     function delete_akun($conn, $username, $session){
+        $username = mysqli_real_escape_string($conn, $username);
+
         $query = "SELECT * FROM content WHERE user = '$username'";
         $result = mysqli_query($conn, $query);
         if (mysqli_num_rows($result) > 0) {
@@ -259,12 +268,15 @@
     }
 
     function select_pesan($conn, $penerima, $pengirim){
+        $penerima = mysqli_real_escape_string($conn, $penerima);
+        $pengirim = mysqli_real_escape_string($conn, $pengirim);
         $select_pesan = mysqli_query($conn, "SELECT * FROM chat WHERE pengirim = '$pengirim' AND penerima = '$penerima'");
         $pesan = mysqli_fetch_assoc($select_pesan);
         return $pesan;
     }
 
     function update_status_content($conn, $stats, $lagu){
+        $lagu = mysqli_real_escape_string($conn, $lagu);
         if ($stats == "ACCEPT"){
             
             $update_status = mysqli_query($conn, "UPDATE content SET stats = '$stats' WHERE lagu = '$lagu'");
@@ -340,6 +352,9 @@
             $user_result = mysqli_query($conn, "SELECT user FROM content WHERE lagu='$lagu'");
             $user_row = mysqli_fetch_assoc($user_result); 
             $user = $user_row['user'];
+
+            $judul = mysqli_real_escape_string($conn, $judul);
+            $user = mysqli_real_escape_string($conn, $user);
     
             
             $pesan = "Lagu anda yang berjudul $judul telah ditolak";
@@ -371,6 +386,8 @@
     }
 
     function action_like($conn, $lagu, $username, $status){
+        $username = mysqli_real_escape_string($conn, $username);
+        $lagu = mysqli_real_escape_string($conn, $lagu);
         if ($status){
             $action = mysqli_query($conn, "INSERT INTO like_content VALUES (0, '$lagu', '$username');");
             $orang = select_lagu_spesifik($conn, $lagu);
@@ -418,9 +435,10 @@
     function insert_komen($conn){
         date_default_timezone_set("Asia/Makassar");
         $waktu = date("Y-m-d H:i");
-        $komen = $_POST["send-comment"];
-        $lagu = $_POST["lagu"];
-        $username = $_POST["username"];
+        $komen = mysqli_real_escape_string($conn, $_POST["send-comment"]);
+        $lagu = mysqli_real_escape_string($conn, $_POST["lagu"]);
+        $username = mysqli_real_escape_string($conn, $_POST["username"]);
+
         $query = "INSERT INTO comment VALUES (0, '$komen', '$waktu', '$lagu', '$username')";
         $result = mysqli_query($conn, $query);
         if ($result){
@@ -439,6 +457,7 @@
     }
 
     function select_komen($conn, $lagu, $last){
+        $lagu = mysqli_real_escape_string($conn, $lagu);
         if ($last == true){
             $komen;
             $select_komen = mysqli_query($conn, "SELECT * FROM comment WHERE lagu = '$lagu' ORDER BY id DESC LIMIT 1");
@@ -460,7 +479,7 @@
 
     function delete_komen($conn){
         $id = $_GET["commentId"];
-        $lagu = $_GET["lagu"];
+        $lagu = mysqli_real_escape_string($conn, $_GET["lagu"]);
         $delete_komen = mysqli_query($conn, "DELETE FROM comment WHERE id = '$id'");
         if ($delete_komen){
             echo "
@@ -478,13 +497,18 @@
     }
 
     function delete_lagu($conn){
-        $lagu_user = $_GET["lagu"];
+        $lagu_user = mysqli_real_escape_string($conn, $_GET["lagu"]);
+
+
         $query = "SELECT * FROM content WHERE lagu = '$lagu_user'";
         $result = mysqli_query($conn, $query);
         $lagu = mysqli_fetch_assoc($result);
-        $user = $lagu['user'];
-        $juduls = $lagu['judul'];
-        $lirik = $lagu['lirik'];
+        $user = mysqli_real_escape_string($conn, $lagu['user']);
+
+        $juduls = mysqli_real_escape_string($conn, $lagu['judul']);
+
+        $lirik = mysqli_real_escape_string($conn, $lagu['lirik']);
+
         date_default_timezone_set("Asia/Makassar");
         $waktu = date('Y-m-d H.i.s');
         
@@ -540,6 +564,8 @@
     }
 
     function select_like($conn, $lagu, $username){
+        $lagu = mysqli_real_escape_string($conn, $lagu);
+        $username = mysqli_real_escape_string($conn, $username);
         $like;
         $select_like = mysqli_query($conn, "SELECT * FROM like_content WHERE objek = '$lagu' AND subjek = '$username'");
         $like = mysqli_num_rows($select_like);
@@ -547,6 +573,7 @@
     }
 
     function num_row($conn, $table, $column, $where){
+        $where = mysqli_real_escape_string($conn, $where);
         $query = "SELECT * FROM $table WHERE $column = '$where'";
         $result = mysqli_query($conn, $query);
         $count = mysqli_num_rows($result);
@@ -554,7 +581,7 @@
     }
 
     function status_account($conn, $status){
-        $username = $_GET["akun"];
+        $username = mysqli_real_escape_string($conn, $_GET["akun"]);
         $status_akun = mysqli_query($conn, "UPDATE account SET stats = '$status' WHERE username = '$username'");
         if ($status_akun){
             return;
@@ -574,14 +601,14 @@
 
     function follow_action($conn){
         $follow = $_GET["follow"];
-        $object = $_GET["objek"];
-        $subject = $_GET["subjek"];
-
+        $object = mysqli_real_escape_string($conn, $_GET["objek"]);
+        $subject = mysqli_real_escape_string($conn, $_GET["subjek"]);
         if ($follow == "true"){
             $query = mysqli_query($conn, "INSERT INTO follow VALUES (0, '$object', '$subject')");
-
+            
             if($query){
                 $pesan = $subject." Telah Mengikuti Anda";
+                $subject = mysqli_real_escape_string($conn, $pesan);
                 date_default_timezone_set("Asia/Makassar");
                 $waktu = date("Y-m-d H.i.s");
                 mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$object', '$waktu'); ");
@@ -622,9 +649,10 @@
     }
 
     function insert_chat($conn){
-        $penerima = $_POST["penerima"];
-        $pengirim = $_POST["pengirim"];
-        $pesan = $_POST["pesan"];
+        $penerima = mysqli_real_escape_string($conn,$_POST["penerima"]);
+        $pengirim = mysqli_real_escape_string($conn,$_POST["pengirim"]);
+        $pesan = mysqli_real_escape_string($conn,$_POST["pesan"]);
+
         $waktu = $_POST["waktu"];
         $notif = $pengirim. " : " . $pesan;
         mysqli_query($conn, "INSERT INTO notification VALUES (0,'$notif', '$penerima', '$waktu'); ");
@@ -646,6 +674,8 @@
     }
 
     function select_chat($conn, $last, $user1, $user2){
+        $user1 = mysqli_real_escape_string($conn, $user1);
+        $user2 = mysqli_real_escape_string($conn, $user2);
         if ($last == "true"){
             $chat;
             $select_chat = mysqli_query($conn, "SELECT * FROM chat WHERE (penerima = '$user1' AND pengirim = '$user2') OR (penerima = '$user2' AND pengirim = '$user1') ORDER BY id DESC LIMIT 1");
@@ -661,9 +691,10 @@
                 $chat[] = $row;
             }
             return $chat;
-
+            
         } else if ($last == ""){
             $chat = [];
+
             $select_history = mysqli_query($conn, "SELECT DISTINCT 
                                                     CASE 
                                                         WHEN pengirim = '$user1' THEN penerima 
@@ -679,6 +710,7 @@
     }
 
     function total_like($conn, $username){
+        $username = mysqli_real_escape_string($conn,$username);
         $query = "SELECT 
         acc.username,
         lk.objek
@@ -692,6 +724,8 @@
     }
 
     function checkFollow($conn, $objek, $subjek){
+        $objek = mysqli_real_escape_string($conn,$objek);
+        $subjek = mysqli_real_escape_string($conn,$subjek);
         $query = "SELECT * FROM follow WHERE objek = '$objek' AND subjek = '$subjek'";
         $result = mysqli_query($conn, $query);
         $count = mysqli_num_rows($result);
@@ -699,6 +733,7 @@
     }
 
     function select_follow($conn, $username, $where){
+        $username = mysqli_real_escape_string($conn,$username);
         if ($where == "following"){
             $query = "SELECT * FROM follow WHERE subjek = '$username'";
             $result = mysqli_query($conn, $query);
@@ -714,13 +749,13 @@
     function editAkun($conn, $fullName, $email, $newPassword = null) {
         date_default_timezone_set("Asia/Makassar");
 
-        $oldUsername = $_SESSION["username"];
+        $oldUsername = mysqli_real_escape_string($conn,$_SESSION["username"]);
         $akun = select_akun($conn, $oldUsername);
         $oldFoto = $akun["foto"];
-
+        
         $foto = $_FILES["profile-pic"]["name"];
         $temp = $_FILES["profile-pic"]["tmp_name"];
-        $deskripsi = $_POST["desc"];
+        $deskripsi = mysqli_real_escape_string($conn,$_POST["desc"]);
 
         $ekstensi = explode('.', $foto);
         $ekstensi = strtolower(end($ekstensi));
@@ -731,6 +766,9 @@
             if($akun["foto"] != "" || $akun["foto"] != null){
                 unlink("profile/" . $akun["foto"]);
             }
+            $email = mysqli_real_escape_string($conn,$email);
+            $fullName = mysqli_real_escape_string($conn,$fullName);
+            $namabaru = mysqli_real_escape_string($conn,$namabaru);
             if (!empty($newPassword)) {
                 $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
                 $query = "UPDATE account SET 
@@ -764,6 +802,9 @@
                 ";
             }
         } else {
+            $email = mysqli_real_escape_string($conn,$email);
+            $fullName = mysqli_real_escape_string($conn,$fullName);
+            $oldFoto = mysqli_real_escape_string($conn,$oldFoto);
             if (!empty($newPassword)) {
                 $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
                 $query = "UPDATE account SET 
@@ -799,24 +840,25 @@
         }
     }
 
-    function update_lagu($conn, $lagu){
+    function update_lagu($conn, $lagu) {
         date_default_timezone_set("Asia/Makassar");
         $waktu = date("Y-m-d H.i.s");
-        $lagu = $_GET["lagu"];
+    
+        $lagu = mysqli_real_escape_string($conn, $_GET["lagu"]);
+    
         $select_lagu = select_lagu_spesifik($conn, $lagu);
         $direktoriLama = $select_lagu["thumbnail"];    
-
-        $judul = $_POST["edit-title"];
-        $lirik_baru = $_POST["edit-lyrics"];
+    
+        $judul = mysqli_real_escape_string($conn, $_POST["edit-title"]);
+        $lirik_baru = $_POST["edit-lyrics"]; 
         $lirik = $select_lagu["lirik"];
+        $deskripsi = mysqli_real_escape_string($conn, $_POST["edit-description"]);
         
-        $deskripsi = $_POST["edit-description"];
         $thumbnail = $_FILES["input-Thumbnail"]["name"];
         $temp = $_FILES["input-Thumbnail"]["tmp_name"];
-
         $ekstensi = explode('.', $thumbnail);
         $ekstensi = strtolower(end($ekstensi));
-        $namaBaru_thumbnail = $_SESSION["username"] . "_" . $waktu . "." . $ekstensi;
+        $namaBaru_thumbnail = mysqli_real_escape_string($conn, $_SESSION["username"] . "_" . $waktu . "." . $ekstensi);
         $direktori_thumbnail = 'thumbnail/' . $namaBaru_thumbnail;
 
         if ($thumbnail == ""){
@@ -873,6 +915,7 @@
     }
 
     function select_notif ($conn, $username){
+        $username = mysqli_real_escape_string($conn, $username);
         $notif = [];
         $select_notif = mysqli_query($conn, "SELECT * FROM notification WHERE username = '$username' ORDER BY waktu DESC;");
         while ($row = mysqli_fetch_assoc($select_notif)){
@@ -916,7 +959,7 @@
 
     function delete_chat($conn){
         $id = $_GET["chatID"];
-        $lawan_chat = $_GET["Lawanchat"];
+        $lawan_chat = mysqli_real_escape_string($conn, $_GET["Lawanchat"]);
         $delete_chat = mysqli_query($conn, "DELETE FROM chat WHERE id = '$id'");
         if ($delete_chat){
             echo "
@@ -935,7 +978,7 @@
 
     function delete_notification($conn, $clear){
         if ($clear == "true"){
-            $username = $_SESSION["username"];
+            $username = mysqli_real_escape_string($conn, $_SESSION["username"]);
             $delete_notif = mysqli_query($conn, "DELETE FROM notification WHERE username = '$username'");
             if ($delete_notif){
                 echo "

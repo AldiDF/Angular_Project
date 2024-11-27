@@ -86,8 +86,8 @@
             <li class="list-sidebar" onclick="open_slide('history_chat')">
                 Pesan <i class="fa-solid fa-message"></i>
             </li>
-            <li class="list-sidebar" id="layanan_admin" onclick="open_slide('chat')">
-                Layanan Pelanggan <i id="layanan_admin" class="fa-solid fa-headset"></i>
+            <li class="list-sidebar" id="layanan_HexaAdmin" onclick="open_slide('chat')">
+                Layanan Pelanggan <i id="layanan_HexaAdmin" class="fa-solid fa-headset"></i>
             </li>
             <li class="list-sidebar" onclick="open_slide('setting')">
                 Pengaturan Akun <i class="fa-solid fa-gear"></i>
