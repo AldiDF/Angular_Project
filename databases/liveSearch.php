@@ -51,7 +51,7 @@
         }
 
         while ($row = mysqli_fetch_assoc($result_account)) {
-            if ($row["username"] != "admin"){
+            if ($row["username"] != "HexaAdmin"){
                 $data[] = $row;
             }
         }

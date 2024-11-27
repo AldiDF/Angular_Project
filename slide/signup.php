@@ -17,9 +17,9 @@
                 <label for="email">Surel:</label>
                 <input type="email" id="email" name="email" class="form-login" maxlength="98" required><br>
                 <label for="username">Nama Pengguna:</label>
-                <input type="text" id="username" name="username" class="form-login" maxlength="20" required><br>
+                <input type="text" id="username" name="username" class="form-login" minlength="8" maxlength="20" required><br>
                 <label for="password">Sandi:</label>
-                <input type="password" id="password" name="password" class="form-login" required><br>
+                <input type="password" id="password" name="password" class="form-login" minlength="8" required><br>
                 <div class="submit-button-container">
                     <input type="submit" id="submit-login" name="signup" value="Daftar" class="submit-button-signup">
                 </div><br>

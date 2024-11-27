@@ -12,12 +12,12 @@
             $jumlah_komen = num_row($conn, "comment", "lagu", $_GET["lagu"]);
             $komen = select_komen($conn, $_GET["lagu"], false);
             $like = select_like($conn, $_GET["lagu"], $_SESSION["username"]);
+            
         } else {
             $komen = select_komen($conn, $_GET["lagu"], false);
             $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
             $jumlah_like = num_row($conn, "like_content", "objek", $_GET["lagu"]);
-            $jumlah_komen = num_row($conn, "comment", "lagu", $_GET["lagu"]);
-            $_SESSION["username"] = "";
+            $jumlah_komen = num_row($conn, "comment", "lagu", $_GET["lagu"]);            
         }
 
     } else {
@@ -74,18 +74,20 @@
     </style>
 </head>
 <body>
-    <?php if (isset($_SESSION["username"])):?>
-    <?php include("slide/settings.php")?>
-    <?php include("slide/edit.php")?>
-    <?php include("slide/user_music.php")?>
-    <?php include("slide/chat.php")?>
-    <?php include("slide/upload_content.php")?>
-    <?php include("navfooter/navbar.php")?>
-    <?php include("navfooter/sidebar.php")?>
-    <?php else:?>
-    <?php include("slide/chat.php")?>
-    <?php endif;?>
+    <?php include("slide/login.php")?>
+    <?php include("slide/signup.php")?>
 
+    <?php if (isset($_SESSION["username"])):?>
+        <?php include("slide/settings.php")?>
+        <?php include("slide/edit.php")?>
+        <?php include("slide/user_music.php")?>
+        <?php include("slide/chat.php")?>
+        <?php include("slide/upload_content.php")?>
+    <?php endif;?>
+        
+
+        <?php include("navfooter/navbar.php")?>
+        <?php include("navfooter/sidebar.php")?>
 
     <?php 
     $lagu = select_lagu_spesifik($conn, $_GET["lagu"]);
@@ -132,7 +134,7 @@
                 <div class="info-specify">
                     <div class="info-center">
                         <div>
-                            <?php if ($_SESSION["username"] != ""):?>
+                            <?php if (isset($_SESSION["user"])):?>
                             <?php if ($like == 1):?>
                                 <button type="submit" name="unsend-like" onclick="cancel_like()" id="liked">
                                     <i class="fa-solid fa-heart"></i>
@@ -165,10 +167,12 @@
                         <i class="fa-solid fa-user"></i>
                         <div><p><?= $jumlah_follower?></p></div>
                     </div>
-                    <?php if ($_SESSION["username"] != $akun["username"]):?>
-                    <div class="report">
-                        <i class="fa-light fa-circle-exclamation"></i>
-                    </div>
+                    <?php if (isset($_SESSION["user"])):?>
+                        <?php if ($_SESSION["username"] != $akun["username"]):?>
+                        <div class="report">
+                            <i class="fa-light fa-circle-exclamation"></i>
+                        </div>
+                        <?php endif;?>
                     <?php endif;?>
                 </div>
             </div>
@@ -178,6 +182,7 @@
             <h2>Berikan Komentar Anda</h2>
             <div class="comment-container" id="comment-container">
                 <?php foreach($komen as $komen) :?>
+                <?php if (isset($_SESSION["user"])):?>
                 <?php if ($komen["user"] == $_SESSION["username"]):?>
                     <div class="comment-right" id="comment-right">
                         <div class="comment-owner">
@@ -204,12 +209,15 @@
                         <p class="time-comment"><?= $komen["waktu"]?></p>
                     </div>
                 <?php endif;?>
+                <?php endif;?>
                 <?php endforeach;?>
-
-                <div class="send-comment" id="input-comment">
-                    <textarea name="comment" id="comment" cols="30" rows="1" placeholder="Komentar Anda"></textarea>
-                    <button type="submit" name="send-comment" id="send-comment"><i class="fa-regular fa-paper-plane-top"></i></button>
-                </div>
+                
+                <?php if (isset($_SESSION["user"])):?>
+                    <div class="send-comment" id="input-comment">
+                        <textarea name="comment" id="comment" cols="30" rows="1" placeholder="Komentar Anda"></textarea>
+                        <button type="submit" name="send-comment" id="send-comment"><i class="fa-regular fa-paper-plane-top"></i></button>
+                    </div>
+                <?php endif;?>
                 
             </div>
         </div>

@@ -4,7 +4,7 @@
   if (isset($_SESSION["user"])){
     $user = $_SESSION["username"];
     $history_chat = select_chat($conn, "", $_SESSION["username"], "");
-  } else if ($_SESSION["admin"]){
+  } else if (isset($_SESSION["admin"])){
     $user = "admin";
     $history_chat = select_chat($conn, "", "admin", "");
   }

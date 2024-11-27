@@ -1,7 +1,9 @@
 <?php if (isset($_SESSION["admin"])): ?>
     <div class="off-screen-menu">
         <?php if (isset($admin)):?>
-            <img src="../assets/logosidebar.png" alt="" class="logo-sidebar">
+            <a href="../index.php">
+                <img src="../assets/logosidebar.png" alt="" class="logo-sidebar">
+            </a>
         <ul>
                 <a href="../index.php">
                     <li class="list-sidebar">
@@ -33,7 +35,9 @@
                 </a>
         </ul>
             <?php else :?>
-                <img src="assets/logosidebar.png" alt="" class="logo-sidebar">
+                <a href="index.php">
+                    <img src="assets/logosidebar.png" alt="" class="logo-sidebar">
+                </a>
         <ul>
                 <a href="index.php">
                     <li class="list-sidebar">
@@ -70,7 +74,9 @@
 
 <?php elseif (isset($_SESSION["user"])): ?>
     <div class="off-screen-menu">
-        <img src="assets/logosidebar.png" alt="" class="logo-sidebar">
+        <a href="index.php">
+            <img src="assets/logosidebar.png" alt="" class="logo-sidebar">
+        </a>
         <ul>
             <a href="index.php">
                 <li class="list-sidebar">
@@ -99,19 +105,25 @@
     
 <?php else : ?>
     <div class="off-screen-menu">
-        <img src="assets/logosidebar.png" alt="" class="logo-sidebar">
+        <a href="index.php">
+            <img src="assets/logosidebar.png" alt="" class="logo-sidebar">
+        </a>
         <ul>
             <a href="index.php"> 
                 <li class="list-sidebar">
                     Beranda <i class="fa-solid fa-house"></i>
                 </li>
             </a>
-            <li class="list-sidebar" onclick="open_slide('login')">
-                Masuk <i class="fa-regular fa-arrow-right-to-bracket"></i>
-            </li>
-            <li class="list-sidebar" onclick="open_slide('signup')">
-                Buat Akun <i class="fa-light fa-square-plus"></i>
-            </li>
+            <a href="index.php">
+                <li class="list-sidebar" onclick="open_slide('login')">
+                    Masuk <i class="fa-regular fa-arrow-right-to-bracket"></i>
+                </li>
+            </a>
+            <a href="index.php">
+                <li class="list-sidebar" onclick="open_slide('signup')">
+                    Buat Akun <i class="fa-light fa-square-plus"></i>
+                </li>
+            </a>
             <a href="about_us.php">
                 <li class="list-sidebar">
                     Tentang Kami <i class="fa-light fa-circle-info"></i>

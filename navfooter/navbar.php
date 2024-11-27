@@ -14,7 +14,7 @@ if (isset($_SESSION["username"])){
                 <i class="fa-solid fa-bell" id="bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
-                <div action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
+                <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
                     <div>
                         <input type="text" placeholder="Cari konten atau user" name="navbar-search" class="nav-input-search" required>
                         <button type="submit" class="nav-search-button">
@@ -26,7 +26,7 @@ if (isset($_SESSION["username"])){
 
                         </ul>
                     </div>
-                </div>
+                </form>
             </search>
             <div class="sidebar-menu" onclick="sideBar()">
                 <span></span>
@@ -42,7 +42,7 @@ if (isset($_SESSION["username"])){
                 <i class="fa-solid fa-bell" id="bell" style="font-size: 36px" onclick="toggleNotification()"></i>
             </div>
             <search>
-                <div action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
+                <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
                     <div>
                         <input type="text" placeholder="Cari konten atau user" name="navbar-search" class="nav-input-search">
                         <button type="submit" class="nav-search-button">
@@ -54,7 +54,7 @@ if (isset($_SESSION["username"])){
 
                         </ul>
                     </div>
-                </div>
+                </form>
             </search>
             <div class="sidebar-menu" onclick="sideBar()">
                 <span></span>
@@ -94,9 +94,9 @@ if (isset($_SESSION["username"])){
         <script src="scripts/liveSearching.js?v=<?php echo time(); ?>"></script>
 <?php else : ?>
         <nav>
-            <div class="nav-left">
+            <a href="index.php" class="nav-left">
                 <img src="assets/logosidebar.png" alt="" class="logo-sidebar">
-            </div>
+            </a>
             <search>
                 <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
                     <div>

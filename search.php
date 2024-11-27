@@ -68,24 +68,24 @@
                         // Format ulang menjadi hh:mm:ss
                     $time = str_replace('.', ':', $matches[0]);
                 ?>
-                <a href="detail.php?lagu=<?php echo $result['lagu'];?>">
-                        <div class="content-container">
-                            <img src="<?= "databases/thumbnail/" . $result["thumbnail"];?>" alt="gambar-konten" class="thumbnail">
-                            <figcaption class="caption-content">
-                                <figure class="owner-content">
-                                <?php if ($akun_search["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akun_search["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
-                                    <figcaption class="owner-name"><?php echo $result["user"]?></figcaption>
-                                </figure>
-                                <div class="info-caption">
-                                    <?php $jdl = overflow($result["judul"], 25);?>
-                                    <?php $desk = overflow($result["deskripsi"], 36);?>
-                                    <p id="text-overflow"><?php echo $jdl ?></p>
-                                    <p id="text-overflow"><?php echo $desk?></p>
-                                </div>
-                                <p class="time-up"><?= timeAgo($time)?></p>
-                            </figcaption>
-                        </div>
-                    </a>
+                <a href="detail.php?lagu=<?php echo $result['lagu'];?>" class="link-content">
+                    <div class="content-container">
+                        <img src="<?= "databases/thumbnail/" . $result["thumbnail"];?>" alt="gambar-konten" class="thumbnail">
+                        <figcaption class="caption-content">
+                            <figure class="owner-content">
+                            <?php if ($akun_search["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $akun_search["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                                <figcaption class="owner-name"><?php echo $result["user"]?></figcaption>
+                            </figure>
+                            <div class="info-caption">
+                                <?php $jdl = overflow($result["judul"], 25);?>
+                                <?php $desk = overflow($result["deskripsi"], 36);?>
+                                <p id="text-overflow"><?php echo $jdl ?></p>
+                                <p id="text-overflow"><?php echo $desk?></p>
+                            </div>
+                            <p class="time-up"><?= timeAgo($time)?></p>
+                        </figcaption>
+                    </div>
+                </a>
             <?php else:?>
                 <a href="profile.php?user=<?= $result['username']?>" class="account-container">
                 <?php if ($result["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='nav-profile-picture'>";} else {echo"<img src='databases/profile/" . $result["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>

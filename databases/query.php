@@ -49,7 +49,7 @@
         while ($row = mysqli_fetch_assoc($sql_select_akun)){
             $akun[] = $row;
             if ($akun[$count]["username"] == $username && password_verify($password, $akun[$count]["pasword"])){
-                if ($username == "admin" && $password == "admin"){
+                if ($username == "HexaAdmin" && $password == "admin123"){
                     $_SESSION["admin"] = true;
                     $_SESSION["username"] = $akun[$count]["username"];
                     echo "
@@ -87,7 +87,7 @@
             $select_akun = mysqli_query($conn, "SELECT * FROM account");
             $akun = [];
             while ($row = mysqli_fetch_assoc($select_akun)){
-                if ($row["username"] != "admin"){
+                if ($row["username"] != "HexaAdmin"){
                     $akun[] = $row; 
                 }
             }
@@ -151,18 +151,16 @@
         $ekstensi_lagu = explode('.', $lagu);
         $ekstensi_lagu = strtolower(end($ekstensi_lagu));
 
-        if ($lirik != ""){
-            $nama_lirik = "lyrics/" . $akun["username"] . "_" . $judul . "_" . $waktu . ".lrc";
-            $file_lirik = fopen($nama_lirik, "w");
-            if ($file_lirik){
-                fwrite($file_lirik, $lirik);
-    
-                fclose($file_lirik);
-            } else {
-                echo "<script> alert('Gagal mengupload lirik!');
-                document.location.href = '../index.php';
-                </script>";
-            }
+        $nama_lirik = "lyrics/" . $akun["username"] . "_" . $judul . "_" . $waktu . ".lrc";
+        $file_lirik = fopen($nama_lirik, "w");
+        if ($file_lirik){
+            fwrite($file_lirik, $lirik);
+
+            fclose($file_lirik);
+        } else {
+            echo "<script> alert('Gagal mengupload lirik!');
+            document.location.href = '../index.php';
+            </script>";
         }
 
         $ekstensi_thumbnail = explode('.', $thumbnail);

@@ -612,12 +612,35 @@
 @media (max-width: 768px) {
     .content-container {
         width: 94% !important;
+        display: flex;
         flex-direction: column; 
     }
 
+    .search-container .content-container{
+        width: 100% !important;
+    }
+
+    .search-container a{
+        max-height: 1000px;
+        width: 100% !important;
+    }
+    
+
     .thumbnail{
         width: 100%;
+        margin-right: 0;
+        max-height: 229px;
     } 
+
+    a{
+        margin-bottom: 20px;
+    }
+
+    .account-container {
+        overflow-x: scroll;
+        scrollbar-width: none;
+        position: relative;
+    }
 
     .owner-content{
         margin: 10px;
@@ -633,7 +656,9 @@
     }
 
     .search-container {
+        display: flex;
         flex-direction: column; 
+        flex-wrap: nowrap;
     }
 
     .account-container {
@@ -784,6 +809,8 @@
         flex-direction: column; 
         gap: 10px; 
     }
+
+    
     
     .setting-container {
         width: 90%;
