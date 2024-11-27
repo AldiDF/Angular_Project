@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="../styles/navfooter.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../styles/admin.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../styles/chat.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../styles/responsive.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -45,61 +46,60 @@
                 </button>
             </form>
         </search>
-        <table border=1 id="table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Tampilan</th>
-                    <th>Judul</th>
-                    <th>Deskripsi</th>
-                    <th>Nama Pengguna</th>
-                    <th>Konfirmasi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; foreach($lagu as $lagu): ?>
-                <?php $direktori = "../databases/thumbnail/" . $lagu["thumbnail"];?>
-                <?php $direktori_lagu = "../databases/music/". $lagu["lagu"];?>
-                <tr>
-                    <td><?php echo $i;?></td>
-                    <td><?php echo "<img src='$direktori' alt='' class='thumbnail-user'>";?></td>
-                    <td><?php echo $lagu["judul"]?></td>
-                    <td><?php echo $lagu["deskripsi"]?></td>
-                    <td><?php echo $lagu["user"]?></td>
-                    <td>
-                        <div class="action-button">
-                            <button class="edit-icon" onclick="open_confirm()" id="<?= "dir+" . $direktori_lagu . "+" . $lagu["judul"]?>">
-                                <i class="fa-solid fa-pen-to-square" id="<?= "dir+" . $direktori_lagu . "+" . $lagu["judul"]?>"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>                    
-                    <div class="confirm-container" id="confirm">
-                        <div class="confirm-inner" id="inner">
-                            <div class="upper">
-                                <h2>Konfirmasi</h2>
-                                <button class="close-confirm" onclick="close_confirm()">X</button>
+        <div class="admin-container">
+            <table border=1 id="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tampilan</th>
+                        <th>Judul</th>
+                        <th>Deskripsi</th>
+                        <th>Nama Pengguna</th>
+                        <th>Konfirmasi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; foreach($lagu as $lagu): ?>
+                    <?php $direktori = "../databases/thumbnail/" . $lagu["thumbnail"];?>
+                    <?php $direktori_lagu = "../databases/music/". $lagu["lagu"];?>
+                    <tr>
+                        <td><?php echo $i;?></td>
+                        <td><?php echo "<img src='$direktori' alt='' class='thumbnail-user'>";?></td>
+                        <td><?php echo $lagu["judul"]?></td>
+                        <td class="descript-td"><?php echo $lagu["deskripsi"]?></td>
+                        <td><?php echo $lagu["user"]?></td>
+                        <td>
+                            <div class="action-button">
+                                <button class="edit-icon" onclick="open_confirm()" id="<?= "dir+" . $direktori_lagu . "+" . $lagu["judul"] . "+" . $lagu["lagu"]?>">
+                                    <i class="fa-solid fa-pen-to-square" id="<?= "dir+" . $direktori_lagu . "+" . $lagu["judul"] . "+" . $lagu["lagu"]?>"></i>
+                                </button>
                             </div>
-                            <div class="lines"></div>
-                            <div class="lower">
-                                <h2 id="judul"></h2>
-                                <audio class="audio-container" id="songAudio" type="audio/mpeg" controls>
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <div class="permission-button">
-                                    <a href="../databases/query.php?acc=false&lagu=<?php echo $lagu['lagu']?>">
-                                        <button class="rjc-btn">Tolak</button>
-                                    </a>
-                                    <a href="../databases/query.php?acc=true&lagu=<?php echo $lagu['lagu']?>">
-                                        <button class="acc-btn">Terima</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        </td>
+                    </tr>                    
+                    <?php $i++; endforeach;?>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="confirm-container" id="confirm">
+            <div class="confirm-inner" id="inner">
+                <div class="upper">
+                    <h2>Konfirmasi</h2>
+                    <p class="close-confirm" onclick="close_confirm()">X</p>
+                </div>
+                <div class="lines"></div>
+                <div class="lower">
+                    <h2 id="judul"></h2>
+                    <audio class="audio-container" id="songAudio" type="audio/mpeg" controls>
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="permission-button">
+                        <button class="rjc-btn" id="rjc_btn">Tolak</button>
+                        <button class="acc-btn" id="acc_btn">Terima</button>
                     </div>
-                <?php $i++; endforeach;?>
-            </tbody>
-        </table>
+                </div>
+            </div>
+        </div>
     </main>
     <?php include("../navfooter/footer.php")?>
     
@@ -136,16 +136,31 @@
 
     <script>
         document.addEventListener("click", function(event) {
-            if (event.target.id.includes("dir+")) {
+            if (event.target.id.includes("dir+") || event.target.id == "acc" || event.target.id == "rjc"){
                 let direk = event.target.id.split("+")[1];
                 let judul = event.target.id.split("+")[2];
+                let lagu = event.target.id.split("+")[3];
                 console.log(direk);
                 console.log(judul);
+                console.log(lagu);
                 let audio = document.getElementById("songAudio");
                 audio.src = direk;
                 document.getElementById("judul").innerHTML = judul; 
 
-            }
+                document.addEventListener("click", function(event) {
+                    if (event.target.id.includes("_btn")){
+                        tombol = event.target.id.split("_")[0];
+                        if (tombol == "acc"){
+                            document.location.href = `../databases/query.php?acc=true&lagu=${lagu}`;
+        
+                        } else if (tombol == "rjc"){
+                            document.location.href = `../databases/query.php?acc=false&lagu=${lagu}`;
+                        }
+                    }
+                })
+
+
+            } 
         });
     </script>
     <script src="../scripts/main.js?v=<?php echo time(); ?>"></script>

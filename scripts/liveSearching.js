@@ -51,7 +51,7 @@ if (currentPage.includes("admin")){
                             }
                             if (item.judul){
                                 html += `
-                                <li class="list-search">
+                                <li class="../list-search">
                                     <a href="detail.php?lagu=${item["lagu"]}" class="link-search">
                                         <img src="../databases/thumbnail/${item["thumbnail"]}" alt="gambar-konten" class="search-thumbnail">
                                         <p>${item["judul"]}</p>
@@ -61,7 +61,7 @@ if (currentPage.includes("admin")){
                             } else {
                                 html += `
                                 <li class="list-search">
-                                    <a href="profile.php?user=${item["username"]}" class="link-search">
+                                    <a href="../profile.php?user=${item["username"]}" class="link-search">
                                         <img src='${direktoriFoto}' alt='profile' class='nav-profile-picture'>
                                         <p>${item["username"]}</p>
                                     </a>

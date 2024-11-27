@@ -375,12 +375,12 @@
     function action_like($conn, $lagu, $username, $status){
         if ($status){
             $action = mysqli_query($conn, "INSERT INTO like_content VALUES (0, '$lagu', '$username');");
-            $judul = mysqli_query($conn, "SELECT judul FROM content where lagu= '$lagu';");
-            $pesan = $username." Telah Menyukai Lagu Anda ". $judul ;
             $orang = select_lagu_spesifik($conn, $lagu);
+            $pesan = $orang["judul"] . " : ". $username ." Telah Menyukai Lagu Anda "; ;
+            $penerima_notif = $orang["user"];
             date_default_timezone_set("Asia/Makassar");
             $waktu = date("Y-m-d H.i.s");
-            $send_notif = mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$orang', '$waktu'); ");
+            $send_notif = mysqli_query($conn, "INSERT INTO notification VALUES (0,'$pesan', '$penerima_notif', '$waktu'); ");
             if ($action && $send_notif){
                 echo "
                     <script>
@@ -397,6 +397,9 @@
 
         } else {
             $action = mysqli_query($conn, "DELETE FROM like_content WHERE objek = '$lagu' AND subjek = '$username';");
+            $lagu_objek = select_lagu_spesifik($conn, $lagu);
+            $isi_pesan = $lagu_objek["judul"] . " : ". $username ." Telah Menyukai Lagu Anda ";
+            $del_notif = mysqli_query($conn, "DELETE FROM notification WHERE isi_notif = '$isi_pesan'");
             if ($action){
                 echo "
                     <script>
@@ -808,6 +811,7 @@
         $judul = $_POST["edit-title"];
         $lirik_baru = $_POST["edit-lyrics"];
         $lirik = $select_lagu["lirik"];
+        
         $deskripsi = $_POST["edit-description"];
         $thumbnail = $_FILES["input-Thumbnail"]["name"];
         $temp = $_FILES["input-Thumbnail"]["tmp_name"];
@@ -838,6 +842,7 @@
         } else {
             $query = "UPDATE content SET thumbnail = '$namaBaru_thumbnail', judul = '$judul', lirik = '$lirik', deskripsi = '$deskripsi' WHERE lagu = '$lagu'";
             unlink("thumbnail/" . $direktoriLama);
+            file_put_contents($lirik, $lirik_baru);
 
             if (move_uploaded_file($temp, $direktori_thumbnail)){
                 $result = mysqli_query($conn, $query);

@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="../styles/sidebar.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../styles/navfooter.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../styles/admin.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../styles/responsive.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -42,44 +43,46 @@
                 </button>
             </form>
         </search>
-        <table border=1 id="table">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Tampilan</th>
-                    <th>Judul</th>
-                    <th>Deskripsi</th>
-                    <th>Nama Pengguna</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; foreach($lagu as $lagu): ?>
-                <?php $direktori = "../databases/thumbnail/" . $lagu["thumbnail"];?>
-                <tr>
-                    <td><?php echo $i;?></td>
-                    <td><?php echo "<img src='$direktori' alt='thumbnail-picture' class='thumbnail-user'>";?></td>
-                    <td><?php echo $lagu["judul"]?></td>
-                    <td><?php echo $lagu["deskripsi"]?></td>
-                    <td><?php echo $lagu["user"]?></td>
-                    <td>
-                        <div class="action-button">
-                            <a href="../detail.php?lagu=<?= $lagu["lagu"]?>">
-                                <button class="edit-icon">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                            </a>
-                            <a href="../databases/query.php?delete_lagu=true&session=admin&lagu=<?php echo $lagu['lagu']?>" onclick="return confirm('Yakin ingin menghapus lagu ini?')">
-                                <button class="delete-icon">
-                                    <i class="fa-light fa-trash-can"></i>
-                                </button>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <?php $i++; endforeach;?>
-            </tbody>
-        </table>
+        <div class="admin-container">
+            <table border=1 id="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tampilan</th>
+                        <th>Judul</th>
+                        <th>Deskripsi</th>
+                        <th>Nama Pengguna</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; foreach($lagu as $lagu): ?>
+                    <?php $direktori = "../databases/thumbnail/" . $lagu["thumbnail"];?>
+                    <tr>
+                        <td><?php echo $i;?></td>
+                        <td><?php echo "<img src='$direktori' alt='thumbnail-picture' class='thumbnail-user'>";?></td>
+                        <td><?php echo $lagu["judul"]?></td>
+                        <td class="descript-td"><?php echo $lagu["deskripsi"]?></td>
+                        <td><?php echo $lagu["user"]?></td>
+                        <td>
+                            <div class="action-button">
+                                <a href="../detail.php?lagu=<?= $lagu["lagu"]?>">
+                                    <button class="edit-icon">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+                                </a>
+                                <a href="../databases/query.php?delete_lagu=true&session=admin&lagu=<?php echo $lagu['lagu']?>" onclick="return confirm('Yakin ingin menghapus lagu ini?')">
+                                    <button class="delete-icon">
+                                        <i class="fa-light fa-trash-can"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php $i++; endforeach;?>
+                </tbody>
+            </table>
+        </div>
     </main>
     <?php include("../navfooter/footer.php")?>
     

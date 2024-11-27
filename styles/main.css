@@ -1,15 +1,13 @@
 body {
     margin: 0;
-    background-color: #ffffff;
-    /* background: url(../assets/chat.jpeg);
-    background-position: center;
-    background-size: cover; */
+    background: linear-gradient(135deg, #a3d2ed, #e2c6f3);
     scrollbar-width: none;
     font-family: 'helvetica' !important;
 }
 
 main{
-    min-height: 510px;
+    min-height: calc(100vh - 127px);
+    height: auto;
 }
 
 h1{
@@ -113,7 +111,7 @@ a{
 
 .recomend{
     margin: 20px 0 0 0;
-    font-size: 36px;
+    font-size: 28px;
     text-align: center;
     font-weight: bold;
 }
@@ -663,7 +661,7 @@ a{
     margin-bottom: 60px;
 }
 
-.lyric-container pre{
+#lyric-content{
     font-size: 16px;
     text-align: center;
     font-weight: 500;
@@ -672,6 +670,16 @@ a{
     white-space: pre-wrap;
     font-family: Helvetica !important;
     line-height: 1.5;
+}
+
+#lyric-content-live{
+    font-size: 30px;
+    display: flex;
+    font-weight: 500;
+    color: #f3f3f3;
+    margin: 70px 0 0 0;
+    white-space: pre-wrap;
+    font-family: Helvetica !important;
 }
 
 .lyric-container.lyric{
@@ -787,18 +795,4 @@ a{
 .identifier-container h2 {
     font-size: 18px;
     margin: 5px 0 0 0;
-}
-
-
-@media (max-width: 1290px){
-    .footer-banner{
-        width: auto;
-        height: 480px;
-        background: url("../assets/upload.jpg") no-repeat;
-        background-size: contain;
-        background-position: center;
-        display: flex;
-        margin-bottom: 0;
-        padding: 0;
-    }
 }

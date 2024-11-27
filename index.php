@@ -125,7 +125,7 @@
             </div>
         </section>
         
-        <p class="recomend">Rekomendasi Lagu</p>
+        <p class="recomend">Dengarkan apa yang sedang tren secara gratis di komunitas HexaSync</p>
         <section class="list-content-container">        
             <?php $i = 0; foreach ($Recomendation as $rec):?>
                 <?php

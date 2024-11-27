@@ -49,9 +49,39 @@
     <link rel="stylesheet" href="styles/profile.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/edit.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/chat.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/responsive.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <style>
+        @media (max-width: 768px) {
+            .total-likes p {
+                font-size: 0; /* Sembunyikan semua teks */
+                /* margin-top: 8px; */
+            }
+            .total-likes p::before {
+                content: "<?= $jumlah_like?>"; 
+                font-size: 16px; 
+                color: inherit; 
+            }
+
+            .total-content p{
+                font-size: 0; /* Sembunyikan semua teks */
+            }
+
+            .total-content p::before{
+                content: "<?= $jumlah_lagu?>"; 
+                font-size: 16px; 
+                color: inherit;
+            }
+
+            .button-setting p {
+                font-size: 0; /* Sembunyikan semua teks */
+            }
+        }
+
+    </style>
 </head>
 <body>
     <?php if (isset($_SESSION["username"])):?>
@@ -106,7 +136,7 @@
             <div class="biography-lower">
                 <div class="total-likes">
                     <i class="fa-solid fa-heart"></i>
-                    <p><?= $jumlah_like . " Total Like"?></p>
+                    <p><?= $jumlah_like . " Total disukai"?></p>
                 </div>
                 <div class="total-content">
                     <i class="fa-solid fa-music total-content"></i>
@@ -115,21 +145,21 @@
                 <div class="mid-action">
                     <?php if (isset($_SESSION["user"])):?>
                         <?php if ($akun["username"] == $_SESSION["username"]):?>
-                            <button class="button-setting" onclick="open_slide('setting')">
+                            <div class="button-setting" onclick="open_slide('setting')">
                                 <i class="fa-solid fa-gear"></i>
                                 <p>Pengaturan</p>
-                            </button>
+                            </div>
                         <?php else:?>
-                            <button class="button-setting" id="chat_<?= $akun["username"]?>" onclick="open_slide('chat')">
+                            <div class="button-setting" id="chat_<?= $akun["username"]?>" onclick="open_slide('chat')">
                                 <i class="fa-solid fa-message"></i>
                                 <p>Kirim Pesan</p>
-                            </button>
+                            </div>
                         <?php endif;?>
                     <?php else:?>
-                        <button class="button-setting" id="chat_<?= $akun["username"]?>" onclick="open_slide('chat')">
+                        <div class="button-setting" id="chat_<?= $akun["username"]?>" onclick="open_slide('chat')">
                             <i class="fa-solid fa-message"></i>
                             <p>Kirim Pesan</p>
-                        </button>
+                        </div>
                     <?php endif;?>
 
                 </div>
@@ -137,7 +167,19 @@
         </div>
         <div class="profile-content-container">
             <?php if ($akun["stats"] == "PRIVATE" && $akun["username"] != $_SESSION["username"]):?>
-                    <p>Akun Ini Privat</p>
+                    <p class="text-private">Akun Ini Privat</p>
+            <?php elseif ($jumlah_lagu == 0):?>
+                <?php if ($akun["username"] == $_SESSION["username"]):?>
+                    <div class="if-none">
+                        <i class="fa-regular fa-circle-x"></i>
+                        <p class="text-private">Anda belum mengunggah lagu</p>
+                    </div>
+                <?php else:?>
+                    <div class="if-none">
+                        <i class="fa-regular fa-circle-x"></i>
+                        <p class="text-private">Pengguna ini belum mengunggah lagu</p>
+                    </div>
+                <?php endif;?>
             <?php else:?>
             <div class="profile-content">
                 <?php $i = 0; foreach ($lagu as $lagu):?>
@@ -153,7 +195,7 @@
                             <img src="<?php echo $direktori?>" alt="gambar-konten" class="thumbnail">
                             <figcaption class="caption-content">
                                 <figure class="owner-content">
-                                    <?php if ($currentSession["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='>";} else {echo"<img src='databases/profile/" . $currentSession["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
+                                    <?php if ($akun["foto"] == "") {echo"<img src='assets/default.jpg' alt='profile' class='>";} else {echo"<img src='databases/profile/" . $akun["foto"] . "' alt='profile' class='nav-profile-picture'>";}?>
                                     <figcaption class="owner-name"><?php echo $lagu["user"]?></figcaption>
                                 </figure>
                                 <div class="info-caption">
@@ -184,6 +226,7 @@
             });
         }
         overflow("#text-overflow", 36);
+        
     </script>
     <script src="scripts/main.js?v=<?php echo time(); ?>"></script>
     <script src="scripts/transition.js?v=<?php echo time(); ?>"></script>

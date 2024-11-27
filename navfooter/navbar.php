@@ -95,7 +95,7 @@ if (isset($_SESSION["username"])){
 <?php else : ?>
         <nav>
             <div class="nav-left">
-                <button class="login-button" onclick="open_slide('login')">Masuk</button>
+                <img src="assets/logosidebar.png" alt="" class="logo-sidebar">
             </div>
             <search>
                 <form action="search.php" class="nav-search-bar" id="nav-search-bar" method="get">
@@ -133,6 +133,7 @@ if (isset($_SESSION["username"])){
             <span class="close-btn" onclick="toggleNotification()">&times;</span>
         </div>
     </div>
+    <div class="liness"></div>
     <?php foreach($select_notif as $notif): ?>
         <a href="databases/query.php?idNotif=<?= $notif["id"]?>" onclick="return confirm('Apakah Anda yakin ingin menghapus notifikasi ini?')">
             <div class="notification-item"><?= $notif["isi_notif"]?></div>

@@ -1,5 +1,5 @@
-
 let lyricsContent = document.getElementById('lyric-content');
+let lyricsContentLive = document.getElementById('lyric-content-live');
 function show_lyric(){
     const mainContentContainer = document.getElementById('main-content');
     const lyric = document.querySelector('.lyric-container');
@@ -13,12 +13,14 @@ async function check_lirik(){
 
     for (let i = 0; i < Lyric.length; i++) {
         if (!regex.test(Lyric[i])) {
-            console.log("salah");
-            tanpalive(Lyric)
+            console.log(Lyric[i]);
+            tanpalive(Lyric.join('\n'));
+            lyricsContentLive.style.display = "none";
             return;
         }
         
     }
+
     console.log("benar");
     startLirik();
 }
@@ -119,11 +121,13 @@ seek.addEventListener('input', () => {
     if (seekTo == 0) {
         lyricsContent.innerText = '';
     }
+    
     music.currentTime = seekTo;
     remainingTime = music.currentTime;
     bar2.style.width = `${seek.value}%`;
     dot.style.left = `${seek.value}%`;
     loadlirikbaru();
+    check_lirik();
     startLirik();
     //  Lanjutkan lirik dari waktu yang dipilih
 });
@@ -168,7 +172,7 @@ async function startLirik() {
         }
 
         let timer = setTimeout(() => {
-            lyricsContent.innerText = text;
+            lyricsContentLive.innerText = text;
             currindex++;
         }, delay);
 

@@ -53,7 +53,7 @@
 }
 
 .off-screen-menu{
-    background-color: #3a4750;
+    background-color: #191a1b;
     height: 100%;
     width: 100%;
     max-width: 300px;
@@ -133,6 +133,7 @@ a {
     width: 190px;
     height: 80px;
     margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 .upload-button{

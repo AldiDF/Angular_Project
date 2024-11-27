@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="styles/profile.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/edit.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="styles/chat.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="styles/responsive.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -96,6 +97,7 @@
         <div class="click-lyric" onclick="show_lyric()"></div>
         <div class="lyric-container" onclick="show_lyric()">
             <pre id="lyric-content"></pre>
+            <pre id="lyric-content-live"></pre>
         </div>
         <audio id="playMusic" controls>
             <source  src="<?php echo "databases/music/". $lagu['lagu']?>" type="audio/mpeg">
@@ -327,6 +329,7 @@
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
                     like.style.display = "none";
                     liked.style.display = "block";
                     let count = parseInt(likeCount.textContent);
@@ -350,6 +353,7 @@
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
                     like.style.display = "block";
                     liked.style.display = "none";
                     let count = parseInt(likeCount.textContent);
